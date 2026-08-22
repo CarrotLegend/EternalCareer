@@ -28,6 +28,17 @@ public final class CurioEquipmentHelper {
                 && hasEquippedCurio(player, foodBook);
     }
 
+    /** Returns whether the functional hands slot contains the Cooking Magic Hand. */
+    public static boolean hasCookingMagicHand(Player player) {
+        return CuriosApi.getCuriosInventory(player).resolve()
+                .map(handler -> handler.findCurios(ModItems.COOKING_MAGIC_HAND.get())
+                        .stream()
+                        .anyMatch(result ->
+                                "hands".equals(result.slotContext().identifier())
+                                        && !result.slotContext().cosmetic()))
+                .orElse(false);
+    }
+
     public static boolean hasEquippedCurio(Player player, Item item) {
         return CuriosApi.getCuriosInventory(player).resolve()
                 .map(handler ->

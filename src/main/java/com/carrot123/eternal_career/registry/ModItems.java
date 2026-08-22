@@ -4,6 +4,7 @@ import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.armor.ChefArmorItem;
 import com.carrot123.eternal_career.armor.ChefArmorMaterial;
 import com.carrot123.eternal_career.item.GodsRecognitionItem;
+import com.carrot123.eternal_career.item.CookingMagicHandItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
 import com.carrot123.eternal_career.item.SinRockItem;
 import net.minecraft.world.item.ArmorItem;
@@ -35,6 +36,9 @@ public final class ModItems {
     public static final RegistryObject<Item> HEAD_CHEF_SHEATH = ITEMS.register(
             "head_chef_sheath",
             () -> new HeadChefSheathItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> COOKING_MAGIC_HAND = ITEMS.register(
+            "cooking_magic_hand",
+            () -> new CookingMagicHandItem(new Item.Properties().stacksTo(1)));
 
     private ModItems() {
     }
