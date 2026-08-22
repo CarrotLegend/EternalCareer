@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.carrot123.eternal_career.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "eternal_career.refmap.json",
+  "plugin": "com.carrot123.eternal_career.mixin.EternalCareerMixinPlugin",
+  "mixins": [
+    "vanilla.LivingEntityIngredientMarkMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
