@@ -1,0 +1,8 @@
+{
+  "badge": "eternal_career:senior_technician_badge",
+  "targets": [
+    "cataclysm:ender_guardian"
+  ],
+  "chance": 1.0,
+  "count": 1
+}

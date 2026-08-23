@@ -1,0 +1,8 @@
+{
+  "badge": "eternal_career:chef_apprentice_badge",
+  "targets": [
+    "legendary_monsters:posessed_paladin"
+  ],
+  "chance": 1.0,
+  "count": 1
+}

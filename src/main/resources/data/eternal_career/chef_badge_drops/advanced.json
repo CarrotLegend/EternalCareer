@@ -1,0 +1,8 @@
+{
+  "badge": "eternal_career:advanced_chef_badge",
+  "targets": [
+    "minecraft:ender_dragon"
+  ],
+  "chance": 1.0,
+  "count": 2
+}

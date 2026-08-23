@@ -1,0 +1,8 @@
+{
+  "badge": "eternal_career:chef_apprentice_badge",
+  "targets": [
+    "minecraft:warden"
+  ],
+  "chance": 0.5,
+  "count": 1
+}
