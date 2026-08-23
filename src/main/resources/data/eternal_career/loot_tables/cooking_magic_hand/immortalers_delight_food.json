@@ -1,0 +1,115 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:zea_pancake_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bowl_of_millenian_bamboo",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlip_pie_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlip_rice_roll_boat",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlip_rice_roll_boat",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:giant_tart_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bowl_of_stewed_rotten_meat_in_clay_pot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:roasted_mushroom_pizza_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:four_joy_meatball_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pitcher_plant_shao_mai",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pitcher_plant_jiao_zi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bottle_melon_juice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:large_column_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pitcher_sushi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bowl_of_kwat_tofu_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:jeng_nanu_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:ice_pizza_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bowl_of_universal_chicken_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bowl_of_tenchimuyo",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bowl_of_this_side_down",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dragon_breath_chorus_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dark_dragon_steak",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dragon_head_with_sauce",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dark_dragon_egg_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dragon_egg_custard",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dragon_egg_ice_cream",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dragon_breath_mixed_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:dragon_souffle",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

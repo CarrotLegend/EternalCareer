@@ -1,0 +1,100 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:hotdog_with_nether_salad",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:breakfast_sampler",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:nether_burger",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:fried_hoglin_chop",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:roast_stuffed_hoglin",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:bleeding_tartar",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:strider_with_grilled_fungus",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:crimson_stroganoff",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:plate_of_striderloaf",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:ghast_salad",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:toasts",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:plate_of_ghasta_with_cream",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:spicy_skewer",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:chilidog",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:hot_wings",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:spicy_curry",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mynethersdelight:hot_cream",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

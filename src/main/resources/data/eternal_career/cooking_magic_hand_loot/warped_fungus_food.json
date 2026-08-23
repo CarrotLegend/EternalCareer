@@ -1,0 +1,8 @@
+{
+  "targets": [
+    "eternal_trinkets:warped_fungus_sprite",
+    "eternal_trinkets:warped_fungus_umbrella"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/warped_fungus_food",
+  "rolls": 1
+}

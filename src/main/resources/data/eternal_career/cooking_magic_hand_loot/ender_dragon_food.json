@@ -1,0 +1,7 @@
+{
+  "targets": [
+    "minecraft:ender_dragon"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/ender_dragon_food",
+  "rolls": 1
+}

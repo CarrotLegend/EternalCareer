@@ -1,0 +1,15 @@
+{
+  "targets": [
+    "minecraft:enderman",
+    "minecraft:endermite",
+    "minecraft:shulker",
+    "goety:watchling",
+    "goety:blastling",
+    "goety:snareling",
+    "goety:endersent",
+    "goety:ender_keeper",
+    "legendary_monsters:chorusling"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/end_food",
+  "rolls": 1
+}

@@ -1,0 +1,95 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:cooked_meatball",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:donkey_burger",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:shengjian_mantou",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:samsa",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:meat_pie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:dumpling",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:stargazy_pie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:spicy_rabbit_head",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:four_joy_meatball_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:nether_style_sashimi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:end_style_sashimi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:desert_style_sashimi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:tundra_style_sashimi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:cold_style_sashimi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:candied_potato",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:stuffed_tiger_skin_pepper",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

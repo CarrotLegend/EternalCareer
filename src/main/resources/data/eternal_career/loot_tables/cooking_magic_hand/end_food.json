@@ -1,0 +1,80 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:chorus_fried_egg",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:sweet_and_sour_ender_pearls",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:end_style_sashimi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:stuffed_shulker",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:chorus_pasta",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:end_salad",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:optic_nerve_sweet_and_sour_pork",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:shulker_shell_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:shulker_ice_cream",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:stir_fried_endermite_meat",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:mint_noodle_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:mint_sauce_shulker_meat",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:chorus_flower_cake",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

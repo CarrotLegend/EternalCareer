@@ -1,0 +1,7 @@
+{
+  "targets": [
+    "minecraft:warden"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/warden_food",
+  "rolls": 1
+}

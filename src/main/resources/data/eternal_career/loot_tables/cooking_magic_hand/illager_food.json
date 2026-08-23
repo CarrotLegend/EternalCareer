@@ -1,0 +1,95 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:eternal_refusal_of_black_meat_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:rejected_dark_meat_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:boiling_blood_brew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:exotic_breakfast",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:villagers_feast",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:sauce_grilled_candy_fish",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:sugar_scepter",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:possible_holy_representative",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:cry_sugar_pack",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:grape_slush",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:ominous_ice_cream",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:skull_shot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:night_heart_pea_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:ruby_hard_candy",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:crisp_biscuit",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "goetydelight:magic_quartz_cookie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

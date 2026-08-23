@@ -1,0 +1,15 @@
+{
+  "targets": [
+    "minecraft:blaze",
+    "minecraft:hoglin",
+    "minecraft:piglin",
+    "minecraft:piglin_brute",
+    "minecraft:zoglin",
+    "minecraft:ghast",
+    "minecraft:magma_cube",
+    "minecraft:strider",
+    "minecraft:zombified_piglin"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/nether_food",
+  "rolls": 1
+}

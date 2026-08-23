@@ -1,0 +1,10 @@
+{
+  "targets": [
+    "minecraft:donkey",
+    "minecraft:horse",
+    "minecraft:mule",
+    "minecraft:tropical_fish"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/kaleidoscope_food",
+  "rolls": 1
+}

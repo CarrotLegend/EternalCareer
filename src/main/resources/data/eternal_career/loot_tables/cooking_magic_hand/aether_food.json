@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:blue_berry_muffin",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:enchanted_berry_muffin",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:flying_beef_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:moa_egg_omelette",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:parsnip_pasta",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:roast_moa",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aethersdelight:aechor_ice_cream",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:barbecue_stick",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:egg_sandwich",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:chicken_sandwich",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:hamburger",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:bacon_sandwich",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:mutton_wrap",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:stuffed_potato",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:rice_roll_medley_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:beef_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:chicken_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:fish_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:baked_cod_stew",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:bacon_and_eggs",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:pasta_with_meatballs",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:pasta_with_mutton_chop",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:roasted_mutton_chops",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:steak_and_potatoes",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:steak_and_potatoes",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:roast_chicken",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:stuffed_pumpkin",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:honey_glazed_ham",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:shepherds_pie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

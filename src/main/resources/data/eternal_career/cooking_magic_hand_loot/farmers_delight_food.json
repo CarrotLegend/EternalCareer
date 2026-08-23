@@ -1,0 +1,12 @@
+{
+  "targets": [
+    "minecraft:cow",
+    "minecraft:pig",
+    "minecraft:sheep",
+    "minecraft:chicken",
+    "minecraft:cod",
+    "minecraft:salmon"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/farmers_delight_food",
+  "rolls": 1
+}

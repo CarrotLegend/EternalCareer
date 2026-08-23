@@ -3,6 +3,8 @@ package com.carrot123.eternal_career.item;
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.compat.puffish.PuffishAttributesHelper;
 import com.carrot123.eternal_career.registry.ModAttributes;
+import com.carrot123.eternal_career.compat.redemption.RedemptionItemHelper;
+import net.minecraft.world.entity.player.Player;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +37,9 @@ public final class CookingMagicHandItem extends Item implements ICurioItem {
 
     @Override
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
-        return isFunctionalHandsSlot(slotContext);
+        return isFunctionalHandsSlot(slotContext)
+                && slotContext.entity() instanceof Player player
+                && RedemptionItemHelper.canUseRedemptionItem(player, stack);
     }
 
     @Override

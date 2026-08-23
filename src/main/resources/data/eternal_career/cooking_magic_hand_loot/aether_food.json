@@ -1,0 +1,12 @@
+{
+  "targets": [
+    "aether:moa",
+    "aether:aerbunny",
+    "aether:flying_cow",
+    "aether:phyg",
+    "aether:cockatrice",
+    "aether:sheepuff"
+  ],
+  "loot_table": "eternal_career:cooking_magic_hand/aether_food",
+  "rolls": 1
+}
