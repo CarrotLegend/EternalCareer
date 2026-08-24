@@ -1,13 +1,14 @@
 package com.carrot123.eternal_career.loot;
 
 import com.carrot123.eternal_career.EternalCareer;
-import com.carrot123.eternal_career.registry.ModItems;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import com.mojang.logging.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,13 +30,9 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import org.slf4j.Logger;
-import com.mojang.logging.LogUtils;
 
 public final class ChefBadgeDropManager
         extends SimpleJsonResourceReloadListener {
-
-    public static final ChefBadgeDropManager INSTANCE =
-            new ChefBadgeDropManager();
 
     private static final Logger LOGGER =
             LogUtils.getLogger();
@@ -48,8 +45,7 @@ public final class ChefBadgeDropManager
     private static final String DIRECTORY =
             "chef_badge_drops";
 
-    private static final Set<ResourceLocation>
-            ALLOWED_BADGES =
+    private static final Set<ResourceLocation> ALLOWED_BADGES =
             Set.of(
                     id("chef_apprentice_badge"),
                     id("intermediate_chef_badge"),
@@ -57,6 +53,9 @@ public final class ChefBadgeDropManager
                     id("senior_technician_badge"),
                     id("master_chef_badge")
             );
+
+    public static final ChefBadgeDropManager INSTANCE =
+            new ChefBadgeDropManager();
 
     private volatile List<ChefBadgeDropRule> rules =
             List.of();
@@ -81,8 +80,8 @@ public final class ChefBadgeDropManager
         List<ChefBadgeDropRule> loaded =
                 new ArrayList<>();
 
-        for (Map.Entry<ResourceLocation, JsonElement>
-                entry : objects.entrySet()) {
+        for (Map.Entry<ResourceLocation, JsonElement> entry
+                : objects.entrySet()) {
 
             try {
                 ChefBadgeDropRule rule =
@@ -126,12 +125,15 @@ public final class ChefBadgeDropManager
                         "chef badge drop rule"
                 );
 
+        String badgeString =
+                GsonHelper.getAsString(
+                        json,
+                        "badge"
+                );
+
         ResourceLocation badgeId =
                 new ResourceLocation(
-                        GsonHelper.getAsString(
-                                json,
-                                "badge"
-                        )
+                        badgeString
                 );
 
         if (!ALLOWED_BADGES.contains(badgeId)) {
@@ -145,13 +147,18 @@ public final class ChefBadgeDropManager
 
         Item badge =
                 ForgeRegistries.ITEMS
-                        .getValue(badgeId);
+                        .getValue(
+                                badgeId
+                        );
 
         if (badge == null
                 || badge == Items.AIR) {
+
             throw new IllegalArgumentException(
                     "Unknown badge "
                             + badgeId
+                            + " in "
+                            + fileId
             );
         }
 
@@ -190,23 +197,56 @@ public final class ChefBadgeDropManager
         List<ResourceLocation> entityIds =
                 new ArrayList<>();
 
-        List<TagKey<EntityType<?>>> tags =
+        List<TagKey<EntityType<?>>> entityTags =
                 new ArrayList<>();
 
-        for (JsonElement target :
-                targets) {
+        for (JsonElement targetElement
+                : targets) {
 
-            String value =
-                    target.getAsString();
+            if (!targetElement.isJsonPrimitive()
+                    || !targetElement
+                    .getAsJsonPrimitive()
+                    .isString()) {
 
-            if (value.startsWith("#")) {
+                LOGGER.warn(
+                        "Ignoring non-string target in chef badge rule {}",
+                        fileId
+                );
+
+                continue;
+            }
+
+            String target =
+                    targetElement.getAsString();
+
+            if (target == null
+                    || target.isBlank()) {
+
+                continue;
+            }
+
+            if (target.startsWith("#")) {
+
+                String tagString =
+                        target.substring(1);
 
                 ResourceLocation tagId =
-                        new ResourceLocation(
-                                value.substring(1)
+                        ResourceLocation.tryParse(
+                                tagString
                         );
 
-                tags.add(
+                if (tagId == null) {
+
+                    LOGGER.warn(
+                            "Ignoring invalid entity tag '{}' in {}",
+                            target,
+                            fileId
+                    );
+
+                    continue;
+                }
+
+                entityTags.add(
                         TagKey.create(
                                 Registries.ENTITY_TYPE,
                                 tagId
@@ -217,24 +257,40 @@ public final class ChefBadgeDropManager
             }
 
             ResourceLocation entityId =
-                    new ResourceLocation(value);
+                    ResourceLocation.tryParse(
+                            target
+                    );
 
-            entityIds.add(entityId);
+            if (entityId == null) {
+
+                LOGGER.warn(
+                        "Ignoring invalid entity id '{}' in {}",
+                        target,
+                        fileId
+                );
+
+                continue;
+            }
+
+            entityIds.add(
+                    entityId
+            );
         }
 
         if (entityIds.isEmpty()
-                && tags.isEmpty()) {
+                && entityTags.isEmpty()) {
+
             throw new IllegalArgumentException(
-                    "Rule "
+                    "Chef badge drop rule "
                             + fileId
-                            + " contains no targets"
+                            + " contains no valid targets"
             );
         }
 
         return new ChefBadgeDropRule(
                 badge,
                 List.copyOf(entityIds),
-                List.copyOf(tags),
+                List.copyOf(entityTags),
                 chance,
                 count
         );

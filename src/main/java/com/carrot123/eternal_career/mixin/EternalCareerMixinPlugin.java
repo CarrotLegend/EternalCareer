@@ -8,16 +8,14 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-/**
- * Prevents compatibility mixins from loading when their target mod is absent.
- * Add every future compat package prefix to {@link #REQUIRED_MODS}.
- */
 public final class EternalCareerMixinPlugin implements IMixinConfigPlugin {
     private static final Map<String, String> REQUIRED_MODS = Map.of(
-            ".compat.irons_spellbooks.", "irons_spellbooks",
-            ".compat.goety.", "goety",
-            ".compat.cataclysm.", "cataclysm",
-            ".compat.legendary_monsters.", "legendary_monsters"
+        ".compat.irons_spellbooks.", "irons_spellbooks",
+        ".compat.goety.", "goety",
+        ".compat.cataclysm.", "cataclysm",
+        ".compat.legendary_monsters.", "legendary_monsters",
+        ".compat.enigmaticlegacy.", "enigmaticlegacy",
+        ".compat.enigmaticaddons.", "enigmaticaddons"
     );
 
     @Override

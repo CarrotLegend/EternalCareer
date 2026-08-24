@@ -5,7 +5,12 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "eternal_career.refmap.json",
   "plugin": "com.carrot123.eternal_career.mixin.EternalCareerMixinPlugin",
-  "mixins": [],
+  "mixins": [
+    "compat.enigmaticlegacy.ItemBaseCurioCanEquipMixin",
+    "compat.enigmaticlegacy.SuperpositionHandlerCursedMixin",
+    "compat.enigmaticaddons.BlessRingCanEquipMixin",
+    "compat.enigmaticaddons.SuperAddonHandlerBlessMixin"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1
