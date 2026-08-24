@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WCW",
+    "LPL",
+    "WLW"
+  ],
+  "key": {
+    "P": {
+      "item": "artifacts:pickaxe_heater"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    },
+    "C": {
+      "item": "eternal_career:chef_apprentice_badge"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "eternal_career:cooking_magic_hand",
+    "count": 1
+  }
+}

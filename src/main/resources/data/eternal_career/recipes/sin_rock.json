@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C",
+    "ETE",
+    "CEC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "T": {
+      "item": "enigmaticlegacy:twisted_heart"
+    },
+    "E": {
+      "item": "enigmaticlegacy:evil_essence"
+    }
+  },
+  "result": {
+    "item": "eternal_career:sin_rock",
+    "count": 1
+  }
+}

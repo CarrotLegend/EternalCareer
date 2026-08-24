@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " & ",
+    "&#&",
+    " & "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_helmet"
+    },
+    "&": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "item": "eternal_career:chef_hat",
+    "count": 1
+  }
+}
