@@ -6,6 +6,7 @@
   "refmap": "eternal_career.refmap.json",
   "plugin": "com.carrot123.eternal_career.mixin.EternalCareerMixinPlugin",
   "mixins": [
+    "vanilla.LivingEntityBreakStanceMixin",
     "compat.enigmaticlegacy.ItemBaseCurioCanEquipMixin",
     "compat.enigmaticlegacy.SuperpositionHandlerCursedMixin",
     "compat.enigmaticaddons.BlessRingCanEquipMixin",

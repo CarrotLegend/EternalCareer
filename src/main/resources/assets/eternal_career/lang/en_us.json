@@ -16,6 +16,8 @@
   "item.eternal_career.senior_technician_badge": "Senior Technician Badge",
   "item.eternal_career.master_chef_badge": "Master Chef Badge",
   "effect.eternal_career.ingredient_mark": "Ingredient Mark",
+  "effect.eternal_career.break_stance": "Stance Break",
+  "effect.eternal_career.god_burst": "Divine Burst",
   "tooltip.eternal_career.gods_recognition.ingredient_mark": "Forcibly applies \"Ingredient Mark\" to enemies",
   "tooltip.eternal_career.cooking_magic_hand.bonus_loot": "Different creatures yield different bonus loot when slain",
   "tooltip.eternal_career.redemption_only.line1": "Only those granted redemption",
@@ -29,5 +31,6 @@
   "tooltip.eternal_career.food_book.current_bonus": "§dCurrent Bonus:",
   "tooltip.eternal_career.food_book.current_kitchenware_damage": "  §6+%1$s §dKitchenware Damage",
   "tooltip.eternal_career.food_book.current_attack_speed": "  §6+%1$s §dAttack Speed",
-  "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §dDamage Resistance"
+  "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §dDamage Resistance",
+  "death.attack.god_burst": "%1$s was destroyed by a divine burst"
 }

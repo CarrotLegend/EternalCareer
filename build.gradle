@@ -95,6 +95,7 @@ dependencies {
     implementation fg.deobf("local:solcarrot-${minecraft_version}:${solcarrot_version}")
     implementation fg.deobf("curse.maven:goety-586095:7966952")
     implementation fg.deobf("curse.maven:goety-revelation-1236817:8026980")
+    implementation fg.deobf("local:enigmaticdelicacy:${enigmatic_delicacy_version}")
     implementation fg.deobf("curse.maven:enigmatic-addons-1030121:6850589")
     implementation fg.deobf("curse.maven:enigmatic-legacy-336184:5600004")
 
@@ -144,6 +145,7 @@ tasks.named('processResources', ProcessResources).configure {
             solcarrot_version       : solcarrot_version,
             goety_version           : goety_version,
             goety_revelation_version: goety_revelation_version,
+            enigmatic_delicacy_version: enigmatic_delicacy_version,
             enigmatic_addons_version: enigmatic_addons_version,
             enigmatic_legacy_version: enigmatic_legacy_version,
             mod_id                  : mod_id,
@@ -181,8 +183,12 @@ tasks.named('jar', Jar).configure {
 }
 
 def productionRefmapName = 'eternal_career.refmap.json'
-def ingredientMarkMixinName =
-        'com/carrot123/eternal_career/mixin/vanilla/LivingEntityIngredientMarkMixin'
+def breakStanceMixinName =
+        'com/carrot123/eternal_career/mixin/vanilla/LivingEntityBreakStanceMixin'
+def armorAbsorbMappingKey =
+        'getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F'
+def expectedArmorAbsorbMapping =
+        'Lnet/minecraft/world/entity/LivingEntity;m_21161_(Lnet/minecraft/world/damagesource/DamageSource;F)F'
 def addEffectMappingKey =
         'addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z'
 def expectedAddEffectMapping =
@@ -221,17 +227,23 @@ def verifyProductionRefmap = tasks.register('verifyProductionRefmap') {
             def refmap = zipFile.getInputStream(refmapEntry).withCloseable { stream ->
                 new groovy.json.JsonSlurper().parse(stream, 'UTF-8')
             }
-            def actualMapping = refmap.mappings?.get(ingredientMarkMixinName)?.get(addEffectMappingKey)
-            if (actualMapping != expectedAddEffectMapping) {
+            def actualMapping =
+                refmap.mappings?.get(breakStanceMixinName)?.get(armorAbsorbMappingKey)
+            if (actualMapping != expectedArmorAbsorbMapping) {
                 throw new GradleException(
-                        "${productionRefmapName} does not contain the expected LivingEntity.addEffect " +
-                                "mapping. Expected '${expectedAddEffectMapping}', found '${actualMapping}'.")
+                        "${productionRefmapName} does not contain the expected " +
+                                "LivingEntity.getDamageAfterArmorAbsorb mapping. " +
+                                "Expected '${expectedArmorAbsorbMapping}', " +
+                                "found '${actualMapping}'."
+                )
             }
 
             logger.lifecycle(
-                    "Verified {} in {}: LivingEntity.addEffect -> m_147207_",
-                    productionRefmapName,
-                    jarFile.name)
+                "Verified {} in {}: " +
+                        "LivingEntity.getDamageAfterArmorAbsorb -> m_21161_",
+                productionRefmapName,
+                jarFile.name
+            )
         } finally {
             zipFile.close()
         }

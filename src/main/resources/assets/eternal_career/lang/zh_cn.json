@@ -16,6 +16,8 @@
   "item.eternal_career.senior_technician_badge": "高级技师证章",
   "item.eternal_career.master_chef_badge": "厨神证章",
   "effect.eternal_career.ingredient_mark": "食材标记",
+  "effect.eternal_career.break_stance": "破势",
+  "effect.eternal_career.god_burst": "神爆",
   "tooltip.eternal_career.gods_recognition.ingredient_mark": "强制为敌人施加“食材标记”",
   "tooltip.eternal_career.cooking_magic_hand.bonus_loot": "击杀不同的生物会获得不同的额外战利品",
   "tooltip.eternal_career.redemption_only.line1": "只有蒙受救赎之人，",
@@ -29,5 +31,6 @@
   "tooltip.eternal_career.food_book.current_bonus": "§d当前增加：",
   "tooltip.eternal_career.food_book.current_kitchenware_damage": "  §6+%1$s §d厨具伤害",
   "tooltip.eternal_career.food_book.current_attack_speed": "  §6+%1$s §d攻击速度",
-  "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §d普通伤害抗性"
+  "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §d普通伤害抗性",
+  "death.attack.god_burst": "%1$s在神爆中陨落了"
 }

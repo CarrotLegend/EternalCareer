@@ -80,6 +80,13 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
+modId="enigmaticdelicacy"
+mandatory=true
+versionRange="[${enigmatic_delicacy_version},)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
 modId="enigmaticaddons"
 mandatory=true
 versionRange="[${enigmatic_addons_version}]"
