@@ -5,7 +5,8 @@
     "legendarycreatures:wisp",
     "legendarycreatures:nether_wisp",
     "legendarycreatures:ender_wisp",
-    "legendarycreatures:hound"
+    "legendarycreatures:hound",
+    "minecraft:sniffer"
   ],
   "loot_table": "eternal_career:cooking_magic_hand/immortalers_delight_food",
   "rolls": 1
