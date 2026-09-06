@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.compat.solcarrot.SolCarrotHelper;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.until_eternity.compat.PuffishAttributesCompat;
 
@@ -50,7 +51,8 @@ public final class FoodBookAttributeEvents {
     public static void onCurioEquip(CurioEquipEvent event) {
         if (!event.getEntity().level().isClientSide
                 && event.getEntity() instanceof Player player
-                && isFoodBook(event.getStack())) {
+                && isFoodBook(event.getStack())
+                && RedemptionAccessController.canUse(player, event.getStack())) {
             apply(player, SolCarrotHelper.getUniqueFoodsEaten(player));
         }
     }

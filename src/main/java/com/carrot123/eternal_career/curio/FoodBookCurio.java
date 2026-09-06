@@ -1,7 +1,7 @@
 package com.carrot123.eternal_career.curio;
 
 import com.carrot123.eternal_career.EternalCareer;
-import com.carrot123.eternal_career.compat.redemption.RedemptionItemHelper;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public final class FoodBookCurio implements ICurioItem {
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         return isFunctionalCharmSlot(slotContext)
                 && slotContext.entity() instanceof Player player
-                && RedemptionItemHelper.canUseRedemptionItem(player, stack);
+                && RedemptionAccessController.canUse(player, stack);
     }
 
     @Override

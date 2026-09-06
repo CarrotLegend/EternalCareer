@@ -1,7 +1,7 @@
 package com.carrot123.eternal_career.armor;
 
 import com.carrot123.eternal_career.EternalCareer;
-import com.carrot123.eternal_career.compat.redemption.RedemptionItemHelper;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -62,14 +62,14 @@ public final class ChefArmorItem extends ArmorItem implements GeoItem {
     public boolean canEquip(ItemStack stack, EquipmentSlot slot, Entity entity) {
         return super.canEquip(stack, slot, entity)
                 && (!(entity instanceof Player player)
-                || RedemptionItemHelper.canUseRedemptionItem(player, stack));
+                || RedemptionAccessController.canUse(player, stack));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(
             Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!RedemptionItemHelper.canUseRedemptionItem(player, stack)) {
+        if (RedemptionAccessController.deny(player, stack)) {
             return InteractionResultHolder.fail(stack);
         }
         return super.use(level, player, hand);

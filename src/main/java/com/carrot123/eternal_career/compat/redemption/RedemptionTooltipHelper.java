@@ -16,7 +16,7 @@ public final class RedemptionTooltipHelper {
 
     public static void appendRestrictionTooltip(Player player, ItemStack stack,
                                                 List<Component> tooltip) {
-        if (player != null && !RedemptionItemHelper.canUseRedemptionItem(player, stack)) {
+        if (player != null && RedemptionAccessController.deny(player, stack)) {
             tooltip.add(Component.translatable(LINE_1_KEY).withStyle(ChatFormatting.GOLD));
             tooltip.add(Component.translatable(LINE_2_KEY).withStyle(ChatFormatting.GOLD));
         }

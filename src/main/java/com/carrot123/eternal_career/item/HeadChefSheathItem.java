@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.aizistral.enigmaticlegacy.handlers.SuperpositionHandler;
 import com.carrot123.eternal_career.EternalCareer;
-import com.carrot123.eternal_career.compat.redemption.RedemptionItemHelper;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -41,7 +41,7 @@ public final class HeadChefSheathItem extends Item implements ICurioItem {
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         return isFunctionalBeltSlot(slotContext)
                 && slotContext.entity() instanceof Player player
-                && RedemptionItemHelper.canUseRedemptionItem(player, stack);
+                && RedemptionAccessController.canUse(player, stack);
     }
 
     @Override

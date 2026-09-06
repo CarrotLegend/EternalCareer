@@ -1,11 +1,13 @@
 package com.carrot123.eternal_career.curio;
 
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModItems;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -51,6 +53,9 @@ public final class CurioEquipmentHelper {
     public static boolean hasCookingMagicHand(
             Player player
     ) {
+        if (!RedemptionAccessController.hasRedemptionAccess(player)) {
+            return false;
+        }
         return CuriosApi
                 .getCuriosInventory(player)
                 .resolve()
@@ -75,6 +80,9 @@ public final class CurioEquipmentHelper {
     public static boolean hasHeadChefSheath(
             Player player
     ) {
+        if (!RedemptionAccessController.hasRedemptionAccess(player)) {
+            return false;
+        }
         return CuriosApi
                 .getCuriosInventory(player)
                 .resolve()
@@ -101,6 +109,9 @@ public final class CurioEquipmentHelper {
             Player player,
             Item item
     ) {
+        if (RedemptionAccessController.deny(player, new ItemStack(item))) {
+            return false;
+        }
         return CuriosApi
                 .getCuriosInventory(player)
                 .resolve()

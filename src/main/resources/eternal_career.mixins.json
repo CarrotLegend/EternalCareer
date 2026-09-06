@@ -6,6 +6,11 @@
   "refmap": "eternal_career.refmap.json",
   "plugin": "com.carrot123.eternal_career.mixin.EternalCareerMixinPlugin",
   "mixins": [
+    "vanilla.AbstractContainerMenuRedemptionMixin",
+    "vanilla.InventoryMenuRedemptionMixin",
+    "vanilla.CraftingMenuRedemptionMixin",
+    "vanilla.ItemCombinerMenuRedemptionMixin",
+    "vanilla.StonecutterMenuRedemptionMixin",
     "vanilla.LivingEntityBreakStanceMixin",
     "compat.enigmaticlegacy.ItemBaseCurioCanEquipMixin",
     "compat.enigmaticlegacy.SuperpositionHandlerCursedMixin",

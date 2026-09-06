@@ -77,6 +77,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.SENIOR_TECHNICIAN_BADGE);
             event.accept(ModItems.MASTER_CHEF_BADGE);
             event.accept(ModItems.GODS_RECOGNITION);
+            event.accept(ModItems.BLAZING_ESSENCE);
         }
     }
 }
