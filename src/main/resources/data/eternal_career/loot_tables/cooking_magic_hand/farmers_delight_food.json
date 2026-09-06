@@ -3,8 +3,63 @@
   "pools": [
     {
       "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 1,
       "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:cake_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:apple_pie_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:sweet_berry_cheesecake_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:chocolate_pie_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:sweet_berry_cookie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:honey_cookie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:chocolate_pie_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:melon_popsicle",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:glow_berry_custard",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:fruit_salad",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:mixed_salad",
+          "weight": 1
+        },
         {
           "type": "minecraft:item",
           "name": "farmersdelight:barbecue_stick",
@@ -42,7 +97,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "farmersdelight:rice_roll_medley_block",
+          "name": "farmersdelight:cabbage_rolls",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:kelp_roll",
           "weight": 1
         },
         {
@@ -53,6 +113,11 @@
         {
           "type": "minecraft:item",
           "name": "farmersdelight:chicken_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:vegetable_soup",
           "weight": 1
         },
         {
@@ -92,7 +157,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "farmersdelight:steak_and_potatoes",
+          "name": "farmersdelight:grilled_salmon",
           "weight": 1
         },
         {
@@ -116,8 +181,9 @@
           "weight": 1
         },
         {
-          "type": "minecraft:empty",
-          "weight": 4
+          "type": "minecraft:item",
+          "name": "farmersdelight:gleaming_salad",
+          "weight": 1
         }
       ]
     }

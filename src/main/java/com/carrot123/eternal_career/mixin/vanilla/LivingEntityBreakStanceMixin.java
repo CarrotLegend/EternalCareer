@@ -18,52 +18,41 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityBreakStanceMixin {
 
     @Inject(
-            method = "getDamageAfterArmorAbsorb",
+            method = {
+                    "getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F",
+                    "m_21161_(Lnet/minecraft/world/damagesource/DamageSource;F)F"
+            },
             at = @At("HEAD"),
-            cancellable = true
+            cancellable = true,
+            remap = false,
+            require = 1
     )
     private void eternalCareer$bypassArmor(
             DamageSource source,
             float amount,
             CallbackInfoReturnable<Float> cir
     ) {
-
         if (source.is(ModDamageTypes.GOD_BURST)) {
             cir.setReturnValue(amount);
             return;
         }
 
-        LivingEntity target =
-                (LivingEntity) (Object) this;
-
-        if (!target.hasEffect(
-                ModEffects.BREAK_STANCE.get()
-        )) {
+        LivingEntity target = (LivingEntity) (Object) this;
+        if (!target.hasEffect(ModEffects.BREAK_STANCE.get())) {
             return;
         }
-
-        if (!(source.getEntity()
-                instanceof Player player)) {
+        if (!(source.getEntity() instanceof Player player)) {
             return;
         }
-
-        if (source.getDirectEntity()
-                != player) {
+        if (source.getDirectEntity() != player) {
             return;
         }
-
-        if (!source.is(
-                DamageTypes.PLAYER_ATTACK
-        )) {
+        if (!source.is(DamageTypes.PLAYER_ATTACK)) {
             return;
         }
-
-        if (!WeaponMasterGloryHelper.isEquipped(
-                player
-        )) {
+        if (!WeaponMasterGloryHelper.isEquipped(player)) {
             return;
         }
-
         cir.setReturnValue(amount);
     }
 }

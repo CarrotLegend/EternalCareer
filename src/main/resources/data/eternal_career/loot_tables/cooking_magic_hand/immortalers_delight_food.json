@@ -3,7 +3,7 @@
   "pools": [
     {
       "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -17,12 +17,112 @@
         },
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:pearlip_pie_slice",
+          "name": "immortalers_delight:popolutcorn",
           "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:pearlip_rice_roll_boat",
+          "name": "immortalers_delight:colorful_grilled_skewers",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:evolutcorn_bread",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:evolutcorn_hard_candy",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:evolutcorn_jiaozi",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlip_milk_shake",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:peatic_musa_salad",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlip_pumpkin_pie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlipearl_tart",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlipearl_eggsteam",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:perfect_summer_ice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:twilight_gelato",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlip_bubble_milk",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:tropical_fruity_cyclone",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:mashed_potato_with_jam",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:tartare_chicken",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:scarlet_gelato",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:himekandy",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:kwat_wheat_doufu",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:fry_kwat_wheat_doufu",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:stinky_doufu",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:sutffed_kwat_wheat_doufu",
           "weight": 1
         },
         {
@@ -106,8 +206,109 @@
           "weight": 1
         },
         {
-          "type": "minecraft:empty",
-          "weight": 4
+          "type": "minecraft:item",
+          "name": "immortalers_delight:mapo_doufu",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:jade_and_ruby_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:nether_cream_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:nether_cream_bread",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:super_kwat_wheat_hamburger",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:red_stuffed_bun",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:hot_hi_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:torchflower_cake",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:torchflower_curry_rice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:extra_spicy_pasta",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:torchflower_cookie",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:alfalfa_porridge",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:sealed_ancient_rations",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:lu_chicken_legs",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:nether_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:braised_pork",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:apollyon_cake_roll",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pitcher_plant_barbecue",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pod_shell_burger_meat_cube",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:old_beijing_chicken_roll",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:oxygrape_evolutcorn_muffin",
+          "weight": 1
         }
       ]
     }

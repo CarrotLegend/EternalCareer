@@ -25,8 +25,8 @@ import top.theillusivec4.curios.api.event.CurioUnequipEvent;
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class FoodBookAttributeEvents {
     public static final double MAX_HEALTH_BONUS = 10.0D;
-    public static final double KITCHENWARE_BONUS_PER_FOOD = 0.001D;
-    public static final double ATTACK_SPEED_BONUS_PER_FOOD = 0.0001D;
+    public static final double KITCHENWARE_BONUS_PER_FOOD = 0.0025D;
+    public static final double ATTACK_SPEED_BONUS_PER_FOOD = 0.0002D;
     public static final double RESISTANCE_BONUS_PER_FOOD = 0.0005D;
 
     public static final UUID MAX_HEALTH_MODIFIER_ID = stableId("max_health");

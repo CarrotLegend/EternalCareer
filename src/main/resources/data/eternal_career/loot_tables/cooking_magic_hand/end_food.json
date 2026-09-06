@@ -3,7 +3,7 @@
   "pools": [
     {
       "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -32,12 +32,27 @@
         },
         {
           "type": "minecraft:item",
+          "name": "kaleidoscope_end:mint_chorus_mousse",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
           "name": "kaleidoscope_end:end_salad",
           "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "kaleidoscope_end:optic_nerve_sweet_and_sour_pork",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:void_mutton_steak",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:end_caterpillar_sashimi",
           "weight": 1
         },
         {
@@ -52,7 +67,22 @@
         },
         {
           "type": "minecraft:item",
+          "name": "kaleidoscope_end:void_conch_noodle_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
           "name": "kaleidoscope_end:stir_fried_endermite_meat",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:stir_fried_endermite_meat_rice_bowl",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:ender_mint_candy",
           "weight": 1
         },
         {
@@ -71,8 +101,14 @@
           "weight": 1
         },
         {
-          "type": "minecraft:empty",
-          "weight": 4
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:chorus_flower_soup",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_end:chorus_seed_cookie",
+          "weight": 1
         }
       ]
     }

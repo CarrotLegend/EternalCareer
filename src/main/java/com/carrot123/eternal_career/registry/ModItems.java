@@ -31,6 +31,7 @@ public final class ModItems {
     public static final RegistryObject<Item> ADVANCED_CHEF_BADGE = ITEMS.register("advanced_chef_badge", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SENIOR_TECHNICIAN_BADGE = ITEMS.register("senior_technician_badge", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MASTER_CHEF_BADGE = ITEMS.register("master_chef_badge", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BLAZING_ESSENCE = ITEMS.register("blazing_essence", () -> new Item(new Item.Properties()));
 
     private ModItems() {
     }

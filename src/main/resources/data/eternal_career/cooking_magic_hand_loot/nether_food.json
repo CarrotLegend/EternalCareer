@@ -8,7 +8,8 @@
     "minecraft:ghast",
     "minecraft:magma_cube",
     "minecraft:strider",
-    "minecraft:zombified_piglin"
+    "minecraft:zombified_piglin",
+    "minecraft:wither_skeleton"
   ],
   "loot_table": "eternal_career:cooking_magic_hand/nether_food",
   "rolls": 1

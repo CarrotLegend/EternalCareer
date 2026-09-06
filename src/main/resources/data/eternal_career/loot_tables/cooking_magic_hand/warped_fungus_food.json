@@ -3,7 +3,7 @@
   "pools": [
     {
       "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -39,10 +39,6 @@
           "type": "minecraft:item",
           "name": "mynethersdelight:twisted_ghasta",
           "weight": 1
-        },
-        {
-          "type": "minecraft:empty",
-          "weight": 4
         }
       ]
     }
