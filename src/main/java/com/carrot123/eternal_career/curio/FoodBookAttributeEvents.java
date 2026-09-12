@@ -108,6 +108,10 @@ public final class FoodBookAttributeEvents {
     }
 
     public static void apply(Player player, int uniqueFoodsEaten) {
+        if (!RedemptionAccessController.hasRedemptionAccess(player)) {
+            removeAll(player);
+            return;
+        }
         int foodCount = Math.max(0, uniqueFoodsEaten);
         replaceModifier(player, Attributes.MAX_HEALTH, MAX_HEALTH_MODIFIER_ID,
                 "Food Book max health", MAX_HEALTH_BONUS,

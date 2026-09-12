@@ -48,7 +48,9 @@ public final class CookingMagicHandItem extends Item implements ICurioItem {
             UUID slotUuid,
             ItemStack stack
     ) {
-        if (!isFunctionalHandsSlot(slotContext)) {
+        if (!isFunctionalHandsSlot(slotContext)
+                || !(slotContext.entity() instanceof Player player)
+                || !RedemptionAccessController.canUse(player, stack)) {
             return ImmutableMultimap.of();
         }
 

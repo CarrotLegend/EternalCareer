@@ -4,10 +4,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import com.carrot123.eternal_career.EternalCareer;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.registry.ModItems;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.event.CurioAttributeModifierEvent;
@@ -24,7 +26,13 @@ public final class GodsRecognitionCurioEvents {
 
     @SubscribeEvent
     public static void onCurioAttributes(CurioAttributeModifierEvent event) {
-        if (!event.getItemStack().is(ModItems.GODS_RECOGNITION.get())) {
+        if (!event.getItemStack().is(ModItems.GODS_RECOGNITION.get())
+                || !FoodBookCurio.CHARM_SLOT.equals(
+                        event.getSlotContext().identifier())
+                || event.getSlotContext().cosmetic()
+                || !(event.getSlotContext().entity() instanceof Player player)
+                || !RedemptionAccessController.canUse(
+                        player, event.getItemStack())) {
             return;
         }
 

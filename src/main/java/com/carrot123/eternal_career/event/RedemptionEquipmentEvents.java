@@ -1,15 +1,23 @@
 package com.carrot123.eternal_career.event;
 
 import com.carrot123.eternal_career.EternalCareer;
+import com.carrot123.eternal_career.compat.puffish.PuffishAttributesHelper;
 import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
+import com.carrot123.eternal_career.curio.FoodBookAttributeEvents;
+import com.carrot123.eternal_career.curio.GodsRecognitionCurioEvents;
+import com.carrot123.eternal_career.item.CookingMagicHandItem;
+import com.carrot123.eternal_career.registry.ModAttributes;
 import java.util.Map;
+import java.util.UUID;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,32 +28,19 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 /** Server-side fallback for redemption equipment inserted by commands or nonstandard menus. */
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class RedemptionEquipmentEvents {
-    private static final String LEGACY_ACCESS_CACHE_TAG =
-            "eternal_career:redemption_access_cached";
-    private static final String LEGACY_RECHECK_TICKS_TAG =
-            "eternal_career:redemption_recheck_ticks";
+    private static final UUID BLESSING_SCROLL_LUCK_ID =
+            UUID.fromString("d9062cdd-3824-440e-b494-8e12074f02e9");
+    private static final UUID BLESSING_SCROLL_ATTACK_SPEED_ID =
+            UUID.fromString("6cc37aff-6609-46d1-a1b0-a4895b6655fd");
 
     private RedemptionEquipmentEvents() {
-    }
-
-    @SubscribeEvent
-    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getEntity().level().isClientSide) {
-            clearLegacyCache(event.getEntity());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerClone(PlayerEvent.Clone event) {
-        if (!event.getEntity().level().isClientSide) {
-            clearLegacyCache(event.getEntity());
-        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onEquipmentChanged(LivingEquipmentChangeEvent event) {
         if (event.getEntity() instanceof ServerPlayer player
-                && event.getSlot().getType() == EquipmentSlot.Type.ARMOR) {
+                && event.getSlot().getType() == EquipmentSlot.Type.ARMOR
+                && !RedemptionAccessController.isRecheckPending(player)) {
             ejectArmorSlot(player, event.getSlot());
         }
     }
@@ -54,10 +49,12 @@ public final class RedemptionEquipmentEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)
-                || RedemptionAccessController.hasRedemptionAccess(player)) {
+                || RedemptionAccessController.hasRedemptionAccess(player)
+                || RedemptionAccessController.isRecheckPending(player)) {
             return;
         }
 
+        removeKnownRedemptionModifiers(player);
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.ARMOR) {
                 ejectArmorSlot(player, slot);
@@ -73,6 +70,8 @@ public final class RedemptionEquipmentEvents {
         }
 
         ItemStack returning = equipped.copy();
+        player.getAttributes().removeAttributeModifiers(
+                equipped.getAttributeModifiers(slot));
         player.setItemSlot(slot, ItemStack.EMPTY);
         returnToPlayer(player, returning);
     }
@@ -107,8 +106,25 @@ public final class RedemptionEquipmentEvents {
         }
     }
 
-    private static void clearLegacyCache(Player player) {
-        player.getPersistentData().remove(LEGACY_ACCESS_CACHE_TAG);
-        player.getPersistentData().remove(LEGACY_RECHECK_TICKS_TAG);
+    private static void removeKnownRedemptionModifiers(Player player) {
+        FoodBookAttributeEvents.removeAll(player);
+        removeModifier(player, ModAttributes.KITCHENWARE_DAMAGE.get(),
+                GodsRecognitionCurioEvents.KITCHENWARE_MODIFIER_ID);
+        removeModifier(player, ModAttributes.KITCHENWARE_DAMAGE.get(),
+                CookingMagicHandItem.KITCHENWARE_DAMAGE_MODIFIER_ID);
+        Attribute lifeSteal = PuffishAttributesHelper.resolve(
+                PuffishAttributesHelper.LIFE_STEAL);
+        if (lifeSteal != null) {
+            removeModifier(player, lifeSteal, CookingMagicHandItem.LIFE_STEAL_MODIFIER_ID);
+        }
+        removeModifier(player, Attributes.LUCK, BLESSING_SCROLL_LUCK_ID);
+        removeModifier(player, Attributes.ATTACK_SPEED, BLESSING_SCROLL_ATTACK_SPEED_ID);
+    }
+
+    private static void removeModifier(Player player, Attribute attribute, UUID id) {
+        AttributeInstance instance = player.getAttribute(attribute);
+        if (instance != null && instance.getModifier(id) != null) {
+            instance.removeModifier(id);
+        }
     }
 }

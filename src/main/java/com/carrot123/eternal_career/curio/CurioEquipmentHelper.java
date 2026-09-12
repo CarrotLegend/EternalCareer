@@ -30,7 +30,8 @@ public final class CurioEquipmentHelper {
     ) {
         return hasEquippedCurio(
                 player,
-                ModItems.GODS_RECOGNITION.get()
+                ModItems.GODS_RECOGNITION.get(),
+                FoodBookCurio.CHARM_SLOT
         );
     }
 
@@ -46,7 +47,8 @@ public final class CurioEquipmentHelper {
                 && foodBook != Items.AIR
                 && hasEquippedCurio(
                         player,
-                        foodBook
+                        foodBook,
+                        FoodBookCurio.CHARM_SLOT
                 );
     }
 
@@ -80,9 +82,6 @@ public final class CurioEquipmentHelper {
     public static boolean hasHeadChefSheath(
             Player player
     ) {
-        if (!RedemptionAccessController.hasRedemptionAccess(player)) {
-            return false;
-        }
         return CuriosApi
                 .getCuriosInventory(player)
                 .resolve()
@@ -119,7 +118,29 @@ public final class CurioEquipmentHelper {
                         handler.findCurios(item)
                                 .stream()
                                 .anyMatch(result ->
-                                        !result.slotContext()
+                                        !result.slotContext().cosmetic()
+                                )
+                )
+                .orElse(false);
+    }
+
+    public static boolean hasEquippedCurio(
+            Player player,
+            Item item,
+            String slotId
+    ) {
+        if (RedemptionAccessController.deny(player, new ItemStack(item))) {
+            return false;
+        }
+        return CuriosApi
+                .getCuriosInventory(player)
+                .resolve()
+                .map(handler ->
+                        handler.findCurios(item)
+                                .stream()
+                                .anyMatch(result ->
+                                        slotId.equals(result.slotContext().identifier())
+                                                && !result.slotContext()
                                                 .cosmetic()
                                 )
                 )

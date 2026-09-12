@@ -14,6 +14,8 @@ public final class EternalCareerMixinPlugin implements IMixinConfigPlugin {
         ".compat.goety.", "goety",
         ".compat.cataclysm.", "cataclysm",
         ".compat.legendary_monsters.", "legendary_monsters",
+        ".compat.until_eternity.", "until_eternity",
+        ".compat.goety_revelation.", "goety_revelation",
         ".compat.enigmaticlegacy.", "enigmaticlegacy",
         ".compat.enigmaticaddons.", "enigmaticaddons"
     );

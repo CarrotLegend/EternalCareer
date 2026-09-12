@@ -1,7 +1,7 @@
 package com.carrot123.eternal_career.event;
 
 import com.carrot123.eternal_career.EternalCareer;
-import com.carrot123.eternal_career.compat.redemption.RedemptionItemHelper;
+import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModItems;
 
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -30,7 +30,7 @@ public final class BlazingEssenceDropEvents {
                 || !event.isRecentlyHit()
                 || !(event.getEntity() instanceof WitherBoss wither)
                 || !(event.getSource().getEntity() instanceof Player player)
-                || !RedemptionItemHelper.findRingOfRedemptionNow(player)) {
+                || !RedemptionAccessController.hasRedemptionAccess(player)) {
             return;
         }
 

@@ -31,7 +31,7 @@ public final class ExternalCurioRegistration {
             if (foodBook != null && foodBook != Items.AIR) {
                 CuriosApi.registerCurio(
                         foodBook,
-                        new FoodBookCurio()
+                        FoodBookCurio.INSTANCE
                 );
             }
         });
