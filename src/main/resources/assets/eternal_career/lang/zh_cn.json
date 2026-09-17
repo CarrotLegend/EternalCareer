@@ -16,6 +16,7 @@
   "item.eternal_career.senior_technician_badge": "高级技师证章",
   "item.eternal_career.master_chef_badge": "厨神证章",
   "item.eternal_career.blazing_essence": "炽烈精髓",
+  "item.eternal_career.sublimation_essence": "升华精粹",
   "effect.eternal_career.ingredient_mark": "食材标记",
   "effect.eternal_career.break_stance": "破势",
   "effect.eternal_career.god_burst": "神爆",
@@ -33,5 +34,7 @@
   "tooltip.eternal_career.food_book.current_kitchenware_damage": "  §6+%1$s §d厨具伤害",
   "tooltip.eternal_career.food_book.current_attack_speed": "  §6+%1$s §d攻击速度",
   "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §d普通伤害抗性",
-  "death.attack.god_burst": "%1$s在神爆中陨落了"
+  "death.attack.god_burst": "%1$s在神爆中陨落了",
+  "attribute.eternal_career.scythe_damage": "镰刀伤害",
+  "gui.eternal_career.soul": "灵魂"
 }

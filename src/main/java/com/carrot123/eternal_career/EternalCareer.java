@@ -17,6 +17,9 @@ public final class EternalCareer {
 
     public EternalCareer(FMLJavaModLoadingContext loadingContext) {
         IEventBus modEventBus = loadingContext.getModEventBus();
+        com.carrot123.eternal_career.network.ModNetwork.register();
+        modEventBus.addListener((net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent event) ->
+                event.register(com.carrot123.eternal_career.career.capability.soul.ISoul.class));
         ModAttributes.register(modEventBus);
         ModEffects.register(modEventBus);
         ModItems.register(modEventBus);

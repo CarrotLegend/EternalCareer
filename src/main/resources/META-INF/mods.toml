@@ -106,3 +106,10 @@ mandatory=false
 versionRange="[${jei_version}]"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="relics"
+mandatory=true
+versionRange="[0.8.0.13]"
+ordering="AFTER"
+side="BOTH"

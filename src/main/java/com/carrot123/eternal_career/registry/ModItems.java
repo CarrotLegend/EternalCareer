@@ -7,6 +7,7 @@ import com.carrot123.eternal_career.item.GodsRecognitionItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
 import com.carrot123.eternal_career.item.SinRockItem;
+import com.carrot123.eternal_career.item.SublimationEssenceItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,6 +33,7 @@ public final class ModItems {
     public static final RegistryObject<Item> SENIOR_TECHNICIAN_BADGE = ITEMS.register("senior_technician_badge", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MASTER_CHEF_BADGE = ITEMS.register("master_chef_badge", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BLAZING_ESSENCE = ITEMS.register("blazing_essence", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SUBLIMATION_ESSENCE = ITEMS.register("sublimation_essence", () -> new SublimationEssenceItem(new Item.Properties()));
 
     private ModItems() {
     }

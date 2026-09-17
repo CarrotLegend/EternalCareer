@@ -35,6 +35,11 @@ public final class ModAttributes {
                     MIN_DAMAGE_MULTIPLIER,
                     MAX_DAMAGE_MULTIPLIER).setSyncable(true));
 
+    public static final RegistryObject<Attribute> SCYTHE_DAMAGE = ATTRIBUTES.register(
+            "scythe_damage",
+            () -> new RangedAttribute("attribute.eternal_career.scythe_damage",
+                    0.0D, -1.0D, 1024.0D).setSyncable(true));
+
     private ModAttributes() {
     }
 
@@ -44,6 +49,7 @@ public final class ModAttributes {
     }
 
     private static void addPlayerAttributes(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, SCYTHE_DAMAGE.get());
         event.add(EntityType.PLAYER, KITCHENWARE_DAMAGE.get());
         event.add(EntityType.PLAYER, NON_KITCHENWARE_DAMAGE.get());
     }
