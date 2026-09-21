@@ -69,6 +69,12 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.CHEF_JACKET);
             event.accept(ModItems.CHEF_LEGGINGS);
             event.accept(ModItems.CHEF_BOOTS);
+
+            event.accept(ModItems.DEATH_HELMET);
+            event.accept(ModItems.DEATH_CHESTPLATE);
+            event.accept(ModItems.DEATH_LEGGINGS);
+            event.accept(ModItems.DEATH_BOOTS);
+
             event.accept(ModItems.SIN_ROCK);
             event.accept(ModItems.HEAD_CHEF_SHEATH);
             event.accept(ModItems.CALL_OF_DEATH);

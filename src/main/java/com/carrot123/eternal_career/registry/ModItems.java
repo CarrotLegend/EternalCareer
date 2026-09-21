@@ -3,6 +3,8 @@ package com.carrot123.eternal_career.registry;
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.armor.ChefArmorItem;
 import com.carrot123.eternal_career.armor.ChefArmorMaterial;
+import com.carrot123.eternal_career.armor.DeathArmorItem;
+import com.carrot123.eternal_career.armor.DeathArmorMaterial;
 import com.carrot123.eternal_career.item.CallOfDeathItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
 import com.carrot123.eternal_career.item.GodsRecognitionItem;
@@ -31,6 +33,18 @@ public final class ModItems {
 
     public static final RegistryObject<Item> CHEF_BOOTS =
             registerChefArmor("chef_boots", ArmorItem.Type.BOOTS);
+
+    public static final RegistryObject<Item> DEATH_HELMET =
+            registerDeathArmor("death_helmet", ArmorItem.Type.HELMET);
+
+    public static final RegistryObject<Item> DEATH_CHESTPLATE =
+            registerDeathArmor("death_chestplate", ArmorItem.Type.CHESTPLATE);
+
+    public static final RegistryObject<Item> DEATH_LEGGINGS =
+            registerDeathArmor("death_leggings", ArmorItem.Type.LEGGINGS);
+
+    public static final RegistryObject<Item> DEATH_BOOTS =
+            registerDeathArmor("death_boots", ArmorItem.Type.BOOTS);
 
     public static final RegistryObject<Item> GODS_RECOGNITION =
             ITEMS.register(
@@ -129,6 +143,22 @@ public final class ModItems {
                         ChefArmorMaterial.INSTANCE,
                         type,
                         new Item.Properties().stacksTo(1)
+                )
+        );
+    }
+
+    private static RegistryObject<Item> registerDeathArmor(
+            String name,
+            ArmorItem.Type type
+    ) {
+        return ITEMS.register(
+                name,
+                () -> new DeathArmorItem(
+                        DeathArmorMaterial.INSTANCE,
+                        type,
+                        new Item.Properties()
+                                .stacksTo(1)
+                                .fireResistant()
                 )
         );
     }

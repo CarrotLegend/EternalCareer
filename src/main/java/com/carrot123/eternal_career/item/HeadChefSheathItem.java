@@ -1,25 +1,34 @@
 package com.carrot123.eternal_career.item;
 
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-
 import com.aizistral.enigmaticlegacy.handlers.SuperpositionHandler;
+import com.aizistral.enigmaticlegacy.helpers.ItemLoreHelper;
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.UUID;
+import javax.annotation.Nullable;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public final class HeadChefSheathItem extends Item implements ICurioItem {
+public final class HeadChefSheathItem
+        extends Item
+        implements ICurioItem {
 
     public static final String BELT_SLOT = "belt";
 
@@ -37,15 +46,24 @@ public final class HeadChefSheathItem extends Item implements ICurioItem {
     }
 
     @Override
-    public boolean canEquip(SlotContext slotContext, ItemStack stack) {
+    public boolean canEquip(
+            SlotContext slotContext,
+            ItemStack stack
+    ) {
         return isFunctionalBeltSlot(slotContext);
     }
 
     @Override
-    public boolean canUnequip(SlotContext slotContext, ItemStack stack) {
+    public boolean canUnequip(
+            SlotContext slotContext,
+            ItemStack stack
+    ) {
         if (slotContext.entity() instanceof Player player
                 && SuperpositionHandler.canUnequipBoundRelics(player)) {
-            return ICurioItem.super.canUnequip(slotContext, stack);
+            return ICurioItem.super.canUnequip(
+                    slotContext,
+                    stack
+            );
         }
 
         return false;
@@ -82,7 +100,6 @@ public final class HeadChefSheathItem extends Item implements ICurioItem {
                         KITCHENWARE_DAMAGE_BONUS,
                         AttributeModifier.Operation.MULTIPLY_BASE
                 ),
-
                 ModAttributes.NON_KITCHENWARE_DAMAGE.get(),
                 new AttributeModifier(
                         NON_KITCHENWARE_DAMAGE_MODIFIER_ID,
@@ -94,16 +111,76 @@ public final class HeadChefSheathItem extends Item implements ICurioItem {
         );
     }
 
-    private static boolean isFunctionalBeltSlot(SlotContext slotContext) {
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void appendHoverText(
+            ItemStack stack,
+            @Nullable Level level,
+            List<Component> list,
+            TooltipFlag flag
+    ) {
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.enigmaticlegacy.void"
+        );
+
+        ItemLoreHelper.addLocalizedFormattedString(
+                list,
+                "curios.modifiers.belt",
+                ChatFormatting.GOLD
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.eternal_career.head_chef_sheath.kitchenware_damage",
+                ChatFormatting.GOLD,
+                "50%"
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.eternal_career.head_chef_sheath.non_kitchenware_damage",
+                ChatFormatting.GOLD,
+                "90%"
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.enigmaticlegacy.void"
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.eternal_career.bound_curio"
+        );
+    }
+
+    @Override
+    public List<Component> getAttributesTooltip(
+            List<Component> tooltips,
+            ItemStack stack
+    ) {
+        tooltips.clear();
+        return tooltips;
+    }
+
+    private static boolean isFunctionalBeltSlot(
+            SlotContext slotContext
+    ) {
         return slotContext != null
-                && BELT_SLOT.equals(slotContext.identifier())
+                && BELT_SLOT.equals(
+                        slotContext.identifier()
+                )
                 && !slotContext.cosmetic();
     }
 
-    private static UUID stableModifierId(String attributePath) {
-        String key = EternalCareer.MOD_ID
-                + ":head_chef_sheath/"
-                + attributePath;
+    private static UUID stableModifierId(
+            String attributePath
+    ) {
+        String key =
+                EternalCareer.MOD_ID
+                        + ":head_chef_sheath/"
+                        + attributePath;
 
         return UUID.nameUUIDFromBytes(
                 key.getBytes(StandardCharsets.UTF_8)
