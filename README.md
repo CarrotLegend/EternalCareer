@@ -41,3 +41,5 @@ It contains the start pool, every piece offset and size, total piece count, and 
 ## Notes
 
 This mod exports the jigsaw assets. For extremely large structures, vanilla `JigsawStructure` depth/radius limits may still be too small; use a custom WDA-style jigsaw structure generator when integrating the exported assets into a production mod.
+
+Build verification is run by GitHub Actions on this branch.
