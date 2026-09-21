@@ -36,5 +36,6 @@
   "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §dDamage Resistance",
   "death.attack.god_burst": "%1$s was destroyed by a divine burst",
   "attribute.eternal_career.scythe_damage": "Scythe Damage",
+  "attribute.eternal_career.non_scythe_damage": "Non-Scythe Damage",
   "gui.eternal_career.soul": "Soul"
 }

@@ -36,5 +36,6 @@
   "tooltip.eternal_career.food_book.current_damage_resistance": "  §6+%1$s §d普通伤害抗性",
   "death.attack.god_burst": "%1$s在神爆中陨落了",
   "attribute.eternal_career.scythe_damage": "镰刀伤害",
+  "attribute.eternal_career.non_scythe_damage": "非镰刀伤害",
   "gui.eternal_career.soul": "灵魂"
 }

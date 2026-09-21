@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.aizistral.enigmaticlegacy.handlers.SuperpositionHandler;
 import com.carrot123.eternal_career.EternalCareer;
+import com.carrot123.eternal_career.curio.FoodBookCurio;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -19,26 +20,24 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public final class HeadChefSheathItem extends Item implements ICurioItem {
+public final class CallOfDeathItem extends Item implements ICurioItem {
 
-    public static final String BELT_SLOT = "belt";
+    public static final double SCYTHE_DAMAGE_BONUS = 0.20D;
+    public static final double NON_SCYTHE_DAMAGE_PENALTY = -0.80D;
 
-    public static final double KITCHENWARE_DAMAGE_BONUS = 0.50D;
-    public static final double NON_KITCHENWARE_DAMAGE_PENALTY = -0.90D;
+    public static final UUID SCYTHE_DAMAGE_MODIFIER_ID =
+            stableModifierId("scythe_damage");
 
-    public static final UUID KITCHENWARE_DAMAGE_MODIFIER_ID =
-            stableModifierId("kitchenware_damage");
+    public static final UUID NON_SCYTHE_DAMAGE_MODIFIER_ID =
+            stableModifierId("non_scythe_damage");
 
-    public static final UUID NON_KITCHENWARE_DAMAGE_MODIFIER_ID =
-            stableModifierId("non_kitchenware_damage");
-
-    public HeadChefSheathItem(Properties properties) {
+    public CallOfDeathItem(Properties properties) {
         super(properties);
     }
 
     @Override
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
-        return isFunctionalBeltSlot(slotContext);
+        return isFunctionalCharmSlot(slotContext);
     }
 
     @Override
@@ -68,42 +67,40 @@ public final class HeadChefSheathItem extends Item implements ICurioItem {
             UUID slotUuid,
             ItemStack stack
     ) {
-        if (!isFunctionalBeltSlot(slotContext)
+        if (!isFunctionalCharmSlot(slotContext)
                 || !(slotContext.entity() instanceof Player)) {
             return ImmutableMultimap.of();
         }
 
         return ImmutableMultimap.of(
-                ModAttributes.KITCHENWARE_DAMAGE.get(),
+                ModAttributes.SCYTHE_DAMAGE.get(),
                 new AttributeModifier(
-                        KITCHENWARE_DAMAGE_MODIFIER_ID,
-                        EternalCareer.MOD_ID
-                                + ":head_chef_sheath/kitchenware_damage",
-                        KITCHENWARE_DAMAGE_BONUS,
-                        AttributeModifier.Operation.MULTIPLY_BASE
+                        SCYTHE_DAMAGE_MODIFIER_ID,
+                        EternalCareer.MOD_ID + ":call_of_death/scythe_damage",
+                        SCYTHE_DAMAGE_BONUS,
+                        AttributeModifier.Operation.ADDITION
                 ),
-
-                ModAttributes.NON_KITCHENWARE_DAMAGE.get(),
+                ModAttributes.NON_SCYTHE_DAMAGE.get(),
                 new AttributeModifier(
-                        NON_KITCHENWARE_DAMAGE_MODIFIER_ID,
-                        EternalCareer.MOD_ID
-                                + ":head_chef_sheath/non_kitchenware_damage",
-                        NON_KITCHENWARE_DAMAGE_PENALTY,
+                        NON_SCYTHE_DAMAGE_MODIFIER_ID,
+                        EternalCareer.MOD_ID + ":call_of_death/non_scythe_damage",
+                        NON_SCYTHE_DAMAGE_PENALTY,
                         AttributeModifier.Operation.MULTIPLY_BASE
                 )
         );
     }
 
-    private static boolean isFunctionalBeltSlot(SlotContext slotContext) {
+    private static boolean isFunctionalCharmSlot(SlotContext slotContext) {
         return slotContext != null
-                && BELT_SLOT.equals(slotContext.identifier())
+                && FoodBookCurio.CHARM_SLOT.equals(slotContext.identifier())
                 && !slotContext.cosmetic();
     }
 
     private static UUID stableModifierId(String attributePath) {
-        String key = EternalCareer.MOD_ID
-                + ":head_chef_sheath/"
-                + attributePath;
+        String key =
+                EternalCareer.MOD_ID
+                        + ":call_of_death/"
+                        + attributePath;
 
         return UUID.nameUUIDFromBytes(
                 key.getBytes(StandardCharsets.UTF_8)

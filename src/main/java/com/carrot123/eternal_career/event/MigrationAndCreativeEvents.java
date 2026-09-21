@@ -16,8 +16,8 @@ public final class MigrationAndCreativeEvents {
     }
 
     @Mod.EventBusSubscriber(
-        modid = EternalCareer.MOD_ID,
-        bus = Mod.EventBusSubscriber.Bus.FORGE
+            modid = EternalCareer.MOD_ID,
+            bus = Mod.EventBusSubscriber.Bus.FORGE
     )
     public static final class ForgeEvents {
 
@@ -26,18 +26,18 @@ public final class MigrationAndCreativeEvents {
 
         @SubscribeEvent
         public static void onMissingMappings(
-            MissingMappingsEvent event
+                MissingMappingsEvent event
         ) {
             for (MissingMappingsEvent.Mapping<net.minecraft.world.item.Item> mapping
-                : event.getMappings(
+                    : event.getMappings(
                     Registries.ITEM,
                     "until_eternity"
-                ))
-                {
+            )) {
                 if ("gods_recognition".equals(
-                    mapping.getKey().getPath())) {
+                        mapping.getKey().getPath()
+                )) {
                     mapping.remap(
-                        ModItems.GODS_RECOGNITION.get()
+                            ModItems.GODS_RECOGNITION.get()
                     );
                 }
             }
@@ -45,8 +45,8 @@ public final class MigrationAndCreativeEvents {
     }
 
     @Mod.EventBusSubscriber(
-        modid = EternalCareer.MOD_ID,
-        bus = Mod.EventBusSubscriber.Bus.MOD
+            modid = EternalCareer.MOD_ID,
+            bus = Mod.EventBusSubscriber.Bus.MOD
     )
     public static final class ModEvents {
 
@@ -55,12 +55,13 @@ public final class MigrationAndCreativeEvents {
 
         @SubscribeEvent
         public static void onCreativeTab(
-            BuildCreativeModeTabContentsEvent event
+                BuildCreativeModeTabContentsEvent event
         ) {
             if (!event.getTabKey().equals(
-                ModCreativeModeTabs
-                    .UNTIL_ETERNITY_TAB
-                    .getKey())) {
+                    ModCreativeModeTabs
+                            .UNTIL_ETERNITY_TAB
+                            .getKey()
+            )) {
                 return;
             }
 
@@ -70,6 +71,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.CHEF_BOOTS);
             event.accept(ModItems.SIN_ROCK);
             event.accept(ModItems.HEAD_CHEF_SHEATH);
+            event.accept(ModItems.CALL_OF_DEATH);
             event.accept(ModItems.COOKING_MAGIC_HAND);
             event.accept(ModItems.CHEF_APPRENTICE_BADGE);
             event.accept(ModItems.INTERMEDIATE_CHEF_BADGE);

@@ -11,15 +11,45 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
     private static final String VERSION = "1";
+
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(EternalCareer.MOD_ID, "main"), () -> VERSION,
-            VERSION::equals, VERSION::equals);
-    private ModNetwork() {}
-    public static void register() {
-        CHANNEL.registerMessage(0, SoulSyncPacket.class, SoulSyncPacket::encode,
-                SoulSyncPacket::decode, SoulSyncPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+            new ResourceLocation(EternalCareer.MOD_ID, "main"),
+            () -> VERSION,
+            VERSION::equals,
+            VERSION::equals
+    );
+
+    private ModNetwork() {
     }
+
+    public static void register() {
+        CHANNEL.registerMessage(
+                0,
+                SoulSyncPacket.class,
+                SoulSyncPacket::encode,
+                SoulSyncPacket::decode,
+                SoulSyncPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
+
+        CHANNEL.registerMessage(
+                1,
+                ReaperSkillTogglePacket.class,
+                ReaperSkillTogglePacket::encode,
+                ReaperSkillTogglePacket::decode,
+                ReaperSkillTogglePacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER)
+        );
+    }
+
     public static void send(ServerPlayer player, SoulSyncPacket packet) {
-        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
+        CHANNEL.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                packet
+        );
+    }
+
+    public static void sendToServer(ReaperSkillTogglePacket packet) {
+        CHANNEL.sendToServer(packet);
     }
 }

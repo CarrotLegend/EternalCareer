@@ -18,10 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityBreakStanceMixin {
 
     @Inject(
-            method = "getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F",
+            method = {
+                    "getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F",
+                    "m_21161_(Lnet/minecraft/world/damagesource/DamageSource;F)F"
+            },
             at = @At("HEAD"),
             cancellable = true,
-            require = 1
+            require = 1,
+            remap = false
     )
     private void eternalCareer$bypassArmor(
             DamageSource source,
@@ -34,21 +38,27 @@ public abstract class LivingEntityBreakStanceMixin {
         }
 
         LivingEntity target = (LivingEntity) (Object) this;
+
         if (!target.hasEffect(ModEffects.BREAK_STANCE.get())) {
             return;
         }
+
         if (!(source.getEntity() instanceof Player player)) {
             return;
         }
+
         if (source.getDirectEntity() != player) {
             return;
         }
+
         if (!source.is(DamageTypes.PLAYER_ATTACK)) {
             return;
         }
+
         if (!WeaponMasterGloryHelper.isEquipped(player)) {
             return;
         }
+
         cir.setReturnValue(amount);
     }
 }
