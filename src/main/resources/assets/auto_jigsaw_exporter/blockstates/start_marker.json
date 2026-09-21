@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "auto_jigsaw_exporter:block/start_marker" }
+  }
+}

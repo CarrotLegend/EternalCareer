@@ -1,0 +1,20 @@
+{
+  "block.auto_jigsaw_exporter.start_marker": "Start Structure Marker",
+  "block.auto_jigsaw_exporter.end_marker": "End Structure Marker",
+  "message.auto_jigsaw_exporter.start_selected": "Selected start marker: %s %s %s",
+  "message.auto_jigsaw_exporter.no_start_selected": "No start marker selected. Place or right-click a start marker first.",
+  "message.auto_jigsaw_exporter.start_missing": "The selected start marker no longer exists. Select it again.",
+  "message.auto_jigsaw_exporter.end_linked": "Linked end marker: %s %s %s",
+  "message.auto_jigsaw_exporter.start_waiting_end": "Start marker selected. Place or right-click an end marker to finish the selection.",
+  "message.auto_jigsaw_exporter.selection_ready": "Selection ready. End: %s %s %s. Use /autojigsaw export <namespace> <name> [piece_size] [include_entities].",
+  "message.auto_jigsaw_exporter.status_start_only": "Start: %s %s %s; no end marker linked.",
+  "message.auto_jigsaw_exporter.status_ready": "Start: %s %s %s; end: %s %s %s.",
+  "message.auto_jigsaw_exporter.invalid_id": "Invalid structure ID: %s",
+  "message.auto_jigsaw_exporter.marker_missing": "The start or end marker was removed. Select the region again.",
+  "message.auto_jigsaw_exporter.zero_selection": "Start and end markers cannot occupy the same position.",
+  "message.auto_jigsaw_exporter.job_already_running": "You already have an export job running.",
+  "message.auto_jigsaw_exporter.started": "Export started: %s pieces, recommended jigsaw depth %s. One template is processed per tick.",
+  "message.auto_jigsaw_exporter.progress": "Auto jigsaw export: %s / %s",
+  "message.auto_jigsaw_exporter.complete": "Export complete: %s templates. Datapack path: %s",
+  "message.auto_jigsaw_exporter.failed": "Auto jigsaw export failed: %s"
+}

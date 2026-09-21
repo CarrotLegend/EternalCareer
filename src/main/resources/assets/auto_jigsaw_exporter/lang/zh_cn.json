@@ -1,0 +1,20 @@
+{
+  "block.auto_jigsaw_exporter.start_marker": "初始结构方块",
+  "block.auto_jigsaw_exporter.end_marker": "末尾结构方块",
+  "message.auto_jigsaw_exporter.start_selected": "已选择初始结构方块：%s %s %s",
+  "message.auto_jigsaw_exporter.no_start_selected": "没有选择初始结构方块。请先放置或右键初始结构方块。",
+  "message.auto_jigsaw_exporter.start_missing": "已选择的初始结构方块不存在，请重新选择。",
+  "message.auto_jigsaw_exporter.end_linked": "已绑定末尾结构方块：%s %s %s",
+  "message.auto_jigsaw_exporter.start_waiting_end": "初始结构方块已选中。现在放置或右键末尾结构方块完成框选。",
+  "message.auto_jigsaw_exporter.selection_ready": "框选已完成。末尾：%s %s %s。使用 /autojigsaw export <命名空间> <名称> [切片大小] [包含实体] 导出。",
+  "message.auto_jigsaw_exporter.status_start_only": "初始：%s %s %s；尚未绑定末尾结构方块。",
+  "message.auto_jigsaw_exporter.status_ready": "初始：%s %s %s；末尾：%s %s %s。",
+  "message.auto_jigsaw_exporter.invalid_id": "无效的结构 ID：%s",
+  "message.auto_jigsaw_exporter.marker_missing": "初始或末尾结构方块已经被破坏，请重新框选。",
+  "message.auto_jigsaw_exporter.zero_selection": "初始和末尾结构方块不能位于同一位置。",
+  "message.auto_jigsaw_exporter.job_already_running": "你已经有一个结构正在导出。",
+  "message.auto_jigsaw_exporter.started": "开始导出：共 %s 个模板块，推荐拼图深度 %s。每 tick 处理一个模板。",
+  "message.auto_jigsaw_exporter.progress": "自动拼图导出：%s / %s",
+  "message.auto_jigsaw_exporter.complete": "导出完成：%s 个模板。数据包路径：%s",
+  "message.auto_jigsaw_exporter.failed": "自动拼图导出失败：%s"
+}

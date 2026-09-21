@@ -1,8 +1,0 @@
-{
-  "badge": "eternal_career:intermediate_chef_badge",
-  "targets": [
-    "minecraft:warden"
-  ],
-  "chance": 0.5,
-  "count": 1
-}
