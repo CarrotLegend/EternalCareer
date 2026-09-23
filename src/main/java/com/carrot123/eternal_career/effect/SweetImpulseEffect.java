@@ -30,7 +30,7 @@ public final class SweetImpulseEffect extends MobEffect {
                 ModAttributes.KITCHENWARE_DAMAGE.get(),
                 KITCHENWARE_DAMAGE_MODIFIER_ID.toString(),
                 KITCHENWARE_DAMAGE_BONUS,
-                AttributeModifier.Operation.ADDITION
+                AttributeModifier.Operation.MULTIPLY_TOTAL
         );
     }
 }

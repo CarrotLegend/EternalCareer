@@ -12,6 +12,7 @@
     "vanilla.ItemCombinerMenuRedemptionMixin",
     "vanilla.StonecutterMenuRedemptionMixin",
     "vanilla.LivingEntityBreakStanceMixin",
+    "vanilla.LivingEntityLichMobTypeMixin",
     "compat.enigmaticlegacy.ItemBaseCurioCanEquipMixin",
     "compat.enigmaticlegacy.SuperpositionHandlerCursedMixin",
     "compat.enigmaticaddons.BlessRingCanEquipMixin",

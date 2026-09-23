@@ -46,21 +46,21 @@ public final class FeastSatisfactionEffect extends MobEffect {
                 ModAttributes.KITCHENWARE_DAMAGE.get(),
                 KITCHENWARE_DAMAGE_MODIFIER_ID.toString(),
                 KITCHENWARE_DAMAGE_BONUS,
-                AttributeModifier.Operation.ADDITION
+                AttributeModifier.Operation.MULTIPLY_TOTAL
         );
 
         addAttributeModifier(
                 Attributes.ATTACK_SPEED,
                 ATTACK_SPEED_MODIFIER_ID.toString(),
                 ATTACK_SPEED_BONUS,
-                AttributeModifier.Operation.MULTIPLY_TOTAL
+                AttributeModifier.Operation.MULTIPLY_BASE
         );
 
         addAttributeModifier(
                 Attributes.MOVEMENT_SPEED,
                 MOVEMENT_SPEED_MODIFIER_ID.toString(),
                 MOVEMENT_SPEED_BONUS,
-                AttributeModifier.Operation.MULTIPLY_TOTAL
+                AttributeModifier.Operation.MULTIPLY_BASE
         );
     }
 }

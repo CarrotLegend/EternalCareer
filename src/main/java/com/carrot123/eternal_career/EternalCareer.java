@@ -1,13 +1,15 @@
 package com.carrot123.eternal_career;
 
-import com.mojang.logging.LogUtils;
+import org.slf4j.Logger;
+
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.registry.ModEffects;
 import com.carrot123.eternal_career.registry.ModItems;
+import com.mojang.logging.LogUtils;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 
 /** Forge entry point for Eternal Career. */
 @Mod(EternalCareer.MOD_ID)
@@ -28,7 +30,6 @@ public final class EternalCareer {
 
     private void onCommonSetup(net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event) {
         event.enqueueWork(ModEffects::bindChaoticCookingAttributes);
-        event.enqueueWork(ModEffects::bindFoodEffectAttributes);
         LOGGER.info("Initializing {}", MOD_ID);
     }
 }

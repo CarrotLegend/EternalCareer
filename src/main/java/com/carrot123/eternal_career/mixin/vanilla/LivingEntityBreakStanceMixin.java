@@ -18,14 +18,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityBreakStanceMixin {
 
     @Inject(
-            method = {
-                    "getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F",
-                    "m_21161_(Lnet/minecraft/world/damagesource/DamageSource;F)F"
-            },
+            method = "getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F",
             at = @At("HEAD"),
             cancellable = true,
-            require = 1,
-            remap = false
+            require = 1
     )
     private void eternalCareer$bypassArmor(
             DamageSource source,

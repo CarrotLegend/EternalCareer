@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "eternal_career:lich_research_notes",
+    "eternal_career:novice_purified_panacea",
+    "eternal_career:intermediate_purified_panacea",
+    "eternal_career:advanced_purified_panacea",
+    "eternal_career:lich_king_purified_panacea"
+  ]
+}

@@ -11,6 +11,9 @@ import com.carrot123.eternal_career.item.ChaosFoodItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
 import com.carrot123.eternal_career.item.GodsRecognitionItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
+import com.carrot123.eternal_career.item.LichResearchNotesItem;
+import com.carrot123.eternal_career.item.PurifiedPanaceaItem;
+import com.carrot123.eternal_career.lich.LichStage;
 import com.carrot123.eternal_career.item.SinRockItem;
 import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
@@ -83,6 +86,30 @@ public final class ModItems {
                             new Item.Properties().stacksTo(1)
                     )
             );
+
+    public static final RegistryObject<Item> LICH_RESEARCH_NOTES =
+            ITEMS.register("lich_research_notes",
+                    () -> new LichResearchNotesItem(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> NOVICE_PURIFIED_PANACEA =
+            ITEMS.register("novice_purified_panacea",
+                    () -> new PurifiedPanaceaItem(new Item.Properties().stacksTo(1),
+                            LichStage.PLAYER, LichStage.NOVICE_LICH));
+
+    public static final RegistryObject<Item> INTERMEDIATE_PURIFIED_PANACEA =
+            ITEMS.register("intermediate_purified_panacea",
+                    () -> new PurifiedPanaceaItem(new Item.Properties().stacksTo(1),
+                            LichStage.NOVICE_LICH, LichStage.INTERMEDIATE_LICH));
+
+    public static final RegistryObject<Item> ADVANCED_PURIFIED_PANACEA =
+            ITEMS.register("advanced_purified_panacea",
+                    () -> new PurifiedPanaceaItem(new Item.Properties().stacksTo(1),
+                            LichStage.INTERMEDIATE_LICH, LichStage.ADVANCED_LICH));
+
+    public static final RegistryObject<Item> LICH_KING_PURIFIED_PANACEA =
+            ITEMS.register("lich_king_purified_panacea",
+                    () -> new PurifiedPanaceaItem(new Item.Properties().stacksTo(1),
+                            LichStage.ADVANCED_LICH, LichStage.LICH_KING));
 
     public static final RegistryObject<Item> COOKING_MAGIC_HAND =
             ITEMS.register(

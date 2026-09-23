@@ -78,6 +78,11 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.SIN_ROCK);
             event.accept(ModItems.HEAD_CHEF_SHEATH);
             event.accept(ModItems.CALL_OF_DEATH);
+            event.accept(ModItems.LICH_RESEARCH_NOTES);
+            event.accept(ModItems.NOVICE_PURIFIED_PANACEA);
+            event.accept(ModItems.INTERMEDIATE_PURIFIED_PANACEA);
+            event.accept(ModItems.ADVANCED_PURIFIED_PANACEA);
+            event.accept(ModItems.LICH_KING_PURIFIED_PANACEA);
             event.accept(ModItems.COOKING_MAGIC_HAND);
             event.accept(ModItems.CHEF_APPRENTICE_BADGE);
             event.accept(ModItems.INTERMEDIATE_CHEF_BADGE);

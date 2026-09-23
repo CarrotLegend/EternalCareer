@@ -22,35 +22,41 @@ public final class ModEffects {
                     EternalCareer.MOD_ID
             );
 
-    public static final RegistryObject<MobEffect>
-            INGREDIENT_MARK =
+    public static final RegistryObject<MobEffect> INGREDIENT_MARK =
             EFFECTS.register(
                     "ingredient_mark",
                     IngredientMarkEffect::new
             );
 
-    public static final RegistryObject<MobEffect>
-            BREAK_STANCE =
+    public static final RegistryObject<MobEffect> BREAK_STANCE =
             EFFECTS.register(
                     "break_stance",
                     BreakStanceEffect::new
             );
 
-    public static final RegistryObject<MobEffect>
-            GOD_BURST =
+    public static final RegistryObject<MobEffect> GOD_BURST =
             EFFECTS.register(
                     "god_burst",
                     GodBurstEffect::new
             );
 
     public static final RegistryObject<MobEffect> CHAOTIC_COOKING =
-            EFFECTS.register("chaotic_cooking", ChaoticCookingEffect::new);
+            EFFECTS.register(
+                    "chaotic_cooking",
+                    ChaoticCookingEffect::new
+            );
 
     public static final RegistryObject<MobEffect> SWEET_IMPULSE =
-            EFFECTS.register("sweet_impulse", SweetImpulseEffect::new);
+            EFFECTS.register(
+                    "sweet_impulse",
+                    SweetImpulseEffect::new
+            );
 
     public static final RegistryObject<MobEffect> FEAST_SATISFACTION =
-            EFFECTS.register("feast_satisfaction", FeastSatisfactionEffect::new);
+            EFFECTS.register(
+                    "feast_satisfaction",
+                    FeastSatisfactionEffect::new
+            );
 
     private ModEffects() {
     }
@@ -62,11 +68,7 @@ public final class ModEffects {
     }
 
     public static void bindChaoticCookingAttributes() {
-        ((ChaoticCookingEffect) CHAOTIC_COOKING.get()).bindAttributes();
-    }
-
-    public static void bindFoodEffectAttributes() {
-        ((SweetImpulseEffect) SWEET_IMPULSE.get()).bindAttributes();
-        ((FeastSatisfactionEffect) FEAST_SATISFACTION.get()).bindAttributes();
+        ((ChaoticCookingEffect) CHAOTIC_COOKING.get())
+                .bindAttributes();
     }
 }

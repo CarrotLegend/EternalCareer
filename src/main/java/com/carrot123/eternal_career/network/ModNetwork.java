@@ -10,7 +10,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String VERSION = "1";
+    private static final String VERSION = "2";
 
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(EternalCareer.MOD_ID, "main"),
@@ -40,6 +40,15 @@ public final class ModNetwork {
                 ReaperSkillTogglePacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER)
         );
+
+        CHANNEL.registerMessage(
+                2,
+                LichEligibilitySyncPacket.class,
+                LichEligibilitySyncPacket::encode,
+                LichEligibilitySyncPacket::decode,
+                LichEligibilitySyncPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
     }
 
     public static void send(ServerPlayer player, SoulSyncPacket packet) {
@@ -47,6 +56,10 @@ public final class ModNetwork {
                 PacketDistributor.PLAYER.with(() -> player),
                 packet
         );
+    }
+
+    public static void send(ServerPlayer player, LichEligibilitySyncPacket packet) {
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
     }
 
     public static void sendToServer(ReaperSkillTogglePacket packet) {
