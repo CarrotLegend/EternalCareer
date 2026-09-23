@@ -20,8 +20,7 @@
     "compat.until_eternity.TrueChefsKnifeAttackContextMixin",
     "compat.until_eternity.TrueChefsKnifeItemMixin",
     "compat.goety_revelation.BlessingScrollLookupMixin",
-    "compat.goety_revelation.BlessingScrollAttributesMixin",
-    "compat.goety_revelation.EventUtilSpellPotencyMixin"
+    "compat.goety_revelation.BlessingScrollAttributesMixin"
   ],
   "client": [],
   "injectors": {
