@@ -2,7 +2,6 @@ package com.carrot123.eternal_career.item;
 
 import com.aizistral.enigmaticlegacy.handlers.SuperpositionHandler;
 import com.aizistral.enigmaticlegacy.helpers.ItemLoreHelper;
-import com.carrot123.eternal_career.lich.LichSpellAttributes;
 import com.carrot123.eternal_career.lich.LichUtils;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
@@ -57,12 +55,7 @@ public final class LichResearchNotesItem extends Item implements ICurioItem {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(
             SlotContext context, UUID slotUuid, ItemStack stack) {
-        if (!functionalCharm(context) || !(context.entity() instanceof Player player)
-                || LichUtils.hasUsedPanaceaBeforeLich(player)
-                || !isPrimaryNote(player, context.index())) {
-            return ImmutableMultimap.of();
-        }
-        return LichSpellAttributes.modifiers();
+        return ImmutableMultimap.of();
     }
 
     @Override
@@ -73,10 +66,10 @@ public final class LichResearchNotesItem extends Item implements ICurioItem {
         ItemLoreHelper.addLocalizedFormattedString(tooltip, "curios.modifiers.charm",
                 ChatFormatting.GOLD);
         ItemLoreHelper.addLocalizedString(tooltip,
-                "tooltip.eternal_career.lich_research_notes.necromancy_power",
+                "tooltip.eternal_career.lich_research_notes.necromancy_potency",
                 ChatFormatting.GOLD, "20%");
         ItemLoreHelper.addLocalizedString(tooltip,
-                "tooltip.eternal_career.lich_research_notes.other_spell_power",
+                "tooltip.eternal_career.lich_research_notes.other_potency",
                 ChatFormatting.GOLD, "90%");
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.eternal_career.bound_curio");
@@ -92,15 +85,4 @@ public final class LichResearchNotesItem extends Item implements ICurioItem {
         return context != null && "charm".equals(context.identifier()) && !context.cosmetic();
     }
 
-    private static boolean isPrimaryNote(Player player, int index) {
-        return CuriosApi.getCuriosInventory(player).resolve()
-                .map(handler -> handler.findCurios(
-                        com.carrot123.eternal_career.registry.ModItems.LICH_RESEARCH_NOTES.get())
-                        .stream()
-                        .filter(result -> "charm".equals(result.slotContext().identifier())
-                                && !result.slotContext().cosmetic())
-                        .mapToInt(result -> result.slotContext().index())
-                        .min().orElse(index) == index)
-                .orElse(true);
-    }
 }
