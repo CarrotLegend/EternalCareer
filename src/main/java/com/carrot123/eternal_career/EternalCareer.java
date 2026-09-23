@@ -27,6 +27,8 @@ public final class EternalCareer {
     }
 
     private void onCommonSetup(net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event) {
+        event.enqueueWork(ModEffects::bindChaoticCookingAttributes);
+        event.enqueueWork(ModEffects::bindFoodEffectAttributes);
         LOGGER.info("Initializing {}", MOD_ID);
     }
 }

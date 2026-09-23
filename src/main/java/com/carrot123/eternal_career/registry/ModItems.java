@@ -6,13 +6,19 @@ import com.carrot123.eternal_career.armor.ChefArmorMaterial;
 import com.carrot123.eternal_career.armor.DeathArmorItem;
 import com.carrot123.eternal_career.armor.DeathArmorMaterial;
 import com.carrot123.eternal_career.item.CallOfDeathItem;
+import com.carrot123.eternal_career.item.ChaosBladeItem;
+import com.carrot123.eternal_career.item.ChaosFoodItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
 import com.carrot123.eternal_career.item.GodsRecognitionItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
 import com.carrot123.eternal_career.item.SinRockItem;
+import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
+
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -66,7 +72,7 @@ public final class ModItems {
             ITEMS.register(
                     "head_chef_sheath",
                     () -> new HeadChefSheathItem(
-                            new Item.Properties().stacksTo(1)
+                            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
                     )
             );
 
@@ -129,6 +135,32 @@ public final class ModItems {
                             new Item.Properties()
                     )
             );
+    public static final RegistryObject<Item> SOUL_TANK =
+        ITEMS.register(
+                "soul_tank",
+                () -> new SoulTankItem(
+                        new Item.Properties().rarity(Rarity.RARE).stacksTo(1)
+                )
+        );
+
+    public static final RegistryObject<Item> CHAOS_STEAK = ITEMS.register(
+            "chaos_steak",
+            () -> new ChaosFoodItem(new Item.Properties().food(
+                    new FoodProperties.Builder().nutrition(8).saturationMod(0.8F)
+                            .meat().alwaysEat().build()), 1, "chaos_steak")
+    );
+
+    public static final RegistryObject<Item> CHAOS_MEAT = ITEMS.register(
+            "chaos_meat",
+            () -> new ChaosFoodItem(new Item.Properties().food(
+                    new FoodProperties.Builder().nutrition(4).saturationMod(0.5F)
+                            .meat().alwaysEat().build()), 0, "chaos_meat")
+    );
+
+    public static final RegistryObject<Item> CHAOS_BLADE = ITEMS.register(
+            "chaos_blade",
+            () -> new ChaosBladeItem(new Item.Properties().stacksTo(1))
+    );
 
     private ModItems() {
     }

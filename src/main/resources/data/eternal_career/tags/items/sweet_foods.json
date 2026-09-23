@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "#farmersdelight:sweets",
+    {"id": "#born_in_chaos_v1:sweets", "required": false},
+    "minecraft:sweet_berries",
+    "minecraft:glow_berries",
+    "minecraft:pumpkin_pie",
+    "immortalers_delight:evolutcorn_hard_candy",
+    "immortalers_delight:himekandy",
+    "kaleidoscope_cookery:sticky_candy",
+    "kaleidoscope_end:mint_chorus_mousse",
+    "kaleidoscope_end:chorus_flower_cake",
+    "kaleidoscope_end:dragon_breath_popping_candy",
+    "aether:blue_gummy_swet",
+    "aether:golden_gummy_swet",
+    "aether:candy_cane",
+    "crockpot:syrup",
+    "crockpot:candy",
+    "crockpot:gummy_cake",
+    "crockpot:jammy_preserves",
+    "crockpot:taffy",
+    "crockpot:volt_goat_jelly"
+  ]
+}

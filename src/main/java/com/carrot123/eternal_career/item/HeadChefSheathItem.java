@@ -151,6 +151,21 @@ public final class HeadChefSheathItem
 
         ItemLoreHelper.addLocalizedString(
                 list,
+                "tooltip.eternal_career.head_chef_sheath.sweet_impulse"
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.eternal_career.head_chef_sheath.feast_satisfaction"
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
+                "tooltip.enigmaticlegacy.void"
+        );
+
+        ItemLoreHelper.addLocalizedString(
+                list,
                 "tooltip.eternal_career.bound_curio"
         );
     }

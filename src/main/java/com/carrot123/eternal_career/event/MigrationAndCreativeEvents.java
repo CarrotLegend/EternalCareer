@@ -87,6 +87,10 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.GODS_RECOGNITION);
             event.accept(ModItems.BLAZING_ESSENCE);
             event.accept(ModItems.SUBLIMATION_ESSENCE);
+            event.accept(ModItems.SOUL_TANK);
+            event.accept(ModItems.CHAOS_STEAK);
+            event.accept(ModItems.CHAOS_MEAT);
+            event.accept(ModItems.CHAOS_BLADE);
         }
     }
 }

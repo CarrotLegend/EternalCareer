@@ -2,8 +2,11 @@ package com.carrot123.eternal_career.registry;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.effect.BreakStanceEffect;
+import com.carrot123.eternal_career.effect.ChaoticCookingEffect;
+import com.carrot123.eternal_career.effect.FeastSatisfactionEffect;
 import com.carrot123.eternal_career.effect.GodBurstEffect;
 import com.carrot123.eternal_career.effect.IngredientMarkEffect;
+import com.carrot123.eternal_career.effect.SweetImpulseEffect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -40,6 +43,15 @@ public final class ModEffects {
                     GodBurstEffect::new
             );
 
+    public static final RegistryObject<MobEffect> CHAOTIC_COOKING =
+            EFFECTS.register("chaotic_cooking", ChaoticCookingEffect::new);
+
+    public static final RegistryObject<MobEffect> SWEET_IMPULSE =
+            EFFECTS.register("sweet_impulse", SweetImpulseEffect::new);
+
+    public static final RegistryObject<MobEffect> FEAST_SATISFACTION =
+            EFFECTS.register("feast_satisfaction", FeastSatisfactionEffect::new);
+
     private ModEffects() {
     }
 
@@ -47,5 +59,14 @@ public final class ModEffects {
             IEventBus modEventBus
     ) {
         EFFECTS.register(modEventBus);
+    }
+
+    public static void bindChaoticCookingAttributes() {
+        ((ChaoticCookingEffect) CHAOTIC_COOKING.get()).bindAttributes();
+    }
+
+    public static void bindFoodEffectAttributes() {
+        ((SweetImpulseEffect) SWEET_IMPULSE.get()).bindAttributes();
+        ((FeastSatisfactionEffect) FEAST_SATISFACTION.get()).bindAttributes();
     }
 }

@@ -16,6 +16,7 @@ public final class SoulHudOverlay {
     private static SoulSyncPacket state = new SoulSyncPacket(0, false, 0);
     private SoulHudOverlay() {}
     public static void accept(SoulSyncPacket packet) { state = packet; }
+    public static int currentSoul() { return state.currentSoul(); }
     public static void reset() { state = new SoulSyncPacket(0, false, 0); }
     public static final IGuiOverlay OVERLAY = (gui, graphics, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
