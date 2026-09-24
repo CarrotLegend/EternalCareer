@@ -1,0 +1,6 @@
+{
+  "drop": "eternal_career:novice_lich_essence",
+  "chance": 1.0,
+  "count": 1,
+  "targets": ["legendary_monsters:ancient_guardian"]
+}

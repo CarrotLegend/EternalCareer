@@ -16,6 +16,7 @@ import com.carrot123.eternal_career.item.FrostCharmItem;
 import com.carrot123.eternal_career.item.GodsRecognitionItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
 import com.carrot123.eternal_career.item.LichResearchNotesItem;
+import com.carrot123.eternal_career.item.LichEssenceItem;
 import com.carrot123.eternal_career.item.PurifiedPanaceaItem;
 import com.carrot123.eternal_career.item.SinRockItem;
 import com.carrot123.eternal_career.item.SoulTankItem;
@@ -140,6 +141,22 @@ public final class ModItems {
                             new NecromancyOrbSpell()
                     )
             );
+
+    public static final RegistryObject<Item> NOVICE_LICH_ESSENCE =
+            ITEMS.register("novice_lich_essence",
+                    () -> new LichEssenceItem(new Item.Properties(), "novice_lich_essence"));
+
+    public static final RegistryObject<Item> INTERMEDIATE_LICH_ESSENCE =
+            ITEMS.register("intermediate_lich_essence",
+                    () -> new LichEssenceItem(new Item.Properties(), "intermediate_lich_essence"));
+
+    public static final RegistryObject<Item> ADVANCED_LICH_ESSENCE =
+            ITEMS.register("advanced_lich_essence",
+                    () -> new LichEssenceItem(new Item.Properties(), "advanced_lich_essence"));
+
+    public static final RegistryObject<Item> LICH_KING_ESSENCE =
+            ITEMS.register("lich_king_essence",
+                    () -> new LichEssenceItem(new Item.Properties(), "lich_king_essence"));
 
     public static final RegistryObject<Item> FROST_CHARM =
             ITEMS.register(

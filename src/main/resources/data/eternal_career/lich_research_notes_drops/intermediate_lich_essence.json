@@ -1,0 +1,6 @@
+{
+  "drop": "eternal_career:intermediate_lich_essence",
+  "chance": 1.0,
+  "count": 1,
+  "targets": ["minecraft:wither"]
+}

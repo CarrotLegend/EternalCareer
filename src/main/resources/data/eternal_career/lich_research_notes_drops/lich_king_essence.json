@@ -1,0 +1,6 @@
+{
+  "drop": "eternal_career:lich_king_essence",
+  "chance": 1.0,
+  "count": 1,
+  "targets": ["goety:ender_keeper"]
+}

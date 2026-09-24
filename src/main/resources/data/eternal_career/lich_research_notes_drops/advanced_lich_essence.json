@@ -1,0 +1,6 @@
+{
+  "drop": "eternal_career:advanced_lich_essence",
+  "chance": 1.0,
+  "count": 1,
+  "targets": ["goety:endersent"]
+}

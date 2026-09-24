@@ -23,6 +23,12 @@ public final class LichTooltipEvents {
     public static void onTooltip(ItemTooltipEvent event) {
         if (event.getItemStack().is(ModItems.NOVICE_PURIFIED_PANACEA.get())) {
             addNoviceDescription(event);
+        } else if (event.getItemStack().is(ModItems.INTERMEDIATE_PURIFIED_PANACEA.get())) {
+            addIntermediateDescription(event);
+        } else if (event.getItemStack().is(ModItems.ADVANCED_PURIFIED_PANACEA.get())) {
+            addAdvancedDescription(event);
+        } else if (event.getItemStack().is(ModItems.LICH_KING_PURIFIED_PANACEA.get())) {
+            addLichKingDescription(event);
         }
         Player player = event.getEntity();
         if (player == null) {
@@ -69,5 +75,63 @@ public final class LichTooltipEvents {
                 .withStyle(ChatFormatting.DARK_RED));
         event.getToolTip().add(Component.translatable(prefix + "max_health")
                 .withStyle(ChatFormatting.DARK_RED));
+    }
+
+    private static void addIntermediateDescription(ItemTooltipEvent event) {
+        String prefix = "tooltip.eternal_career.intermediate_purified_panacea.";
+        event.getToolTip().add(Component.translatable(prefix + "stage")
+                .withStyle(ChatFormatting.DARK_PURPLE));
+        event.getToolTip().add(Component.translatable(prefix + "max_health")
+                .withStyle(ChatFormatting.DARK_RED));
+        event.getToolTip().add(Component.translatable(prefix + "arcane_revive")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "arcane_revive_no_requirement")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "soul_hunger")
+                .withStyle(ChatFormatting.DARK_RED));
+        event.getToolTip().add(Component.translatable(prefix + "arca_required")
+                .withStyle(ChatFormatting.DARK_RED));
+        event.getToolTip().add(Component.translatable(prefix + "soul_heal")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "focus_damage")
+                .withStyle(ChatFormatting.GRAY));
+    }
+
+    private static void addAdvancedDescription(ItemTooltipEvent event) {
+        String prefix = "tooltip.eternal_career.advanced_purified_panacea.";
+        event.getToolTip().add(Component.translatable(prefix + "stage")
+                .withStyle(ChatFormatting.DARK_PURPLE));
+        event.getToolTip().add(Component.translatable(prefix + "drowning")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "freeze_resistance")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "freeze_touch")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "max_health")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "sunlight")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "spell_power_multiplier")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "focus_damage")
+                .withStyle(ChatFormatting.GRAY));
+    }
+
+    private static void addLichKingDescription(ItemTooltipEvent event) {
+        String prefix = "tooltip.eternal_career.lich_king_purified_panacea.";
+        event.getToolTip().add(Component.translatable(prefix + "stage")
+                .withStyle(ChatFormatting.DARK_PURPLE));
+        event.getToolTip().add(Component.translatable(prefix + "max_health")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "undead_passive")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "cast_reduction")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "cooldown_reduction")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "spell_power_multiplier")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "focus_damage")
+                .withStyle(ChatFormatting.GRAY));
     }
 }
