@@ -104,6 +104,16 @@ public final class CurioEquipmentHelper {
                 .orElse(false);
     }
 
+    public static boolean hasLichResearchNotes(Player player) {
+        return player != null && CuriosApi.getCuriosInventory(player).resolve()
+                .map(handler -> handler.findCurios(ModItems.LICH_RESEARCH_NOTES.get())
+                        .stream()
+                        .anyMatch(result -> FoodBookCurio.CHARM_SLOT.equals(
+                                result.slotContext().identifier())
+                                && !result.slotContext().cosmetic()))
+                .orElse(false);
+    }
+
     public static boolean hasChaosBlade(Player player) {
         return CuriosApi.getCuriosInventory(player).resolve()
                 .map(handler -> handler.findCurios(ModItems.CHAOS_BLADE.get()).stream()

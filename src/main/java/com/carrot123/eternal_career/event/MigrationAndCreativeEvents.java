@@ -96,6 +96,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.CHAOS_STEAK);
             event.accept(ModItems.CHAOS_MEAT);
             event.accept(ModItems.CHAOS_BLADE);
+            event.accept(ModItems.NECROMANCY_ORB_FOCUS);
         }
     }
 }

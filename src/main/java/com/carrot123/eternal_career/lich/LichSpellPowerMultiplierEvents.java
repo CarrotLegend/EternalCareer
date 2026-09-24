@@ -111,7 +111,7 @@ public final class LichSpellPowerMultiplierEvents {
                 : OTHER_MULTIPLIER;
 
         if (current != null
-                && current.getOperation() == AttributeModifier.Operation.MULTIPLY_BASE
+                && current.getOperation() == AttributeModifier.Operation.ADDITION
                 && Double.compare(current.getAmount(), amount) == 0) {
             return;
         }
@@ -124,6 +124,6 @@ public final class LichSpellPowerMultiplierEvents {
                 MODIFIER_UUID,
                 MODIFIER_NAME,
                 amount,
-                AttributeModifier.Operation.MULTIPLY_BASE));
+                AttributeModifier.Operation.ADDITION));
     }
 }

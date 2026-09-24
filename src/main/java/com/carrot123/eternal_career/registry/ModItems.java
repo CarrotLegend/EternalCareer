@@ -17,6 +17,8 @@ import com.carrot123.eternal_career.lich.LichStage;
 import com.carrot123.eternal_career.item.SinRockItem;
 import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
+import com.Polarice3.Goety.common.items.magic.MagicFocus;
+import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
 
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -89,7 +91,10 @@ public final class ModItems {
 
     public static final RegistryObject<Item> LICH_RESEARCH_NOTES =
             ITEMS.register("lich_research_notes",
-                    () -> new LichResearchNotesItem(new Item.Properties().stacksTo(1)));
+                    () -> new LichResearchNotesItem(
+                            new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> NECROMANCY_ORB_FOCUS = ITEMS.register("necromancy_orb_focus", () -> new MagicFocus(new NecromancyOrbSpell()));
 
     public static final RegistryObject<Item> NOVICE_PURIFIED_PANACEA =
             ITEMS.register("novice_purified_panacea",

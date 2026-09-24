@@ -1,0 +1,8 @@
+{
+  "drop": "eternal_career:necromancy_orb_focus",
+  "chance": 1.0,
+  "count": 1,
+  "targets": [
+    "goety:skull_lord"
+  ]
+}
