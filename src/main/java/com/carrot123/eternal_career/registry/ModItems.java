@@ -19,6 +19,9 @@ import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
 import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
+import com.carrot123.eternal_career.item.DarkBootsItem;
+import com.carrot123.eternal_career.item.DarkChainItem;
+import com.carrot123.eternal_career.item.FrostCharmItem;
 
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -193,6 +196,32 @@ public final class ModItems {
             "chaos_blade",
             () -> new ChaosBladeItem(new Item.Properties().stacksTo(1))
     );
+    public static final RegistryObject<Item> FROST_CHARM =
+        ITEMS.register(
+                "frost_charm",
+                () -> new FrostCharmItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> DARK_BOOTS =
+        ITEMS.register(
+                "dark_boots",
+                () -> new DarkBootsItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> DARK_CHAIN =
+        ITEMS.register(
+                "dark_chain",
+                () -> new DarkChainItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
 
     private ModItems() {
     }
