@@ -14,7 +14,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,6 +27,8 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID)
 public final class SoulCombatEvents {
+    private static final int REVIVE_SOUL_COST = 1000;
+
     private static final Set<LivingEntity> REWARDED =
             Collections.newSetFromMap(new WeakHashMap<>());
 
@@ -86,7 +87,6 @@ public final class SoulCombatEvents {
     public static void revive(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)
                 || event.isCanceled()
-                || event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)
                 || REVIVED.contains(event)
                 || REVIVING.contains(player.getUUID())
                 || SoulSetManager.findActiveSoulSet(player).isEmpty()) {
@@ -94,7 +94,7 @@ public final class SoulCombatEvents {
         }
 
         player.getCapability(SoulCapability.SOUL).ifPresent(soul -> {
-            if (soul.getSoul() < 100) {
+            if (soul.getSoul() <= REVIVE_SOUL_COST) {
                 return;
             }
 
@@ -104,14 +104,14 @@ public final class SoulCombatEvents {
                 event.setCanceled(true);
                 player.setHealth(1.0F);
 
-                if (player.getHealth() <= 0) {
+                if (player.getHealth() <= 0.0F) {
                     event.setCanceled(false);
                     return;
                 }
 
-                if (!soul.consumeSoul(100)) {
+                if (!soul.consumeSoul(REVIVE_SOUL_COST)) {
                     event.setCanceled(false);
-                    player.setHealth(0);
+                    player.setHealth(0.0F);
                     return;
                 }
 

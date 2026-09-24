@@ -5,7 +5,6 @@ import com.carrot123.eternal_career.item.DarkBootsItem;
 import com.carrot123.eternal_career.item.FrostCharmItem;
 import com.carrot123.eternal_career.lich.LichUtils;
 import com.carrot123.eternal_career.registry.ModItems;
-import com.carrot123.until_eternity.registry.ModAttributes;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +25,12 @@ import top.theillusivec4.curios.api.CuriosApi;
         bus = Mod.EventBusSubscriber.Bus.FORGE
 )
 public final class LichCurioDynamicAttributeEvents {
+    private static final ResourceLocation FOCUS_DAMAGE =
+            new ResourceLocation(
+                    "until_eternity",
+                    "focus_damage"
+            );
+
     private static final ResourceLocation IRONS_SPELL_POWER =
             new ResourceLocation(
                     "irons_spellbooks",
@@ -33,19 +38,27 @@ public final class LichCurioDynamicAttributeEvents {
             );
 
     private static final UUID FROST_CHARM_FOCUS_DAMAGE =
-            modifierId("frost_charm/focus_damage");
+            modifierId(
+                    "frost_charm/focus_damage"
+            );
 
     private static final UUID DARK_BOOTS_FOCUS_DAMAGE =
-            modifierId("dark_boots/focus_damage");
+            modifierId(
+                    "dark_boots/focus_damage"
+            );
 
     private static final UUID DARK_BOOTS_SPELL_POWER =
-            modifierId("dark_boots/spell_power");
+            modifierId(
+                    "dark_boots/spell_power"
+            );
 
     private LichCurioDynamicAttributeEvents() {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(
+            TickEvent.PlayerTickEvent event
+    ) {
         if (event.phase != TickEvent.Phase.END
                 || event.player.level().isClientSide) {
             return;
@@ -55,19 +68,33 @@ public final class LichCurioDynamicAttributeEvents {
         syncDarkBoots(event.player);
     }
 
-    private static void syncFrostCharm(Player player) {
+    private static void syncFrostCharm(
+            Player player
+    ) {
+        Attribute focusDamageAttribute =
+                ForgeRegistries.ATTRIBUTES.getValue(
+                        FOCUS_DAMAGE
+                );
+
+        if (focusDamageAttribute == null) {
+            return;
+        }
+
         AttributeInstance focusDamage =
-                player.getAttribute(ModAttributes.FOCUS_DAMAGE.get());
+                player.getAttribute(
+                        focusDamageAttribute
+                );
 
         if (focusDamage == null) {
             return;
         }
 
-        boolean equipped = isEquipped(
-                player,
-                ModItems.FROST_CHARM.get(),
-                FrostCharmItem.SLOT
-        );
+        boolean equipped =
+                isEquipped(
+                        player,
+                        ModItems.FROST_CHARM.get(),
+                        FrostCharmItem.SLOT
+                );
 
         if (!equipped) {
             remove(
@@ -77,9 +104,10 @@ public final class LichCurioDynamicAttributeEvents {
             return;
         }
 
-        double amount = LichUtils.isCareerLich(player)
-                ? 0.50D
-                : 0.25D;
+        double amount =
+                LichUtils.isLich(player)
+                        ? 0.50D
+                        : 0.25D;
 
         apply(
                 focusDamage,
@@ -91,25 +119,39 @@ public final class LichCurioDynamicAttributeEvents {
         );
     }
 
-    private static void syncDarkBoots(Player player) {
-        AttributeInstance focusDamage =
-                player.getAttribute(ModAttributes.FOCUS_DAMAGE.get());
+    private static void syncDarkBoots(
+            Player player
+    ) {
+        Attribute focusDamageAttribute =
+                ForgeRegistries.ATTRIBUTES.getValue(
+                        FOCUS_DAMAGE
+                );
 
-        Attribute ironsSpellPower =
+        AttributeInstance focusDamage =
+                focusDamageAttribute == null
+                        ? null
+                        : player.getAttribute(
+                                focusDamageAttribute
+                        );
+
+        Attribute spellPowerAttribute =
                 ForgeRegistries.ATTRIBUTES.getValue(
                         IRONS_SPELL_POWER
                 );
 
         AttributeInstance spellPower =
-                ironsSpellPower == null
+                spellPowerAttribute == null
                         ? null
-                        : player.getAttribute(ironsSpellPower);
+                        : player.getAttribute(
+                                spellPowerAttribute
+                        );
 
-        boolean equipped = isEquipped(
-                player,
-                ModItems.DARK_BOOTS.get(),
-                DarkBootsItem.SLOT
-        );
+        boolean equipped =
+                isEquipped(
+                        player,
+                        ModItems.DARK_BOOTS.get(),
+                        DarkBootsItem.SLOT
+                );
 
         if (!equipped) {
             if (focusDamage != null) {
@@ -139,7 +181,8 @@ public final class LichCurioDynamicAttributeEvents {
 
         int stages =
                 (int) Math.floor(
-                        movementSpeed / 0.05D
+                        movementSpeed
+                                / 0.05D
                                 + 1.0E-9D
                 );
 
@@ -192,14 +235,17 @@ public final class LichCurioDynamicAttributeEvents {
             Item item,
             String slot
     ) {
-        return CuriosApi.getCuriosInventory(player)
+        return CuriosApi
+                .getCuriosInventory(player)
                 .resolve()
                 .map(handler ->
-                        handler.findCurios(item)
+                        handler
+                                .findCurios(item)
                                 .stream()
                                 .anyMatch(result ->
                                         slot.equals(
-                                                result.slotContext()
+                                                result
+                                                        .slotContext()
                                                         .identifier()
                                         )
                                                 && !result
@@ -252,12 +298,15 @@ public final class LichCurioDynamicAttributeEvents {
         }
     }
 
-    private static UUID modifierId(String path) {
+    private static UUID modifierId(
+            String path
+    ) {
         return UUID.nameUUIDFromBytes(
-                (EternalCareer.MOD_ID
-                        + ":"
-                        + path)
-                        .getBytes(StandardCharsets.UTF_8)
+                (
+                        EternalCareer.MOD_ID
+                                + ":"
+                                + path
+                ).getBytes(StandardCharsets.UTF_8)
         );
     }
 }

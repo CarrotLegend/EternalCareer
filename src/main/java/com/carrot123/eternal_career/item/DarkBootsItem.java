@@ -1,8 +1,10 @@
 package com.carrot123.eternal_career.item;
 
+import java.util.UUID;
+
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import java.util.UUID;
+
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
