@@ -113,3 +113,17 @@ mandatory=true
 versionRange="[0.8.0.13]"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="l2library"
+mandatory=true
+versionRange="[2.5.3,)"
+ordering="AFTER"
+side="CLIENT"
+
+[[dependencies.${mod_id}]]
+modId="l2tabs"
+mandatory=true
+versionRange="[0.3.3,)"
+ordering="AFTER"
+side="CLIENT"
