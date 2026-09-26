@@ -61,7 +61,7 @@ public abstract class AbstractContainerMenuRedemptionMixin {
                 && clicked.container == player.getInventory()
                 && clicked.getContainerSlot() >= 36
                 && clicked.getContainerSlot() <= 39) {
-            return RedemptionAccessController.deny(player, placement);
+            return !RedemptionAccessController.canEquip(player, placement);
         }
 
         if (clickType != ClickType.QUICK_MOVE) {
@@ -69,7 +69,7 @@ public abstract class AbstractContainerMenuRedemptionMixin {
         }
 
         ItemStack source = clicked.getItem();
-        if (!RedemptionAccessController.deny(player, source)) {
+        if (RedemptionAccessController.canEquip(player, source)) {
             return false;
         }
 

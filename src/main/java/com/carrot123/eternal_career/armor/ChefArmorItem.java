@@ -62,14 +62,14 @@ public final class ChefArmorItem extends ArmorItem implements GeoItem {
     public boolean canEquip(ItemStack stack, EquipmentSlot slot, Entity entity) {
         return super.canEquip(stack, slot, entity)
                 && (!(entity instanceof Player player)
-                || RedemptionAccessController.canUse(player, stack));
+                || RedemptionAccessController.canEquip(player, stack));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(
             Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (RedemptionAccessController.deny(player, stack)) {
+        if (!RedemptionAccessController.canEquip(player, stack)) {
             return InteractionResultHolder.fail(stack);
         }
         return super.use(level, player, hand);

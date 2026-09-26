@@ -39,7 +39,7 @@ public final class CookingMagicHandItem extends Item implements ICurioItem {
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         return isFunctionalHandsSlot(slotContext)
                 && slotContext.entity() instanceof Player player
-                && RedemptionAccessController.canUse(player, stack);
+                && RedemptionAccessController.canEquip(player, stack);
     }
 
     @Override
@@ -50,7 +50,7 @@ public final class CookingMagicHandItem extends Item implements ICurioItem {
     ) {
         if (!isFunctionalHandsSlot(slotContext)
                 || !(slotContext.entity() instanceof Player player)
-                || !RedemptionAccessController.canUse(player, stack)) {
+                || !RedemptionAccessController.canEquip(player, stack)) {
             return ImmutableMultimap.of();
         }
 

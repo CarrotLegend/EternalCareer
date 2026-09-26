@@ -40,7 +40,7 @@ public final class RedemptionEquipmentEvents {
     public static void onEquipmentChanged(LivingEquipmentChangeEvent event) {
         if (event.getEntity() instanceof ServerPlayer player
                 && event.getSlot().getType() == EquipmentSlot.Type.ARMOR
-                && !RedemptionAccessController.isRecheckPending(player)) {
+                && RedemptionAccessController.shouldEject(player)) {
             ejectArmorSlot(player, event.getSlot());
         }
     }
@@ -49,8 +49,7 @@ public final class RedemptionEquipmentEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)
-                || RedemptionAccessController.hasRedemptionAccess(player)
-                || RedemptionAccessController.isRecheckPending(player)) {
+                || !RedemptionAccessController.shouldEject(player)) {
             return;
         }
 
@@ -65,7 +64,7 @@ public final class RedemptionEquipmentEvents {
 
     private static void ejectArmorSlot(ServerPlayer player, EquipmentSlot slot) {
         ItemStack equipped = player.getItemBySlot(slot);
-        if (!RedemptionAccessController.deny(player, equipped)) {
+        if (!RedemptionAccessController.isRedemptionItem(equipped)) {
             return;
         }
 
@@ -77,6 +76,9 @@ public final class RedemptionEquipmentEvents {
     }
 
     private static void ejectUnauthorizedCurios(ServerPlayer player) {
+        if (!RedemptionAccessController.shouldEject(player)) {
+            return;
+        }
         CuriosApi.getCuriosInventory(player).ifPresent(inventory -> {
             for (Map.Entry<String, ICurioStacksHandler> entry : inventory.getCurios().entrySet()) {
                 ICurioStacksHandler slots = entry.getValue();
@@ -89,7 +91,7 @@ public final class RedemptionEquipmentEvents {
     private static void ejectFromHandler(ServerPlayer player, IDynamicStackHandler handler) {
         for (int slot = 0; slot < handler.getSlots(); slot++) {
             ItemStack equipped = handler.getStackInSlot(slot);
-            if (!RedemptionAccessController.deny(player, equipped)) {
+            if (!RedemptionAccessController.isRedemptionItem(equipped)) {
                 continue;
             }
 

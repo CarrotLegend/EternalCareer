@@ -55,7 +55,7 @@ public final class CurioEquipmentHelper {
     public static boolean hasCookingMagicHand(
             Player player
     ) {
-        if (!RedemptionAccessController.hasRedemptionAccess(player)) {
+        if (!RedemptionAccessController.hasEquipmentAccess(player)) {
             return false;
         }
         return CuriosApi
@@ -137,7 +137,7 @@ public final class CurioEquipmentHelper {
             Player player,
             Item item
     ) {
-        if (RedemptionAccessController.deny(player, new ItemStack(item))) {
+        if (!RedemptionAccessController.canEquip(player, new ItemStack(item))) {
             return false;
         }
         return CuriosApi
@@ -158,7 +158,7 @@ public final class CurioEquipmentHelper {
             Item item,
             String slotId
     ) {
-        if (RedemptionAccessController.deny(player, new ItemStack(item))) {
+        if (!RedemptionAccessController.canEquip(player, new ItemStack(item))) {
             return false;
         }
         return CuriosApi

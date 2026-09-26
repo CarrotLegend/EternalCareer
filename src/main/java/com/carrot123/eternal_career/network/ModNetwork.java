@@ -10,7 +10,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String VERSION = "2";
+    private static final String VERSION = "4";
 
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(EternalCareer.MOD_ID, "main"),
@@ -49,6 +49,18 @@ public final class ModNetwork {
                 LichEligibilitySyncPacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT)
         );
+        CHANNEL.registerMessage(3, SoulBlessingSyncPacket.class,
+                SoulBlessingSyncPacket::encode, SoulBlessingSyncPacket::decode,
+                SoulBlessingSyncPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(4, SoulBlessingRequestPacket.class,
+                SoulBlessingRequestPacket::encode, SoulBlessingRequestPacket::decode,
+                SoulBlessingRequestPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(5, SoulBlessingReturnPacket.class,
+                SoulBlessingReturnPacket::encode, SoulBlessingReturnPacket::decode,
+                SoulBlessingReturnPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void send(ServerPlayer player, SoulSyncPacket packet) {
@@ -64,5 +76,17 @@ public final class ModNetwork {
 
     public static void sendToServer(ReaperSkillTogglePacket packet) {
         CHANNEL.sendToServer(packet);
+    }
+
+    public static void send(ServerPlayer player, SoulBlessingSyncPacket packet) {
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
+    }
+
+    public static void sendToServer(SoulBlessingRequestPacket packet) {
+        CHANNEL.sendToServer(packet);
+    }
+
+    public static void send(ServerPlayer player, SoulBlessingReturnPacket packet) {
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
     }
 }

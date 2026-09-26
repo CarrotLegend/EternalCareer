@@ -28,7 +28,7 @@ public final class FoodBookCurio implements ICurioItem {
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
         return isFunctionalCharmSlot(slotContext)
                 && slotContext.entity() instanceof Player player
-                && RedemptionAccessController.canUse(player, stack);
+                && RedemptionAccessController.canEquip(player, stack);
     }
 
     @Override

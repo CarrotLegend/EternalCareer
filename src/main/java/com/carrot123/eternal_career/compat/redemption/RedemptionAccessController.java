@@ -34,7 +34,45 @@ public final class RedemptionAccessController {
         if (data.contains(ACCESS_CACHE_TAG, Tag.TAG_BYTE)) {
             return data.getBoolean(ACCESS_CACHE_TAG);
         }
-        return refreshImmediately(player);
+        return refreshAccessNow(player);
+    }
+
+    public static boolean hasLiveRedemptionAccess(Player player) {
+        return player != null && queryCurrentAccess(player);
+    }
+
+    public static boolean refreshAccessNow(Player player) {
+        if (player == null) {
+            return false;
+        }
+        boolean access = hasLiveRedemptionAccess(player);
+        if (!player.level().isClientSide) {
+            CompoundTag data = player.getPersistentData();
+            data.putBoolean(ACCESS_CACHE_TAG, access);
+            if (access) {
+                data.remove(RECHECK_TICKS_TAG);
+            }
+        }
+        return access;
+    }
+
+    public static boolean canEquip(Player player, ItemStack stack) {
+        return !isRedemptionItem(stack) || hasEquipmentAccess(player);
+    }
+
+    public static boolean hasEquipmentAccess(Player player) {
+        if (hasRedemptionAccess(player)) {
+            return true;
+        }
+        boolean pending = isRecheckPending(player);
+        return refreshAccessNow(player) || pending;
+    }
+
+    public static boolean shouldEject(Player player) {
+        if (hasRedemptionAccess(player) || isRecheckPending(player)) {
+            return false;
+        }
+        return !refreshAccessNow(player);
     }
 
     public static boolean canUse(Player player, ItemStack stack) {
@@ -47,7 +85,7 @@ public final class RedemptionAccessController {
 
     static void initializeCacheIfAbsent(Player player) {
         if (!player.getPersistentData().contains(ACCESS_CACHE_TAG, Tag.TAG_BYTE)) {
-            refreshImmediately(player);
+            refreshAccessNow(player);
         }
     }
 
@@ -80,9 +118,7 @@ public final class RedemptionAccessController {
             return;
         }
 
-        if (queryCurrentAccess(player)) {
-            data.putBoolean(ACCESS_CACHE_TAG, true);
-            data.remove(RECHECK_TICKS_TAG);
+        if (refreshAccessNow(player)) {
             return;
         }
 
@@ -94,12 +130,6 @@ public final class RedemptionAccessController {
 
         data.putBoolean(ACCESS_CACHE_TAG, false);
         data.remove(RECHECK_TICKS_TAG);
-    }
-
-    private static boolean refreshImmediately(Player player) {
-        boolean access = queryCurrentAccess(player);
-        player.getPersistentData().putBoolean(ACCESS_CACHE_TAG, access);
-        return access;
     }
 
     /** The only call site allowed to query Enigmatic Addons' live identity state. */

@@ -31,7 +31,7 @@ public final class GodsRecognitionCurioEvents {
                         event.getSlotContext().identifier())
                 || event.getSlotContext().cosmetic()
                 || !(event.getSlotContext().entity() instanceof Player player)
-                || !RedemptionAccessController.canUse(
+                || !RedemptionAccessController.canEquip(
                         player, event.getItemStack())) {
             return;
         }

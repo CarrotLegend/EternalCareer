@@ -35,7 +35,7 @@ public abstract class BlessingScrollAttributesMixin {
             ItemStack stack,
             CallbackInfoReturnable<Multimap<Attribute, AttributeModifier>> callback) {
         if (slotContext.entity() instanceof Player player
-                && RedemptionAccessController.deny(player, stack)) {
+                && !RedemptionAccessController.canEquip(player, stack)) {
             callback.setReturnValue(ImmutableMultimap.of());
         }
     }

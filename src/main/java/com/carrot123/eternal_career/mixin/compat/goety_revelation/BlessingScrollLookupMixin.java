@@ -25,7 +25,7 @@ public abstract class BlessingScrollLookupMixin {
             CallbackInfoReturnable<Boolean> callback) {
         if (callback.getReturnValueZ()
                 && entity instanceof Player player
-                && !RedemptionAccessController.hasRedemptionAccess(player)) {
+                && !RedemptionAccessController.hasEquipmentAccess(player)) {
             callback.setReturnValue(false);
         }
     }

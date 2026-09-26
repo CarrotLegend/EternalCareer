@@ -52,7 +52,7 @@ public final class FoodBookAttributeEvents {
         if (!event.getEntity().level().isClientSide
                 && event.getEntity() instanceof Player player
                 && isFoodBook(event.getStack())
-                && RedemptionAccessController.canUse(player, event.getStack())) {
+                && RedemptionAccessController.canEquip(player, event.getStack())) {
             apply(player, SolCarrotHelper.getUniqueFoodsEaten(player));
         }
     }
@@ -108,7 +108,7 @@ public final class FoodBookAttributeEvents {
     }
 
     public static void apply(Player player, int uniqueFoodsEaten) {
-        if (!RedemptionAccessController.hasRedemptionAccess(player)) {
+        if (!RedemptionAccessController.hasEquipmentAccess(player)) {
             removeAll(player);
             return;
         }

@@ -15,7 +15,6 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-// Integration fixtures are visible only to the dedicated GameTest run, never the release jar.
 sourceSets {
     soulGameTest {
         compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
@@ -35,6 +34,7 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile',
                     file("${buildDir}/createSrgToMcp/output.srg").absolutePath
+
             mods {
                 "${mod_id}" {
                     source sourceSets.main
@@ -54,41 +54,59 @@ minecraft {
         gameTestServer {
             workingDirectory project.file('run-soul-tests')
             property 'forge.enabledGameTestNamespaces', mod_id
-            property 'forge.gameTestServer.report', file('build/reports/soul-gametest.xml').absolutePath
+            property 'forge.gameTestServer.report',
+                    file('build/reports/soul-gametest.xml').absolutePath
+
             mods {
-                "${mod_id}" { source sourceSets.soulGameTest }
+                "${mod_id}" {
+                    source sourceSets.soulGameTest
+                }
             }
         }
 
         data {
             workingDirectory project.file('run-data')
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'),
-                    '--existing', file('src/main/resources/')
+            args '--mod',
+                    mod_id,
+                    '--all',
+                    '--output',
+                    file('src/generated/resources/'),
+                    '--existing',
+                    file('src/main/resources/')
         }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 
 repositories {
     mavenCentral()
+
     maven {
         name = 'Illusive Soulworks'
         url = 'https://maven.theillusivec4.top/'
     }
+
     maven {
         name = 'Puffish'
         url = 'https://maven.puffish.net'
     }
+
     maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com/'
     }
+
     maven {
         name = 'CurseMaven'
         url = 'https://www.cursemaven.com'
-        content { includeGroup 'curse.maven' }
+        content {
+            includeGroup 'curse.maven'
+        }
     }
+
     flatDir {
         dirs '../UntilEternity-1.20.1-Forge/build/libs'
         dirs 'libs'
@@ -102,41 +120,132 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("local:until_eternity:${until_eternity_version}")
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    implementation fg.deobf("net.puffish:attributesmod:${puffish_attributes_version}:forge")
-    implementation fg.deobf("curse.maven:geckolib-388172:${geckolib_curse_file}")
-    implementation fg.deobf("local:FarmersDelight-${minecraft_version}:${farmers_delight_version}")
-    implementation fg.deobf("local:solcarrot-${minecraft_version}:${solcarrot_version}")
-    implementation fg.deobf("curse.maven:goety-586095:7966952")
-    implementation fg.deobf("curse.maven:goety-revelation-1236817:8026980")
-    implementation fg.deobf("local:enigmaticdelicacy:${enigmatic_delicacy_version}")
-    implementation fg.deobf("curse.maven:enigmatic-addons-1030121:6850589")
-    implementation fg.deobf("curse.maven:enigmatic-legacy-336184:5600004")
-    implementation fg.deobf("local:relics-1.20.1:0.8.0.13")
+    implementation fg.deobf(
+            "local:until_eternity:${until_eternity_version}"
+    )
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    // Development-only integration-pack closure. ForgeGradle must remap these
-    // release JARs before Mojang-mapped client and GameTest runs.
-    runtimeOnly fg.deobf("local:aether:1.20.1-1.5.2-neoforge")
-    runtimeOnly fg.deobf("local:aethersdelight:0.1.3.1-1.20.1")
-    runtimeOnly fg.deobf("local:eeeabsmobs:1.20.1-0.97-Fix")
-    runtimeOnly fg.deobf("local:irons_lib:1.20.1-1.0.2")
-    runtimeOnly fg.deobf("local:irons_spellbooks:1.20.1-3.15.6")
-    runtimeOnly fg.deobf("local:L_Enders_Cataclysm:3.27")
-    runtimeOnly fg.deobf("local:legendarymonsters:2.1.22-MC-1.20.1")
-    runtimeOnly fg.deobf("local:lionfishapi:2.7")
-    runtimeOnly fg.deobf("local:obscure_api:18")
-    runtimeOnly fg.deobf("local:player-animation-lib-forge:1.0.2-rc1+1.20")
-    runtimeOnly fg.deobf("local:TerraCurio:0.2.0")
-    runtimeOnly fg.deobf("local:ThirstWasTaken:1.20.1-1.4.0")
-    runtimeOnly fg.deobf("local:Patchouli-1.20.1:85-FORGE")
-    runtimeOnly fg.deobf("local:caelus-forge:3.2.0+1.20.1")
-    runtimeOnly fg.deobf("local:EndingLibrary-1.20.1:2.1.15fix-all")
+    implementation fg.deobf(
+            "top.theillusivec4.curios:curios-forge:${curios_version}"
+    )
 
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
+    implementation fg.deobf(
+            "net.puffish:attributesmod:${puffish_attributes_version}:forge"
+    )
+
+    implementation fg.deobf(
+            "curse.maven:geckolib-388172:${geckolib_curse_file}"
+    )
+
+    implementation fg.deobf(
+            "local:FarmersDelight-${minecraft_version}:${farmers_delight_version}"
+    )
+
+    implementation fg.deobf(
+            "local:solcarrot-${minecraft_version}:${solcarrot_version}"
+    )
+
+    implementation fg.deobf(
+            "curse.maven:goety-586095:7966952"
+    )
+
+    implementation fg.deobf(
+            "curse.maven:goety-revelation-1236817:8026980"
+    )
+
+    implementation fg.deobf(
+            "local:enigmaticdelicacy:${enigmatic_delicacy_version}"
+    )
+
+    implementation fg.deobf(
+            "curse.maven:enigmatic-addons-1030121:6850589"
+    )
+
+    implementation fg.deobf(
+            "curse.maven:enigmatic-legacy-336184:5600004"
+    )
+
+    implementation fg.deobf(
+            "local:relics-1.20.1:0.8.0.13"
+    )
+
+    compileOnly fg.deobf(
+            "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    )
+
+    compileOnly fg.deobf(
+            "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
+    )
+
+    runtimeOnly fg.deobf(
+            "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:aether:1.20.1-1.5.2-neoforge"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:aethersdelight:0.1.3.1-1.20.1"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:eeeabsmobs:1.20.1-0.97-Fix"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:irons_lib:1.20.1-1.0.2"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:irons_spellbooks:1.20.1-3.15.6"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:L_Enders_Cataclysm:3.27"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:legendarymonsters:2.1.22-MC-1.20.1"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:lionfishapi:2.7"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:obscure_api:18"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:player-animation-lib-forge:1.0.2-rc1+1.20"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:TerraCurio:0.2.0"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:ThirstWasTaken:1.20.1-1.4.0"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:Patchouli-1.20.1:85-FORGE"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:caelus-forge:3.2.0+1.20.1"
+    )
+
+    runtimeOnly fg.deobf(
+            "local:EndingLibrary-1.20.1:2.1.15fix-all"
+    )
+
+    compileOnly(
+            annotationProcessor(
+                    "io.github.llamalad7:mixinextras-common:${mixinextras_version}"
+            )
+    )
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
@@ -147,40 +256,43 @@ mixin {
 
 tasks.named('processResources', ProcessResources).configure {
     filteringCharset = 'UTF-8'
+
     def replaceProperties = [
-            minecraft_version       : minecraft_version,
-            minecraft_version_range : minecraft_version_range,
-            forge_version           : forge_version,
-            forge_version_range     : forge_version_range,
-            loader_version_range    : loader_version_range,
-            until_eternity_version  : until_eternity_version,
-            curios_version          : curios_version,
-            geckolib_version        : geckolib_version,
-            jei_version             : jei_version,
-            farmers_delight_mod_version: farmers_delight_mod_version,
-            solcarrot_version       : solcarrot_version,
-            goety_version           : goety_version,
-            goety_revelation_version: goety_revelation_version,
-            enigmatic_delicacy_version: enigmatic_delicacy_version,
-            enigmatic_addons_version: enigmatic_addons_version,
-            enigmatic_legacy_version: enigmatic_legacy_version,
-            mod_id                  : mod_id,
-            mod_name                : mod_name,
-            mod_license             : mod_license,
-            mod_version             : mod_version,
-            mod_authors             : mod_authors,
-            mod_description         : mod_description
+            minecraft_version             : minecraft_version,
+            minecraft_version_range       : minecraft_version_range,
+            forge_version                 : forge_version,
+            forge_version_range           : forge_version_range,
+            loader_version_range          : loader_version_range,
+            until_eternity_version        : until_eternity_version,
+            curios_version                : curios_version,
+            geckolib_version              : geckolib_version,
+            jei_version                   : jei_version,
+            farmers_delight_mod_version   : farmers_delight_mod_version,
+            solcarrot_version             : solcarrot_version,
+            goety_version                 : goety_version,
+            goety_revelation_version      : goety_revelation_version,
+            enigmatic_delicacy_version    : enigmatic_delicacy_version,
+            enigmatic_addons_version      : enigmatic_addons_version,
+            enigmatic_legacy_version      : enigmatic_legacy_version,
+            mod_id                        : mod_id,
+            mod_name                      : mod_name,
+            mod_license                   : mod_license,
+            mod_version                   : mod_version,
+            mod_authors                   : mod_authors,
+            mod_description               : mod_description
     ]
+
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    filesMatching([
+            'META-INF/mods.toml',
+            'pack.mcmeta'
+    ]) {
         expand replaceProperties
     }
 }
 
 tasks.named('jar', Jar).configure {
-    // MixinGradle 0.7 registers this task late in project evaluation, so keep
-    // the dependency lazy by name instead of resolving a TaskProvider here.
     dependsOn 'addMixinsToJar'
 
     manifest {
@@ -191,26 +303,33 @@ tasks.named('jar', Jar).configure {
                 'Implementation-Title'     : project.name,
                 'Implementation-Version'   : project.jar.archiveVersion,
                 'Implementation-Vendor'    : mod_authors,
-                'Implementation-Timestamp' : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'MixinConfigs'              : 'eternal_career.mixins.json'
+                'Implementation-Timestamp' :
+                        new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs'             :
+                        'eternal_career.mixins.json'
         ])
     }
+
     finalizedBy 'reobfJar'
 }
 
 def productionRefmapName = 'eternal_career.refmap.json'
 def productionMixinConfigName = 'eternal_career.mixins.json'
 def expectedProductionJarName = "${mod_id}-${mod_version}.jar"
+
 def annotationProcessorRefmap = layout.buildDirectory.file(
-        'tmp/compileJava/compileJava-refmap.json')
+        'tmp/compileJava/compileJava-refmap.json'
+)
+
 def mixinGradleRefmap = layout.buildDirectory.file(
-        "tmp/compileJava/${productionRefmapName}")
-def productionJar = tasks.named('jar', Jar).flatMap { it.archiveFile }
+        "tmp/compileJava/${productionRefmapName}"
+)
+
+def productionJar = tasks.named('jar', Jar).flatMap {
+    it.archiveFile
+}
+
 def expectedProductionMappings = [
-        'com/carrot123/eternal_career/mixin/vanilla/LivingEntityBreakStanceMixin': [
-                'getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F':
-                        'Lnet/minecraft/world/entity/LivingEntity;m_21161_(Lnet/minecraft/world/damagesource/DamageSource;F)F'
-        ],
         'com/carrot123/eternal_career/mixin/vanilla/AbstractContainerMenuRedemptionMixin': [
                 'doClick':
                         'Lnet/minecraft/world/inventory/AbstractContainerMenu;m_150430_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V'
@@ -221,156 +340,281 @@ def expectedProductionMappings = [
         ]
 ]
 
-// ForgeGradle reobfuscates the same archive produced by jar. Make that final
-// production step an explicit assemble dependency as well as jar's finalizer.
 tasks.named('assemble').configure {
     dependsOn tasks.named('reobfJar')
 }
 
 def verifyProductionRefmap = tasks.register('verifyProductionRefmap') {
     group = 'verification'
-    description = 'Verifies the generated Mixin refmap and the single reobfuscated production JAR.'
+
+    description =
+            'Verifies the generated Mixin refmap and the single reobfuscated production JAR.'
 
     dependsOn tasks.named('reobfJar')
+
     inputs.file(productionJar)
     inputs.file(annotationProcessorRefmap)
     inputs.file(mixinGradleRefmap)
 
     doLast {
         def jarFile = productionJar.get().asFile
+
         if (!jarFile.isFile()) {
-            throw new GradleException("Production JAR does not exist: ${jarFile}")
-        }
-        if (jarFile.name != expectedProductionJarName) {
             throw new GradleException(
-                    "Expected production JAR '${expectedProductionJarName}', found '${jarFile.name}'.")
+                    "Production JAR does not exist: ${jarFile}"
+            )
         }
 
-        def libsDirectory = layout.buildDirectory.dir('libs').get().asFile.canonicalFile
+        if (jarFile.name != expectedProductionJarName) {
+            throw new GradleException(
+                    "Expected production JAR '${expectedProductionJarName}', found '${jarFile.name}'."
+            )
+        }
+
+        def libsDirectory = layout.buildDirectory
+                .dir('libs')
+                .get()
+                .asFile
+                .canonicalFile
+
         if (jarFile.parentFile.canonicalFile != libsDirectory) {
             throw new GradleException(
-                    "Production JAR is outside build/libs: ${jarFile.canonicalFile}")
+                    "Production JAR is outside build/libs: ${jarFile.canonicalFile}"
+            )
         }
+
         def distributableJars = fileTree(libsDirectory) {
             include '*.jar'
-        }.files.collect { it.canonicalFile }.sort { it.name }
-        if (distributableJars.size() != 1 || distributableJars.first() != jarFile.canonicalFile) {
+        }.files.collect {
+            it.canonicalFile
+        }.sort {
+            it.name
+        }
+
+        if (distributableJars.size() != 1
+                || distributableJars.first() != jarFile.canonicalFile) {
             throw new GradleException(
-                    "build/libs must contain only '${expectedProductionJarName}', found: " +
-                            distributableJars.collect { it.name })
+                    "build/libs must contain only '${expectedProductionJarName}', found: "
+                            + distributableJars.collect { it.name }
+            )
         }
 
         def apRefmapFile = annotationProcessorRefmap.get().asFile
         def namedRefmapFile = mixinGradleRefmap.get().asFile
+
         [
                 'annotation processor refmap': apRefmapFile,
                 'MixinGradle refmap'        : namedRefmapFile
         ].each { label, file ->
             if (!file.isFile() || file.length() == 0) {
-                throw new GradleException("Missing or empty ${label}: ${file}")
+                throw new GradleException(
+                        "Missing or empty ${label}: ${file}"
+                )
             }
         }
+
         def apRefmapBytes = apRefmapFile.bytes
         def namedRefmapBytes = namedRefmapFile.bytes
-        if (!java.util.Arrays.equals(apRefmapBytes, namedRefmapBytes)) {
+
+        if (!java.util.Arrays.equals(
+                apRefmapBytes,
+                namedRefmapBytes
+        )) {
             throw new GradleException(
-                    "MixinGradle refmap differs from annotation processor output.")
+                    'MixinGradle refmap differs from annotation processor output.'
+            )
         }
-        if (file("src/main/resources/${productionRefmapName}").exists()) {
+
+        if (file(
+                "src/main/resources/${productionRefmapName}"
+        ).exists()) {
             throw new GradleException(
-                    "A static source refmap must not replace the generated ${productionRefmapName}.")
+                    "A static source refmap must not replace the generated ${productionRefmapName}."
+            )
         }
 
         def zipFile = new java.util.jar.JarFile(jarFile)
+
         try {
-            def refmapEntries = java.util.Collections.list(zipFile.entries()).findAll {
-                it.name == productionRefmapName
-            }
+            def refmapEntries =
+                    java.util.Collections.list(
+                            zipFile.entries()
+                    ).findAll {
+                        it.name == productionRefmapName
+                    }
+
             if (refmapEntries.size() != 1) {
                 throw new GradleException(
-                        "Expected exactly one ${productionRefmapName} in ${jarFile.name}, " +
-                                "found ${refmapEntries.size()}.")
+                        "Expected exactly one ${productionRefmapName} in ${jarFile.name}, "
+                                + "found ${refmapEntries.size()}."
+                )
             }
 
             def refmapEntry = refmapEntries.first()
-            def jarRefmapBytes = zipFile.getInputStream(refmapEntry).withCloseable { it.bytes }
+
+            def jarRefmapBytes =
+                    zipFile.getInputStream(
+                            refmapEntry
+                    ).withCloseable {
+                        it.bytes
+                    }
+
             if (jarRefmapBytes.length == 0) {
-                throw new GradleException("${productionRefmapName} is empty in ${jarFile.name}.")
-            }
-            if (!java.util.Arrays.equals(namedRefmapBytes, jarRefmapBytes)) {
                 throw new GradleException(
-                        "Production JAR refmap differs from generated MixinGradle refmap.")
+                        "${productionRefmapName} is empty in ${jarFile.name}."
+                )
             }
 
-            def refmap = new groovy.json.JsonSlurper().parseText(
-                    new String(jarRefmapBytes, java.nio.charset.StandardCharsets.UTF_8))
+            if (!java.util.Arrays.equals(
+                    namedRefmapBytes,
+                    jarRefmapBytes
+            )) {
+                throw new GradleException(
+                        'Production JAR refmap differs from generated MixinGradle refmap.'
+                )
+            }
+
+            def refmap =
+                    new groovy.json.JsonSlurper().parseText(
+                            new String(
+                                    jarRefmapBytes,
+                                    java.nio.charset.StandardCharsets.UTF_8
+                            )
+                    )
+
             def mappings = refmap.mappings
             def seargeMappings = refmap.data?.searge
-            if (!(mappings instanceof Map) || mappings != seargeMappings) {
+
+            if (!(mappings instanceof Map)
+                    || mappings != seargeMappings) {
                 throw new GradleException(
-                        "${productionRefmapName} mappings and data.searge are missing or different.")
+                        "${productionRefmapName} mappings and data.searge are missing or different."
+                )
             }
 
-            expectedProductionMappings.each { mixinName, expectedMethods ->
-                expectedMethods.each { sourceMethod, expectedTarget ->
-                    def actualTarget = mappings?.get(mixinName)?.get(sourceMethod)
+            expectedProductionMappings.each {
+                mixinName,
+                expectedMethods ->
+
+                expectedMethods.each {
+                    sourceMethod,
+                    expectedTarget ->
+
+                    def actualTarget =
+                            mappings
+                                    ?.get(mixinName)
+                                    ?.get(sourceMethod)
+
                     if (actualTarget != expectedTarget) {
                         throw new GradleException(
-                                "Incorrect production mapping for ${mixinName}.${sourceMethod}. " +
-                                        "Expected '${expectedTarget}', found '${actualTarget}'.")
+                                "Incorrect production mapping for ${mixinName}.${sourceMethod}. "
+                                        + "Expected '${expectedTarget}', found '${actualTarget}'."
+                        )
                     }
                 }
             }
 
-            def mixinConfigEntry = zipFile.getJarEntry(productionMixinConfigName)
-            if (mixinConfigEntry == null || mixinConfigEntry.size == 0) {
+            def mixinConfigEntry =
+                    zipFile.getJarEntry(
+                            productionMixinConfigName
+                    )
+
+            if (mixinConfigEntry == null
+                    || mixinConfigEntry.size == 0) {
                 throw new GradleException(
-                        "Missing or empty ${productionMixinConfigName} in ${jarFile.name}.")
-            }
-            def mixinConfig = zipFile.getInputStream(mixinConfigEntry).withCloseable { stream ->
-                new groovy.json.JsonSlurper().parse(stream, 'UTF-8')
-            }
-            if (mixinConfig.refmap != productionRefmapName) {
-                throw new GradleException(
-                        "${productionMixinConfigName} must reference '${productionRefmapName}', " +
-                                "found '${mixinConfig.refmap}'.")
+                        "Missing or empty ${productionMixinConfigName} in ${jarFile.name}."
+                )
             }
 
-            def mixinPackagePath = mixinConfig.package.replace('.', '/')
-            def declaredMixins = []
-            declaredMixins.addAll(mixinConfig.mixins ?: [])
-            declaredMixins.addAll(mixinConfig.client ?: [])
-            declaredMixins.each { mixinClass ->
-                def classEntryName = "${mixinPackagePath}/${mixinClass.replace('.', '/')}.class"
-                if (zipFile.getJarEntry(classEntryName) == null) {
-                    throw new GradleException(
-                            "Declared Mixin class is missing from ${jarFile.name}: ${classEntryName}")
-                }
+            def mixinConfig =
+                    zipFile.getInputStream(
+                            mixinConfigEntry
+                    ).withCloseable {
+                        stream ->
+                            new groovy.json.JsonSlurper().parse(
+                                    stream,
+                                    'UTF-8'
+                            )
+                    }
+
+            if (mixinConfig.refmap != productionRefmapName) {
+                throw new GradleException(
+                        "${productionMixinConfigName} must reference '${productionRefmapName}', "
+                                + "found '${mixinConfig.refmap}'."
+                )
             }
+
+            def mixinPackagePath =
+                    mixinConfig.package.replace(
+                            '.',
+                            '/'
+                    )
+
+            def declaredMixins = []
+
+            declaredMixins.addAll(
+                    mixinConfig.mixins ?: []
+            )
+
+            declaredMixins.addAll(
+                    mixinConfig.client ?: []
+            )
+
+            declaredMixins.each {
+                mixinClass ->
+
+                    def classEntryName =
+                            "${mixinPackagePath}/${mixinClass.replace('.', '/')}.class"
+
+                    if (zipFile.getJarEntry(
+                            classEntryName
+                    ) == null) {
+                        throw new GradleException(
+                                "Declared Mixin class is missing from ${jarFile.name}: ${classEntryName}"
+                        )
+                    }
+            }
+
             def breakStanceClass =
                     'com/carrot123/eternal_career/mixin/vanilla/LivingEntityBreakStanceMixin.class'
-            if (zipFile.getJarEntry(breakStanceClass) == null) {
+
+            if (zipFile.getJarEntry(
+                    breakStanceClass
+            ) == null) {
                 throw new GradleException(
-                        "LivingEntityBreakStanceMixin.class is missing from ${jarFile.name}.")
+                        "LivingEntityBreakStanceMixin.class is missing from ${jarFile.name}."
+                )
             }
 
             def manifestMixinConfigs =
-                    zipFile.manifest?.mainAttributes?.getValue('MixinConfigs')
-            if (manifestMixinConfigs != productionMixinConfigName) {
+                    zipFile
+                            .manifest
+                            ?.mainAttributes
+                            ?.getValue('MixinConfigs')
+
+            if (manifestMixinConfigs
+                    != productionMixinConfigName) {
                 throw new GradleException(
-                        "MANIFEST.MF MixinConfigs must be '${productionMixinConfigName}', " +
-                                "found '${manifestMixinConfigs}'.")
+                        "MANIFEST.MF MixinConfigs must be '${productionMixinConfigName}', "
+                                + "found '${manifestMixinConfigs}'."
+                )
             }
 
-            def refmapSha256 = java.security.MessageDigest.getInstance('SHA-256')
-                    .digest(jarRefmapBytes).encodeHex().toString()
+            def refmapSha256 =
+                    java.security.MessageDigest
+                            .getInstance('SHA-256')
+                            .digest(jarRefmapBytes)
+                            .encodeHex()
+                            .toString()
+
             logger.lifecycle(
                     "Verified {} in {}: {} declared Mixins, {} production mappings, SHA-256 {}",
                     productionRefmapName,
                     jarFile.name,
                     declaredMixins.size(),
                     expectedProductionMappings.size(),
-                    refmapSha256)
+                    refmapSha256
+            )
         } finally {
             zipFile.close()
         }
@@ -385,9 +629,10 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// Soul logic tests run independently of a game client.
-tasks.named("test", Test).configure {
+tasks.named('test', Test).configure {
     useJUnitPlatform()
 }
 
-tasks.named("check").configure { dependsOn tasks.named("soulGameTestClasses") }
+tasks.named('check').configure {
+    dependsOn tasks.named('soulGameTestClasses')
+}

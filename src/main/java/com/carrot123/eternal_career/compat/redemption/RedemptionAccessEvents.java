@@ -13,7 +13,7 @@ import top.theillusivec4.curios.api.event.CurioChangeEvent;
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class RedemptionAccessEvents {
     public static final int INITIALIZATION_RECHECK_TICKS = 20;
-    private static final int CURIO_CHANGE_RECHECK_TICKS = 1;
+    private static final int CURIO_CHANGE_RECHECK_TICKS = 5;
 
     private RedemptionAccessEvents() {
     }

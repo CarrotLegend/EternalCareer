@@ -132,5 +132,20 @@
   "tooltip.eternal_career.chaos_meat.effect": "食用后获得10秒混沌厨艺。",
   "tooltip.eternal_career.chaos_meat.extend": "重复食用可延长持续时间，最高2分钟。",
   "tooltip.eternal_career.chaos_steak.effect": "食用后获得10秒混沌厨艺 II。",
-  "tooltip.eternal_career.chaos_steak.extend": "重复食用可延长持续时间，最高2分30秒。"
+  "tooltip.eternal_career.chaos_steak.extend": "重复食用可延长持续时间，最高2分30秒。",
+  "soul_blessing.eternal_career.title": "灵魂加护",
+  "soul_blessing.eternal_career.back": "返回物品栏",
+  "soul_blessing.eternal_career.tooltip.type": "加护类型：%s",
+  "soul_blessing.eternal_career.tooltip.add": "%s %s",
+  "soul_blessing.eternal_career.tooltip.percent": "%s %s",
+  "soul_blessing.eternal_career.type.head": "头部加护",
+  "soul_blessing.eternal_career.type.necklace": "项链加护",
+  "soul_blessing.eternal_career.type.hand": "手部加护",
+  "soul_blessing.eternal_career.type.ring": "戒指加护",
+  "soul_blessing.eternal_career.type.boots": "靴子加护",
+  "item.eternal_career.test_head_blessing": "测试头部加护",
+  "item.eternal_career.test_necklace_blessing": "测试项链加护",
+  "item.eternal_career.test_hand_blessing": "测试手部加护",
+  "item.eternal_career.test_ring_blessing": "测试戒指加护",
+  "item.eternal_career.test_boots_blessing": "测试靴子加护"
 }

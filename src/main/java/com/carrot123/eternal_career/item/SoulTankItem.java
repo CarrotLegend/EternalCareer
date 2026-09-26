@@ -1,11 +1,11 @@
 package com.carrot123.eternal_career.item;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.curio.FoodBookCurio;
+import com.carrot123.eternal_career.util.StableAttributeModifiers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
@@ -62,7 +62,7 @@ public final class SoulTankItem extends Item implements ICurioItem {
 
         return ImmutableMultimap.of(
                 Attributes.MAX_HEALTH,
-                new AttributeModifier(
+                StableAttributeModifiers.create(
                         MAX_HEALTH_MODIFIER_ID,
                         EternalCareer.MOD_ID
                                 + ":soul_tank/max_health",
@@ -70,7 +70,7 @@ public final class SoulTankItem extends Item implements ICurioItem {
                         AttributeModifier.Operation.ADDITION
                 ),
                 Attributes.ARMOR,
-                new AttributeModifier(
+                StableAttributeModifiers.create(
                         ARMOR_MODIFIER_ID,
                         EternalCareer.MOD_ID
                                 + ":soul_tank/armor",
@@ -103,12 +103,6 @@ public final class SoulTankItem extends Item implements ICurioItem {
     }
 
     private static UUID stableModifierId(String path) {
-        return UUID.nameUUIDFromBytes(
-                (
-                        EternalCareer.MOD_ID
-                                + ":soul_tank/"
-                                + path
-                ).getBytes(StandardCharsets.UTF_8)
-        );
+        return StableAttributeModifiers.id(EternalCareer.MOD_ID + ":soul_tank/" + path);
     }
 }

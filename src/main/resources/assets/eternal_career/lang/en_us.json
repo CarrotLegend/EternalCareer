@@ -132,5 +132,20 @@
   "tooltip.eternal_career.chaos_meat.effect": "Eating grants Chaotic Cooking I for 10 seconds.",
   "tooltip.eternal_career.chaos_meat.extend": "Eating again extends it, up to 2 minutes.",
   "tooltip.eternal_career.chaos_steak.effect": "Eating grants Chaotic Cooking II for 10 seconds.",
-  "tooltip.eternal_career.chaos_steak.extend": "Eating again extends it, up to 2 minutes 30 seconds."
+  "tooltip.eternal_career.chaos_steak.extend": "Eating again extends it, up to 2 minutes 30 seconds.",
+  "soul_blessing.eternal_career.title": "Soul Blessing",
+  "soul_blessing.eternal_career.back": "Back to Inventory",
+  "soul_blessing.eternal_career.tooltip.type": "Blessing Type: %s",
+  "soul_blessing.eternal_career.tooltip.add": "%s %s",
+  "soul_blessing.eternal_career.tooltip.percent": "%s %s",
+  "soul_blessing.eternal_career.type.head": "Head Blessing",
+  "soul_blessing.eternal_career.type.necklace": "Necklace Blessing",
+  "soul_blessing.eternal_career.type.hand": "Hand Blessing",
+  "soul_blessing.eternal_career.type.ring": "Ring Blessing",
+  "soul_blessing.eternal_career.type.boots": "Boot Blessing",
+  "item.eternal_career.test_head_blessing": "Test Head Blessing",
+  "item.eternal_career.test_necklace_blessing": "Test Necklace Blessing",
+  "item.eternal_career.test_hand_blessing": "Test Hand Blessing",
+  "item.eternal_career.test_ring_blessing": "Test Ring Blessing",
+  "item.eternal_career.test_boots_blessing": "Test Boots Blessing"
 }

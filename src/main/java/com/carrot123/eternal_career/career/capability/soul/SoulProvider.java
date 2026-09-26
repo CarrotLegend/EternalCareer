@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.LazyOptional;
 
 public final class SoulProvider implements ICapabilitySerializable<CompoundTag> {
     private final Soul data;
-    private final LazyOptional<ISoul> optional;
+    private LazyOptional<ISoul> optional;
     public SoulProvider(Runnable changed) {
         data = new Soul(changed);
         optional = LazyOptional.of(() -> data);
@@ -18,5 +18,8 @@ public final class SoulProvider implements ICapabilitySerializable<CompoundTag> 
     }
     @Override public CompoundTag serializeNBT() { return data.serializeNBT(); }
     @Override public void deserializeNBT(CompoundTag tag) { data.deserializeNBT(tag); }
-    public void invalidate() { optional.invalidate(); }
+    public void invalidate() {
+        optional.invalidate();
+        optional = LazyOptional.of(() -> data);
+    }
 }

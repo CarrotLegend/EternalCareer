@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.registry.ModEffects;
 import com.carrot123.eternal_career.registry.ModItems;
+import com.carrot123.eternal_career.registry.ModMenus;
 import com.mojang.logging.LogUtils;
 
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,9 +23,12 @@ public final class EternalCareer {
         com.carrot123.eternal_career.network.ModNetwork.register();
         modEventBus.addListener((net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent event) ->
                 event.register(com.carrot123.eternal_career.career.capability.soul.ISoul.class));
+        modEventBus.addListener((net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent event) ->
+                event.register(com.carrot123.eternal_career.soulblessing.SoulBlessingInventory.class));
         ModAttributes.register(modEventBus);
         ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
+        ModMenus.register(modEventBus);
         modEventBus.addListener(this::onCommonSetup);
     }
 

@@ -23,12 +23,19 @@ import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
 import com.carrot123.eternal_career.lich.LichStage;
 import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
+import com.carrot123.eternal_career.soulblessing.SoulBlessingAttribute;
+import com.carrot123.eternal_career.soulblessing.SoulBlessingItem;
+import com.carrot123.eternal_career.soulblessing.SoulBlessingSlotType;
+import java.util.List;
 
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -384,6 +391,32 @@ public final class ModItems {
                                 .fireResistant()
                 )
         );
+    }
+
+    static {
+        if (!FMLEnvironment.production) {
+            registerTestBlessing("test_head_blessing", SoulBlessingSlotType.HEAD,
+                    new SoulBlessingAttribute(Attributes.MAX_HEALTH, 4.0D,
+                            AttributeModifier.Operation.ADDITION));
+            registerTestBlessing("test_necklace_blessing", SoulBlessingSlotType.NECKLACE,
+                    new SoulBlessingAttribute(Attributes.ATTACK_DAMAGE, 2.0D,
+                            AttributeModifier.Operation.ADDITION));
+            registerTestBlessing("test_hand_blessing", SoulBlessingSlotType.HAND,
+                    new SoulBlessingAttribute(Attributes.ATTACK_SPEED, 0.10D,
+                            AttributeModifier.Operation.MULTIPLY_BASE));
+            registerTestBlessing("test_ring_blessing", SoulBlessingSlotType.RING,
+                    new SoulBlessingAttribute(Attributes.LUCK, 5.0D,
+                            AttributeModifier.Operation.ADDITION));
+            registerTestBlessing("test_boots_blessing", SoulBlessingSlotType.BOOTS,
+                    new SoulBlessingAttribute(Attributes.MOVEMENT_SPEED, 0.10D,
+                            AttributeModifier.Operation.MULTIPLY_BASE));
+        }
+    }
+
+    private static void registerTestBlessing(String name, SoulBlessingSlotType type,
+            SoulBlessingAttribute attribute) {
+        ITEMS.register(name, () -> new SoulBlessingItem(
+                new Item.Properties().rarity(Rarity.UNCOMMON), type, List.of(attribute)));
     }
 
     public static void register(

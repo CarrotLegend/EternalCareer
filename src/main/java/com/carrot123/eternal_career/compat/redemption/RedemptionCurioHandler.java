@@ -16,7 +16,7 @@ public final class RedemptionCurioHandler {
     @SubscribeEvent
     public static void onCurioEquip(CurioEquipEvent event) {
         if (event.getEntity() instanceof Player player
-                && RedemptionAccessController.deny(player, event.getStack())) {
+                && !RedemptionAccessController.canEquip(player, event.getStack())) {
             event.setResult(Event.Result.DENY);
         }
     }
