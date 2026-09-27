@@ -18,21 +18,39 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** Prevents recipe consumption and vanilla armor placement before a menu click mutates any slot. */
 @Mixin(AbstractContainerMenu.class)
 public abstract class AbstractContainerMenuRedemptionMixin {
-    @Shadow @Final public NonNullList<Slot> slots;
 
-    @Shadow public abstract ItemStack getCarried();
+    @Shadow
+    @Final
+    public NonNullList<Slot> slots;
 
-    @Inject(method = "doClick", at = @At("HEAD"), cancellable = true)
+    @Shadow
+    public abstract ItemStack getCarried();
+
+    @Inject(
+            method = {
+                    "doClick(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V",
+                    "m_150430_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V"
+            },
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false
+    )
     private void eternalCareer$validateRedemptionClick(
-            int slotIndex, int button, ClickType clickType, Player player, CallbackInfo callback) {
+            int slotIndex,
+            int button,
+            ClickType clickType,
+            Player player,
+            CallbackInfo callback
+    ) {
         if (slotIndex < 0 || slotIndex >= this.slots.size()) {
             return;
         }
 
-        AbstractContainerMenu self = (AbstractContainerMenu) (Object) this;
+        AbstractContainerMenu self =
+                (AbstractContainerMenu) (Object) this;
+
         if (self instanceof RedemptionMenuAccess recipeMenu
                 && recipeMenu.eternalCareer$isResultSlot(slotIndex)
                 && containsRedemptionInput(recipeMenu)
@@ -42,48 +60,81 @@ public abstract class AbstractContainerMenuRedemptionMixin {
         }
 
         if (self instanceof InventoryMenu
-                && wouldEquipRestrictedArmor(slotIndex, button, clickType, player)) {
+                && wouldEquipRestrictedArmor(
+                        slotIndex,
+                        button,
+                        clickType,
+                        player
+                )) {
             callback.cancel();
         }
     }
 
     private boolean wouldEquipRestrictedArmor(
-            int slotIndex, int button, ClickType clickType, Player player) {
-        Slot clicked = this.slots.get(slotIndex);
+            int slotIndex,
+            int button,
+            ClickType clickType,
+            Player player
+    ) {
+        Slot clicked =
+                this.slots.get(slotIndex);
 
-        ItemStack carried = this.getCarried();
-        ItemStack placement = clickType == ClickType.SWAP
-                && button >= 0
-                && button < player.getInventory().getContainerSize()
-                ? player.getInventory().getItem(button)
-                : carried;
+        ItemStack carried =
+                this.getCarried();
+
+        ItemStack placement =
+                clickType == ClickType.SWAP
+                        && button >= 0
+                        && button < player.getInventory().getContainerSize()
+                        ? player.getInventory().getItem(button)
+                        : carried;
+
         if (!placement.isEmpty()
                 && clicked.container == player.getInventory()
                 && clicked.getContainerSlot() >= 36
                 && clicked.getContainerSlot() <= 39) {
-            return !RedemptionAccessController.canEquip(player, placement);
+            return !RedemptionAccessController.canEquip(
+                    player,
+                    placement
+            );
         }
 
         if (clickType != ClickType.QUICK_MOVE) {
             return false;
         }
 
-        ItemStack source = clicked.getItem();
-        if (RedemptionAccessController.canEquip(player, source)) {
+        ItemStack source =
+                clicked.getItem();
+
+        if (RedemptionAccessController.canEquip(
+                player,
+                source
+        )) {
             return false;
         }
 
-        EquipmentSlot equipmentSlot = Mob.getEquipmentSlotForItem(source);
-        return equipmentSlot.getType() == EquipmentSlot.Type.ARMOR
-                && player.getItemBySlot(equipmentSlot).isEmpty();
+        EquipmentSlot equipmentSlot =
+                Mob.getEquipmentSlotForItem(source);
+
+        return equipmentSlot.getType()
+                == EquipmentSlot.Type.ARMOR
+                && player.getItemBySlot(
+                        equipmentSlot
+                ).isEmpty();
     }
 
-    private static boolean containsRedemptionInput(RedemptionMenuAccess menu) {
-        for (ItemStack stack : menu.eternalCareer$getInputStacks()) {
-            if (RedemptionAccessController.isRedemptionItem(stack)) {
+    private static boolean containsRedemptionInput(
+            RedemptionMenuAccess menu
+    ) {
+        for (ItemStack stack
+                : menu.eternalCareer$getInputStacks()) {
+            if (RedemptionAccessController.isRedemptionItem(
+                    stack
+            )) {
                 return true;
             }
         }
+
         return false;
     }
 }

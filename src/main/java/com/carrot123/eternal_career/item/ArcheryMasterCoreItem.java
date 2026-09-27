@@ -24,12 +24,16 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
     public static final String SLOT = "charm";
     public static final String MODE_KEY = "Mode";
+
     public static final int BURST = 0;
     public static final int RAPID = 1;
+
     private static final ResourceLocation RANGED_DAMAGE =
             new ResourceLocation("puffish_attributes", "ranged_damage");
+
     private static final ResourceLocation RANGED_VELOCITY =
             new ResourceLocation("terra_curio", "ranged_velocity");
+
     private static final ResourceLocation CHARGE_SPEED =
             new ResourceLocation("until_eternity", "charge_speed");
 
@@ -38,59 +42,140 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
     }
 
     public static int mode(ItemStack stack) {
-        return stack.hasTag() && stack.getTag().getInt(MODE_KEY) == RAPID ? RAPID : BURST;
+        return stack.hasTag()
+                && stack.getTag().getInt(MODE_KEY) == RAPID
+                ? RAPID
+                : BURST;
     }
 
     public static void toggle(ItemStack stack) {
-        stack.getOrCreateTag().putInt(MODE_KEY, mode(stack) == BURST ? RAPID : BURST);
+        stack.getOrCreateTag().putInt(
+                MODE_KEY,
+                mode(stack) == BURST ? RAPID : BURST
+        );
     }
 
     @Override
     public boolean canEquip(SlotContext context, ItemStack stack) {
-        return context != null && SLOT.equals(context.identifier()) && !context.cosmetic();
+        return context != null
+                && SLOT.equals(context.identifier())
+                && !context.cosmetic();
     }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(
-            SlotContext context, UUID slotUuid, ItemStack stack) {
+            SlotContext context,
+            UUID slotUuid,
+            ItemStack stack
+    ) {
         if (!canEquip(context, stack)) {
             return ImmutableMultimap.of();
         }
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> result = ImmutableMultimap.builder();
+
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> result =
+                ImmutableMultimap.builder();
+
         if (mode(stack) == BURST) {
-            add(result, RANGED_DAMAGE, slotUuid, "ranged_damage", 0.50D);
-            add(result, RANGED_VELOCITY, slotUuid, "ranged_velocity", 0.20D);
+            add(
+                    result,
+                    RANGED_DAMAGE,
+                    slotUuid,
+                    "burst_ranged_damage",
+                    0.50D
+            );
+
+            add(
+                    result,
+                    RANGED_VELOCITY,
+                    slotUuid,
+                    "burst_ranged_velocity",
+                    0.20D
+            );
         } else {
-            add(result, RANGED_VELOCITY, slotUuid, "ranged_velocity", 0.50D);
-            add(result, CHARGE_SPEED, slotUuid, "charge_speed", 0.40D);
+            add(
+                    result,
+                    RANGED_VELOCITY,
+                    slotUuid,
+                    "rapid_ranged_velocity",
+                    0.50D
+            );
+
+            add(
+                    result,
+                    CHARGE_SPEED,
+                    slotUuid,
+                    "rapid_charge_speed",
+                    0.40D
+            );
         }
+
         return result.build();
     }
 
-    private static void add(ImmutableMultimap.Builder<Attribute, AttributeModifier> result,
-            ResourceLocation attributeId, UUID slotUuid, String path, double amount) {
-        Attribute attribute = ForgeRegistries.ATTRIBUTES.getValue(attributeId);
+    private static void add(
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> result,
+            ResourceLocation attributeId,
+            UUID slotUuid,
+            String path,
+            double amount
+    ) {
+        Attribute attribute =
+                ForgeRegistries.ATTRIBUTES.getValue(attributeId);
+
         if (attribute == null) {
-            throw new IllegalStateException("Missing archery master core attribute: " + attributeId);
+            throw new IllegalStateException(
+                    "Missing archery master core attribute: " + attributeId
+            );
         }
-        String key = EternalCareer.MOD_ID + ":archery_master_core/" + slotUuid + "/" + path;
-        result.put(attribute, StableAttributeModifiers.create(
-                key, amount, AttributeModifier.Operation.MULTIPLY_BASE));
+
+        String key =
+                EternalCareer.MOD_ID
+                        + ":archery_master_core/"
+                        + slotUuid
+                        + "/"
+                        + path;
+
+        result.put(
+                attribute,
+                StableAttributeModifiers.create(
+                        key,
+                        amount,
+                        AttributeModifier.Operation.MULTIPLY_BASE
+                )
+        );
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level,
-            List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(
+            ItemStack stack,
+            @Nullable Level level,
+            List<Component> tooltip,
+            TooltipFlag flag
+    ) {
         if (mode(stack) == BURST) {
-            tooltip.add(Component.translatable("tooltip.eternal_career.archery_master_core.burst")
-                    .withStyle(ChatFormatting.RED));
-            CurioTooltipHelper.addLocalizedString(tooltip,
-                    "tooltip.eternal_career.archery_master_core.burst_effect");
+            tooltip.add(
+                    Component.translatable(
+                                    "tooltip.eternal_career.archery_master_core.burst"
+                            )
+                            .withStyle(ChatFormatting.RED)
+            );
+
+            CurioTooltipHelper.addLocalizedString(
+                    tooltip,
+                    "tooltip.eternal_career.archery_master_core.burst_effect"
+            );
         } else {
-            tooltip.add(Component.translatable("tooltip.eternal_career.archery_master_core.rapid")
-                    .withStyle(ChatFormatting.AQUA));
-            CurioTooltipHelper.addLocalizedString(tooltip,
-                    "tooltip.eternal_career.archery_master_core.rapid_effect");
+            tooltip.add(
+                    Component.translatable(
+                                    "tooltip.eternal_career.archery_master_core.rapid"
+                            )
+                            .withStyle(ChatFormatting.AQUA)
+            );
+
+            CurioTooltipHelper.addLocalizedString(
+                    tooltip,
+                    "tooltip.eternal_career.archery_master_core.rapid_effect"
+            );
         }
     }
 }

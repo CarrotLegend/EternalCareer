@@ -155,7 +155,7 @@
   "item.eternal_career.generic_right_boot_blessing": "Generic Right Boot Blessing",
   "item.eternal_career.archery_master_core": "Archery Master Core",
   "tooltip.eternal_career.archery_master_core.burst": "Burst Mode",
-  "tooltip.eternal_career.archery_master_core.burst_effect": "§5Each second of charging: §6+100% damage§5 (up to §6+500%§5)",
+"tooltip.eternal_career.archery_master_core.burst_effect": "§5远程伤害§6+50%§5，弹射物速度§6+20%§5；每蓄力一秒，§6伤害增加100%§5（最高§6500%§5）",
   "tooltip.eternal_career.archery_master_core.rapid": "Rapid Mode",
   "tooltip.eternal_career.archery_master_core.rapid_effect": "§5Automatically fires the bow"
 }
