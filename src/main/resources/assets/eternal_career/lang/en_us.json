@@ -147,5 +147,10 @@
   "item.eternal_career.test_necklace_blessing": "Test Necklace Blessing",
   "item.eternal_career.test_hand_blessing": "Test Hand Blessing",
   "item.eternal_career.test_ring_blessing": "Test Ring Blessing",
-  "item.eternal_career.test_boots_blessing": "Test Boots Blessing"
+  "item.eternal_career.test_boots_blessing": "Test Boots Blessing",
+  "item.eternal_career.generic_head_blessing": "Generic Head Blessing",
+  "item.eternal_career.generic_necklace_blessing": "Generic Necklace Blessing",
+  "item.eternal_career.generic_ring_blessing": "Generic Ring Blessing",
+  "item.eternal_career.generic_left_boot_blessing": "Generic Left Boot Blessing",
+  "item.eternal_career.generic_right_boot_blessing": "Generic Right Boot Blessing"
 }

@@ -1,6 +1,7 @@
 package com.carrot123.eternal_career.soulblessing;
 
 import javax.annotation.Nullable;
+
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
@@ -8,24 +9,46 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 public final class SoulBlessingProvider implements ICapabilitySerializable<CompoundTag> {
+
     private final SoulBlessingInventory inventory;
-    private final LazyOptional<SoulBlessingInventory> optional;
+    private LazyOptional<SoulBlessingInventory> optional;
 
     public SoulBlessingProvider(Runnable changed) {
-        inventory = new SoulBlessingInventory(changed);
-        optional = LazyOptional.of(() -> inventory);
+        this.inventory = new SoulBlessingInventory(changed);
+        this.optional = createOptional();
+    }
+
+    private LazyOptional<SoulBlessingInventory> createOptional() {
+        return LazyOptional.of(() -> inventory);
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
-        return SoulBlessingCapability.INVENTORY.orEmpty(capability, optional);
+    public <T> LazyOptional<T> getCapability(
+            Capability<T> capability,
+            @Nullable Direction side
+    ) {
+        if (capability != SoulBlessingCapability.INVENTORY) {
+            return LazyOptional.empty();
+        }
+
+        if (!optional.isPresent()) {
+            optional = createOptional();
+        }
+
+        return optional.cast();
     }
 
     @Override
-    public CompoundTag serializeNBT() { return inventory.serializeNBT(); }
+    public CompoundTag serializeNBT() {
+        return inventory.serializeNBT();
+    }
 
     @Override
-    public void deserializeNBT(CompoundTag tag) { inventory.deserializeNBT(tag); }
+    public void deserializeNBT(CompoundTag tag) {
+        inventory.deserializeNBT(tag);
+    }
 
-    public void invalidate() { optional.invalidate(); }
+    public void invalidate() {
+        optional.invalidate();
+    }
 }

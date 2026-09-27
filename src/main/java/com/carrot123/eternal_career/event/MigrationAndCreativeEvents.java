@@ -65,6 +65,12 @@ public final class MigrationAndCreativeEvents {
                 return;
             }
 
+            event.accept(ModItems.GENERIC_HEAD_BLESSING);
+            event.accept(ModItems.GENERIC_NECKLACE_BLESSING);
+            event.accept(ModItems.GENERIC_RING_BLESSING);
+            event.accept(ModItems.GENERIC_LEFT_BOOT_BLESSING);
+            event.accept(ModItems.GENERIC_RIGHT_BOOT_BLESSING);
+
             event.accept(ModItems.CHEF_HAT);
             event.accept(ModItems.CHEF_JACKET);
             event.accept(ModItems.CHEF_LEGGINGS);

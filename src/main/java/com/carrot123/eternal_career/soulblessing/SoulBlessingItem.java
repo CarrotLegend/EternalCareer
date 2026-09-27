@@ -1,6 +1,7 @@
 package com.carrot123.eternal_career.soulblessing;
 
 import java.util.List;
+import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -12,19 +13,43 @@ import net.minecraft.world.level.Level;
 
 public class SoulBlessingItem extends Item {
     private final SoulBlessingSlotType type;
-    private final List<SoulBlessingAttribute> attributes;
+    private final Supplier<List<SoulBlessingAttribute>> attributes;
+    private final int requiredSlot;
 
     public SoulBlessingItem(Properties properties, SoulBlessingSlotType type,
             List<SoulBlessingAttribute> attributes) {
+        this(properties, type, attributes, -1);
+    }
+
+    public SoulBlessingItem(Properties properties, SoulBlessingSlotType type,
+            List<SoulBlessingAttribute> attributes, int requiredSlot) {
+        this(properties, type, fixed(attributes), requiredSlot);
+    }
+
+    private static Supplier<List<SoulBlessingAttribute>> fixed(
+            List<SoulBlessingAttribute> attributes) {
+        List<SoulBlessingAttribute> copy = List.copyOf(attributes);
+        return () -> copy;
+    }
+
+    public SoulBlessingItem(Properties properties, SoulBlessingSlotType type,
+            Supplier<List<SoulBlessingAttribute>> attributes, int requiredSlot) {
         super(properties);
         this.type = type;
-        this.attributes = List.copyOf(attributes);
+        this.attributes = attributes;
+        this.requiredSlot = requiredSlot;
     }
 
     public SoulBlessingSlotType getSoulBlessingType() { return type; }
 
+    public boolean canEquipInSlot(int slot) {
+        return slot >= 0 && slot < SoulBlessingSlots.COUNT
+                && SoulBlessingSlots.type(slot) == type
+                && (requiredSlot < 0 || requiredSlot == slot);
+    }
+
     public List<SoulBlessingAttribute> getSoulBlessingAttributes(ItemStack stack) {
-        return attributes;
+        return attributes.get();
     }
 
     public void onEquipped(Player player, int slot, ItemStack stack) {}

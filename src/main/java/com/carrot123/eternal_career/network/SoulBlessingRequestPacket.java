@@ -10,31 +10,73 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.NetworkEvent;
 
-/** True opens the blessing menu, false closes it and returns to inventory. */
 public record SoulBlessingRequestPacket(boolean open) {
-    public void encode(FriendlyByteBuf buffer) { buffer.writeBoolean(open); }
 
-    public static SoulBlessingRequestPacket decode(FriendlyByteBuf buffer) {
-        return new SoulBlessingRequestPacket(buffer.readBoolean());
+    public void encode(FriendlyByteBuf buffer) {
+        buffer.writeBoolean(open);
     }
 
-    public static void handle(SoulBlessingRequestPacket packet,
-            Supplier<NetworkEvent.Context> context) {
+    public static SoulBlessingRequestPacket decode(FriendlyByteBuf buffer) {
+        return new SoulBlessingRequestPacket(
+                buffer.readBoolean()
+        );
+    }
+
+    public static void handle(
+            SoulBlessingRequestPacket packet,
+            Supplier<NetworkEvent.Context> context
+    ) {
         NetworkEvent.Context ctx = context.get();
+
         ctx.enqueueWork(() -> {
             ServerPlayer sender = ctx.getSender();
-            if (sender == null || !sender.containerMenu.getCarried().isEmpty()) return;
+
+            if (sender == null) {
+                return;
+            }
+
+            if (!sender.containerMenu.getCarried().isEmpty()) {
+                return;
+            }
+
             if (packet.open()) {
-                if (sender.containerMenu != sender.inventoryMenu) return;
-                NetworkHooks.openScreen(sender, new SimpleMenuProvider(
-                        (id, inventory, player) -> new SoulBlessingMenu(id, inventory),
-                        Component.translatable("soul_blessing.eternal_career.title")));
+                if (sender.containerMenu instanceof SoulBlessingMenu) {
+                    return;
+                }
+
+                if (sender.containerMenu != sender.inventoryMenu) {
+                    sender.closeContainer();
+                }
+
+                NetworkHooks.openScreen(
+                        sender,
+                        new SimpleMenuProvider(
+                                (id, inventory, player) ->
+                                        new SoulBlessingMenu(
+                                                id,
+                                                inventory
+                                        ),
+                                Component.translatable(
+                                        "soul_blessing.eternal_career.title"
+                                )
+                        )
+                );
+
                 SoulBlessingLifecycleEvents.sync(sender);
-            } else if (sender.containerMenu instanceof SoulBlessingMenu) {
+
+                return;
+            }
+
+            if (sender.containerMenu instanceof SoulBlessingMenu) {
                 sender.closeContainer();
-                ModNetwork.send(sender, new SoulBlessingReturnPacket());
+
+                ModNetwork.send(
+                        sender,
+                        new SoulBlessingReturnPacket()
+                );
             }
         });
+
         ctx.setPacketHandled(true);
     }
 }

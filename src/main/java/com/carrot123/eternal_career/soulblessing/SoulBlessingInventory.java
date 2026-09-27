@@ -24,7 +24,7 @@ public final class SoulBlessingInventory extends ItemStackHandler {
     public boolean isItemValid(int slot, ItemStack stack) {
         return slot >= 0 && slot < SoulBlessingSlots.COUNT
                 && stack.getItem() instanceof SoulBlessingItem blessing
-                && blessing.getSoulBlessingType() == SoulBlessingSlots.type(slot);
+                && blessing.canEquipInSlot(slot);
     }
 
     @Override

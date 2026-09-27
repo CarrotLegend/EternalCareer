@@ -26,6 +26,8 @@ import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingAttribute;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingItem;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingSlotType;
+import com.carrot123.eternal_career.soulblessing.SoulBlessingSlots;
+import com.carrot123.until_eternity.registry.ModAttributes;
 import java.util.List;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -46,6 +48,19 @@ public final class ModItems {
                     ForgeRegistries.ITEMS,
                     EternalCareer.MOD_ID
             );
+
+    public static final RegistryObject<Item> GENERIC_HEAD_BLESSING =
+            registerGenericBlessing("generic_head_blessing", SoulBlessingSlotType.HEAD, -1);
+    public static final RegistryObject<Item> GENERIC_NECKLACE_BLESSING =
+            registerGenericBlessing("generic_necklace_blessing", SoulBlessingSlotType.NECKLACE, -1);
+    public static final RegistryObject<Item> GENERIC_RING_BLESSING =
+            registerGenericBlessing("generic_ring_blessing", SoulBlessingSlotType.RING, -1);
+    public static final RegistryObject<Item> GENERIC_LEFT_BOOT_BLESSING =
+            registerGenericBlessing("generic_left_boot_blessing", SoulBlessingSlotType.BOOTS,
+                    SoulBlessingSlots.BOOTS_LEFT);
+    public static final RegistryObject<Item> GENERIC_RIGHT_BOOT_BLESSING =
+            registerGenericBlessing("generic_right_boot_blessing", SoulBlessingSlotType.BOOTS,
+                    SoulBlessingSlots.BOOTS_RIGHT);
 
     public static final RegistryObject<Item> CHEF_HAT =
             registerChefArmor(
@@ -417,6 +432,14 @@ public final class ModItems {
             SoulBlessingAttribute attribute) {
         ITEMS.register(name, () -> new SoulBlessingItem(
                 new Item.Properties().rarity(Rarity.UNCOMMON), type, List.of(attribute)));
+    }
+
+    private static RegistryObject<Item> registerGenericBlessing(String name,
+            SoulBlessingSlotType type, int requiredSlot) {
+        return ITEMS.register(name, () -> new SoulBlessingItem(
+                new Item.Properties().stacksTo(1), type,
+                () -> List.of(new SoulBlessingAttribute(ModAttributes.ALL_DAMAGE.get(), 0.02D,
+                        AttributeModifier.Operation.MULTIPLY_BASE)), requiredSlot));
     }
 
     public static void register(
