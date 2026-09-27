@@ -7,6 +7,7 @@ import com.carrot123.eternal_career.armor.ChefArmorMaterial;
 import com.carrot123.eternal_career.armor.DeathArmorItem;
 import com.carrot123.eternal_career.armor.DeathArmorMaterial;
 import com.carrot123.eternal_career.item.CallOfDeathItem;
+import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
 import com.carrot123.eternal_career.item.ChaosBladeItem;
 import com.carrot123.eternal_career.item.ChaosFoodItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
@@ -189,6 +190,11 @@ public final class ModItems {
                                     .rarity(Rarity.RARE)
                     )
             );
+
+    public static final RegistryObject<Item> ARCHERY_MASTER_CORE =
+            ITEMS.register("archery_master_core",
+                    () -> new ArcheryMasterCoreItem(new Item.Properties().stacksTo(1)
+                            .rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> DARK_BOOTS =
             ITEMS.register(

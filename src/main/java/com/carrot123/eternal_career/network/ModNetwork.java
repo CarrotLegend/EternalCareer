@@ -61,6 +61,10 @@ public final class ModNetwork {
                 SoulBlessingReturnPacket::encode, SoulBlessingReturnPacket::decode,
                 SoulBlessingReturnPacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(6, ArcheryCoreTogglePacket.class,
+                ArcheryCoreTogglePacket::encode, ArcheryCoreTogglePacket::decode,
+                ArcheryCoreTogglePacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
     public static void send(ServerPlayer player, SoulSyncPacket packet) {
@@ -88,5 +92,9 @@ public final class ModNetwork {
 
     public static void send(ServerPlayer player, SoulBlessingReturnPacket packet) {
         CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
+    }
+
+    public static void sendToServer(ArcheryCoreTogglePacket packet) {
+        CHANNEL.sendToServer(packet);
     }
 }

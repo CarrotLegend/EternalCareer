@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "eternal_career:item/archery_master_core_burst"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "eternal_career:rapid": 1.0
+      },
+      "model": "eternal_career:item/archery_master_core_rapid"
+    }
+  ]
+}

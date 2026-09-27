@@ -152,5 +152,10 @@
   "item.eternal_career.generic_necklace_blessing": "Generic Necklace Blessing",
   "item.eternal_career.generic_ring_blessing": "Generic Ring Blessing",
   "item.eternal_career.generic_left_boot_blessing": "Generic Left Boot Blessing",
-  "item.eternal_career.generic_right_boot_blessing": "Generic Right Boot Blessing"
+  "item.eternal_career.generic_right_boot_blessing": "Generic Right Boot Blessing",
+  "item.eternal_career.archery_master_core": "Archery Master Core",
+  "tooltip.eternal_career.archery_master_core.burst": "Burst Mode",
+  "tooltip.eternal_career.archery_master_core.burst_effect": "§5Each second of charging: §6+100% damage§5 (up to §6+500%§5)",
+  "tooltip.eternal_career.archery_master_core.rapid": "Rapid Mode",
+  "tooltip.eternal_career.archery_master_core.rapid_effect": "§5Automatically fires the bow"
 }
