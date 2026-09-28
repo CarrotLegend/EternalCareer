@@ -10,7 +10,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String VERSION = "4";
+    private static final String VERSION = "5";
 
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(EternalCareer.MOD_ID, "main"),
@@ -65,6 +65,14 @@ public final class ModNetwork {
                 ArcheryCoreTogglePacket::encode, ArcheryCoreTogglePacket::decode,
                 ArcheryCoreTogglePacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(7, FletchingCraftPacket.class,
+                FletchingCraftPacket::encode, FletchingCraftPacket::decode,
+                FletchingCraftPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(8, FletchingModifyPacket.class,
+                FletchingModifyPacket::encode, FletchingModifyPacket::decode,
+                FletchingModifyPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
     public static void send(ServerPlayer player, SoulSyncPacket packet) {
@@ -95,6 +103,14 @@ public final class ModNetwork {
     }
 
     public static void sendToServer(ArcheryCoreTogglePacket packet) {
+        CHANNEL.sendToServer(packet);
+    }
+
+    public static void sendToServer(FletchingCraftPacket packet) {
+        CHANNEL.sendToServer(packet);
+    }
+
+    public static void sendToServer(FletchingModifyPacket packet) {
         CHANNEL.sendToServer(packet);
     }
 }

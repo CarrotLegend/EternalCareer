@@ -105,6 +105,8 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.NECROMANCY_ORB_FOCUS);
             event.accept(ModItems.FROST_CHARM);
             event.accept(ModItems.ARCHERY_MASTER_CORE);
+            event.accept(ModItems.POWER_MODIFICATION);
+            event.accept(ModItems.VELOCITY_MODIFICATION);
             event.accept(ModItems.DARK_BOOTS);
             event.accept(ModItems.DARK_CHAIN);
         }

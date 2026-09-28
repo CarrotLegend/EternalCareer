@@ -6,10 +6,10 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-/** The single cached authorization path used by every redemption restriction. */
 public final class RedemptionAccessController {
     static final String ACCESS_CACHE_TAG =
             "eternal_career:redemption_access_cached";
+
     static final String RECHECK_TICKS_TAG =
             "eternal_career:redemption_recheck_ticks";
 
@@ -25,15 +25,16 @@ public final class RedemptionAccessController {
             return false;
         }
 
-        // Client-side checks are presentation-only and have no authoritative persisted cache.
         if (player.level().isClientSide) {
             return queryCurrentAccess(player);
         }
 
         CompoundTag data = player.getPersistentData();
+
         if (data.contains(ACCESS_CACHE_TAG, Tag.TAG_BYTE)) {
             return data.getBoolean(ACCESS_CACHE_TAG);
         }
+
         return refreshAccessNow(player);
     }
 
@@ -45,14 +46,18 @@ public final class RedemptionAccessController {
         if (player == null) {
             return false;
         }
+
         boolean access = hasLiveRedemptionAccess(player);
+
         if (!player.level().isClientSide) {
             CompoundTag data = player.getPersistentData();
             data.putBoolean(ACCESS_CACHE_TAG, access);
+
             if (access) {
                 data.remove(RECHECK_TICKS_TAG);
             }
         }
+
         return access;
     }
 
@@ -64,7 +69,9 @@ public final class RedemptionAccessController {
         if (hasRedemptionAccess(player)) {
             return true;
         }
+
         boolean pending = isRecheckPending(player);
+
         return refreshAccessNow(player) || pending;
     }
 
@@ -72,10 +79,15 @@ public final class RedemptionAccessController {
         if (hasRedemptionAccess(player) || isRecheckPending(player)) {
             return false;
         }
+
         return !refreshAccessNow(player);
     }
 
     public static boolean canUse(Player player, ItemStack stack) {
+        if (RedemptionItemHelper.isUseExempt(stack)) {
+            return true;
+        }
+
         return !isRedemptionItem(stack) || hasRedemptionAccess(player);
     }
 
@@ -84,7 +96,10 @@ public final class RedemptionAccessController {
     }
 
     static void initializeCacheIfAbsent(Player player) {
-        if (!player.getPersistentData().contains(ACCESS_CACHE_TAG, Tag.TAG_BYTE)) {
+        if (!player.getPersistentData().contains(
+                ACCESS_CACHE_TAG,
+                Tag.TAG_BYTE
+        )) {
             refreshAccessNow(player);
         }
     }
@@ -92,28 +107,50 @@ public final class RedemptionAccessController {
     static void copyCacheState(Player original, Player clone) {
         CompoundTag originalData = original.getPersistentData();
         CompoundTag cloneData = clone.getPersistentData();
-        if (originalData.contains(ACCESS_CACHE_TAG, Tag.TAG_BYTE)) {
-            cloneData.putBoolean(ACCESS_CACHE_TAG, originalData.getBoolean(ACCESS_CACHE_TAG));
+
+        if (originalData.contains(
+                ACCESS_CACHE_TAG,
+                Tag.TAG_BYTE
+        )) {
+            cloneData.putBoolean(
+                    ACCESS_CACHE_TAG,
+                    originalData.getBoolean(ACCESS_CACHE_TAG)
+            );
         }
-        if (originalData.contains(RECHECK_TICKS_TAG, Tag.TAG_INT)) {
-            cloneData.putInt(RECHECK_TICKS_TAG, originalData.getInt(RECHECK_TICKS_TAG));
+
+        if (originalData.contains(
+                RECHECK_TICKS_TAG,
+                Tag.TAG_INT
+        )) {
+            cloneData.putInt(
+                    RECHECK_TICKS_TAG,
+                    originalData.getInt(RECHECK_TICKS_TAG)
+            );
         }
     }
 
     static void scheduleRecheck(Player player, int ticks) {
         CompoundTag data = player.getPersistentData();
-        data.putInt(RECHECK_TICKS_TAG,
-                Math.max(data.getInt(RECHECK_TICKS_TAG), Math.max(1, ticks)));
+
+        data.putInt(
+                RECHECK_TICKS_TAG,
+                Math.max(
+                        data.getInt(RECHECK_TICKS_TAG),
+                        Math.max(1, ticks)
+                )
+        );
     }
 
     public static boolean isRecheckPending(Player player) {
         return player != null
-                && player.getPersistentData().getInt(RECHECK_TICKS_TAG) > 0;
+                && player.getPersistentData()
+                .getInt(RECHECK_TICKS_TAG) > 0;
     }
 
     static void advanceRecheck(Player player) {
         CompoundTag data = player.getPersistentData();
         int remaining = data.getInt(RECHECK_TICKS_TAG);
+
         if (remaining <= 0) {
             return;
         }
@@ -123,6 +160,7 @@ public final class RedemptionAccessController {
         }
 
         remaining--;
+
         if (remaining > 0) {
             data.putInt(RECHECK_TICKS_TAG, remaining);
             return;
@@ -132,7 +170,6 @@ public final class RedemptionAccessController {
         data.remove(RECHECK_TICKS_TAG);
     }
 
-    /** The only call site allowed to query Enigmatic Addons' live identity state. */
     private static boolean queryCurrentAccess(Player player) {
         return SuperAddonHandler.isTheBlessedOne(player);
     }

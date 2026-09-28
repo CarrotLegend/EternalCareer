@@ -8,6 +8,7 @@ import com.carrot123.eternal_career.armor.DeathArmorItem;
 import com.carrot123.eternal_career.armor.DeathArmorMaterial;
 import com.carrot123.eternal_career.item.CallOfDeathItem;
 import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
+import com.carrot123.eternal_career.fletching.BowModificationItem;
 import com.carrot123.eternal_career.item.ChaosBladeItem;
 import com.carrot123.eternal_career.item.ChaosFoodItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
@@ -33,6 +34,7 @@ import java.util.List;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -195,6 +197,14 @@ public final class ModItems {
             ITEMS.register("archery_master_core",
                     () -> new ArcheryMasterCoreItem(new Item.Properties().stacksTo(1)
                             .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> POWER_MODIFICATION =
+            ITEMS.register("power_modification", () -> new BowModificationItem(
+                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "power")));
+
+    public static final RegistryObject<Item> VELOCITY_MODIFICATION =
+            ITEMS.register("velocity_modification", () -> new BowModificationItem(
+                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "velocity")));
 
     public static final RegistryObject<Item> DARK_BOOTS =
             ITEMS.register(

@@ -2,6 +2,7 @@ package com.carrot123.eternal_career.registry;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingMenu;
+import com.carrot123.eternal_career.fletching.FletchingTableMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,6 +18,10 @@ public final class ModMenus {
             MENUS.register("soul_blessing", () -> IForgeMenuType.create(
                     (containerId, inventory, ignored) ->
                             new SoulBlessingMenu(containerId, inventory)));
+
+    public static final RegistryObject<MenuType<FletchingTableMenu>> FLETCHING_TABLE =
+            MENUS.register("fletching_table", () -> IForgeMenuType.create(
+                    FletchingTableMenu::new));
 
     private ModMenus() {}
 

@@ -2,13 +2,16 @@ package com.carrot123.eternal_career.archery;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
+import com.carrot123.eternal_career.fletching.BowModificationHelper;
 import com.carrot123.eternal_career.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -18,20 +21,24 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID)
 public final class ArcheryCoreEvents {
+    private static final String START_TICK_KEY =
+            "EternalCareerArcheryBurstStartTick";
+
     private static final String PENDING_BONUS_KEY =
-            "EternalCareerArcheryCorePendingBonus";
+            "EternalCareerArcheryBurstPendingBonus";
 
     private static final String PENDING_TICK_KEY =
-            "EternalCareerArcheryCorePendingTick";
+            "EternalCareerArcheryBurstPendingTick";
 
-    private static final String ARROW_BONUS_KEY =
-            "EternalCareerArcheryCoreArrowBonus";
+    private static final String PROJECTILE_BONUS_KEY =
+            "EternalCareerArcheryBurstBonus";
 
     private ArcheryCoreEvents() {
     }
 
     public static boolean hasMode(Player player, int mode) {
-        return CuriosApi.getCuriosInventory(player).resolve()
+        return CuriosApi.getCuriosInventory(player)
+                .resolve()
                 .map(handler ->
                         handler.findCurios(ModItems.ARCHERY_MASTER_CORE.get())
                                 .stream()
@@ -49,92 +56,160 @@ public final class ArcheryCoreEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onArrowLoose(ArrowLooseEvent event) {
-        Player player = event.getEntity();
-
-        if (event.getLevel().isClientSide()) {
+    public static void onUseStart(LivingEntityUseItemEvent.Start event) {
+        if (!(event.getEntity() instanceof Player player)
+                || player.level().isClientSide()
+                || !hasMode(player, ArcheryMasterCoreItem.BURST)) {
             return;
         }
 
         CompoundTag data = player.getPersistentData();
+
+        data.putLong(
+                START_TICK_KEY,
+                player.level().getGameTime()
+        );
 
         data.remove(PENDING_BONUS_KEY);
         data.remove(PENDING_TICK_KEY);
-
-        if (!hasMode(player, ArcheryMasterCoreItem.BURST)) {
-            return;
-        }
-
-        int chargeTicks = Math.max(0, event.getCharge());
-
-        int bonus = Math.min(5, chargeTicks / 20);
-
-        if (bonus <= 0) {
-            return;
-        }
-
-        data.putInt(PENDING_BONUS_KEY, bonus);
-        data.putLong(
-                PENDING_TICK_KEY,
-                player.level().getGameTime()
-        );
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onArrowJoin(EntityJoinLevelEvent event) {
+    public static void onUseStop(LivingEntityUseItemEvent.Stop event) {
+        if (!(event.getEntity() instanceof Player player)
+                || player.level().isClientSide()) {
+            return;
+        }
+
+        finishCharge(player);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onUseFinish(LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof Player player)
+                || player.level().isClientSide()) {
+            return;
+        }
+
+        finishCharge(player);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onArrowLoose(ArrowLooseEvent event) {
+        Player player = event.getEntity();
+
+        if (event.getLevel().isClientSide()
+                || !hasMode(player, ArcheryMasterCoreItem.BURST)) {
+            return;
+        }
+
+        int chargeTicks = Math.max(
+                0,
+                event.getCharge()
+        );
+
+        setPendingBonus(
+                player,
+                chargeTicks
+        );
+
+        player.getPersistentData().remove(
+                START_TICK_KEY
+        );
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onProjectileJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide()
                 || event.loadedFromDisk()
-                || !(event.getEntity() instanceof AbstractArrow arrow)) {
+                || !(event.getEntity() instanceof Projectile projectile)) {
             return;
         }
 
-        Entity owner = arrow.getOwner();
+        if (projectile instanceof AbstractArrow arrow) {
+            BowModificationHelper.applyOnSpawn(arrow);
+        }
 
-        if (!(owner instanceof Player player)) {
+        Entity owner = projectile.getOwner();
+
+        if (!(owner instanceof Player player)
+                || !hasMode(player, ArcheryMasterCoreItem.BURST)) {
             return;
         }
 
-        CompoundTag data = player.getPersistentData();
+        CompoundTag playerData =
+                player.getPersistentData();
 
-        if (!data.contains(PENDING_BONUS_KEY)
-                || !data.contains(PENDING_TICK_KEY)) {
-            return;
+        int bonus = 0;
+
+        if (playerData.contains(PENDING_BONUS_KEY)
+                && playerData.contains(PENDING_TICK_KEY)) {
+
+            long pendingTick =
+                    playerData.getLong(PENDING_TICK_KEY);
+
+            long currentTick =
+                    event.getLevel().getGameTime();
+
+            if (currentTick >= pendingTick
+                    && currentTick - pendingTick <= 5L) {
+
+                bonus = playerData.getInt(
+                        PENDING_BONUS_KEY
+                );
+            }
         }
 
-        long shotTick = data.getLong(PENDING_TICK_KEY);
-        long currentTick = event.getLevel().getGameTime();
+        if (bonus <= 0
+                && playerData.contains(START_TICK_KEY)) {
 
-        if (currentTick < shotTick
-                || currentTick - shotTick > 1L) {
-            return;
+            long startTick =
+                    playerData.getLong(START_TICK_KEY);
+
+            long elapsed =
+                    Math.max(
+                            0L,
+                            player.level().getGameTime() - startTick
+                    );
+
+            bonus = Math.min(
+                    5,
+                    (int) (elapsed / 20L)
+            );
         }
 
-        int bonus = Math.max(
+        bonus = Math.max(
                 0,
-                Math.min(
-                        5,
-                        data.getInt(PENDING_BONUS_KEY)
-                )
+                Math.min(5, bonus)
         );
 
         if (bonus <= 0) {
             return;
         }
 
-        arrow.getPersistentData().putInt(
-                ARROW_BONUS_KEY,
+        projectile.getPersistentData().putInt(
+                PROJECTILE_BONUS_KEY,
                 bonus
         );
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onArrowHurt(LivingHurtEvent event) {
+    public static void onProjectileHurt(LivingHurtEvent event) {
         if (event.getEntity().level().isClientSide()) {
             return;
         }
 
-        if (!(event.getSource().getDirectEntity()
-                instanceof AbstractArrow arrow)) {
+        Entity directEntity =
+                event.getSource().getDirectEntity();
+
+        if (!(directEntity instanceof Projectile projectile)) {
+            return;
+        }
+
+        CompoundTag data =
+                projectile.getPersistentData();
+
+        if (!data.contains(PROJECTILE_BONUS_KEY)) {
             return;
         }
 
@@ -142,9 +217,7 @@ public final class ArcheryCoreEvents {
                 0,
                 Math.min(
                         5,
-                        arrow.getPersistentData().getInt(
-                                ARROW_BONUS_KEY
-                        )
+                        data.getInt(PROJECTILE_BONUS_KEY)
                 )
         );
 
@@ -152,14 +225,19 @@ public final class ArcheryCoreEvents {
             return;
         }
 
-        float amount = event.getAmount();
+        float original =
+                event.getAmount();
 
-        if (amount <= 0.0F || !Float.isFinite(amount)) {
+        if (original <= 0.0F
+                || !Float.isFinite(original)) {
             return;
         }
 
-        double multiplier = 1.0D + bonus;
-        double modified = amount * multiplier;
+        double multiplier =
+                1.0D + bonus;
+
+        double modified =
+                original * multiplier;
 
         if (!Double.isFinite(modified)) {
             return;
@@ -179,18 +257,102 @@ public final class ArcheryCoreEvents {
             return;
         }
 
-        CompoundTag data = event.player.getPersistentData();
+        Player player = event.player;
+        CompoundTag data = player.getPersistentData();
 
-        if (!data.contains(PENDING_TICK_KEY)) {
-            return;
+        long currentTick =
+                player.level().getGameTime();
+
+        if (data.contains(PENDING_TICK_KEY)) {
+            long pendingTick =
+                    data.getLong(PENDING_TICK_KEY);
+
+            if (currentTick - pendingTick > 5L) {
+                data.remove(PENDING_BONUS_KEY);
+                data.remove(PENDING_TICK_KEY);
+            }
         }
 
-        long shotTick = data.getLong(PENDING_TICK_KEY);
-        long currentTick = event.player.level().getGameTime();
+        if (data.contains(START_TICK_KEY)
+                && !player.isUsingItem()) {
 
-        if (currentTick > shotTick + 1L) {
+            long startTick =
+                    data.getLong(START_TICK_KEY);
+
+            if (currentTick - startTick > 10L) {
+                data.remove(START_TICK_KEY);
+            }
+        }
+
+        if (!hasMode(player, ArcheryMasterCoreItem.BURST)) {
+            data.remove(START_TICK_KEY);
             data.remove(PENDING_BONUS_KEY);
             data.remove(PENDING_TICK_KEY);
         }
+    }
+
+    private static void finishCharge(Player player) {
+        CompoundTag data =
+                player.getPersistentData();
+
+        if (!hasMode(player, ArcheryMasterCoreItem.BURST)) {
+            data.remove(START_TICK_KEY);
+            data.remove(PENDING_BONUS_KEY);
+            data.remove(PENDING_TICK_KEY);
+            return;
+        }
+
+        if (!data.contains(START_TICK_KEY)) {
+            return;
+        }
+
+        long startTick =
+                data.getLong(START_TICK_KEY);
+
+        long elapsed =
+                Math.max(
+                        0L,
+                        player.level().getGameTime() - startTick
+                );
+
+        setPendingBonus(
+                player,
+                (int) Math.min(Integer.MAX_VALUE, elapsed)
+        );
+
+        data.remove(START_TICK_KEY);
+    }
+
+    private static void setPendingBonus(
+            Player player,
+            int chargeTicks
+    ) {
+        CompoundTag data =
+                player.getPersistentData();
+
+        int bonus = Math.max(
+                0,
+                Math.min(
+                        5,
+                        chargeTicks / 20
+                )
+        );
+
+        data.remove(PENDING_BONUS_KEY);
+        data.remove(PENDING_TICK_KEY);
+
+        if (bonus <= 0) {
+            return;
+        }
+
+        data.putInt(
+                PENDING_BONUS_KEY,
+                bonus
+        );
+
+        data.putLong(
+                PENDING_TICK_KEY,
+                player.level().getGameTime()
+        );
     }
 }
