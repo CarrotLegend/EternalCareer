@@ -1,6 +1,5 @@
 package com.carrot123.eternal_career.client;
 
-import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.fletching.BowModification;
 import com.carrot123.eternal_career.fletching.BowModificationHelper;
 import com.carrot123.eternal_career.fletching.BowModifications;
@@ -8,10 +7,8 @@ import com.carrot123.eternal_career.fletching.FletchingTableMenu;
 import com.carrot123.eternal_career.network.FletchingCraftPacket;
 import com.carrot123.eternal_career.network.FletchingModifyPacket;
 import com.carrot123.eternal_career.network.ModNetwork;
-import com.carrot123.eternal_career.registry.ModMenus;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,10 +16,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class FletchingTableScreen extends AbstractContainerScreen<FletchingTableMenu> {
     private static final ResourceLocation VANILLA_SLOTS =
@@ -316,18 +309,5 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, delta);
-    }
-
-    @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, value = Dist.CLIENT,
-            bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static final class Registration {
-        private Registration() {
-        }
-
-        @SubscribeEvent
-        public static void register(FMLClientSetupEvent event) {
-            event.enqueueWork(() -> MenuScreens.register(ModMenus.FLETCHING_TABLE.get(),
-                    FletchingTableScreen::new));
-        }
     }
 }

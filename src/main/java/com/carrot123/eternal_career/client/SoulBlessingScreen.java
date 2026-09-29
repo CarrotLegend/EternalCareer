@@ -1,21 +1,15 @@
 package com.carrot123.eternal_career.client;
 
 import com.carrot123.eternal_career.EternalCareer;
-import com.carrot123.eternal_career.registry.ModMenus;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingMenu;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingSlot;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingSlots;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class SoulBlessingScreen extends AbstractContainerScreen<SoulBlessingMenu> {
 
@@ -244,26 +238,5 @@ public final class SoulBlessingScreen extends AbstractContainerScreen<SoulBlessi
                 mouseX,
                 mouseY
         );
-    }
-
-    @Mod.EventBusSubscriber(
-            modid = EternalCareer.MOD_ID,
-            value = Dist.CLIENT,
-            bus = Mod.EventBusSubscriber.Bus.MOD
-    )
-    public static final class Registration {
-
-        private Registration() {
-        }
-
-        @SubscribeEvent
-        public static void register(FMLClientSetupEvent event) {
-            event.enqueueWork(() ->
-                    MenuScreens.register(
-                            ModMenus.SOUL_BLESSING.get(),
-                            SoulBlessingScreen::new
-                    )
-            );
-        }
     }
 }

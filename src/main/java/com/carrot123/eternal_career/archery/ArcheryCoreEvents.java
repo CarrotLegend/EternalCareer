@@ -2,13 +2,12 @@ package com.carrot123.eternal_career.archery;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
-import com.carrot123.eternal_career.fletching.BowModificationHelper;
 import com.carrot123.eternal_career.registry.ModItems;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -124,10 +123,6 @@ public final class ArcheryCoreEvents {
                 || event.loadedFromDisk()
                 || !(event.getEntity() instanceof Projectile projectile)) {
             return;
-        }
-
-        if (projectile instanceof AbstractArrow arrow) {
-            BowModificationHelper.applyOnSpawn(arrow);
         }
 
         Entity owner = projectile.getOwner();
