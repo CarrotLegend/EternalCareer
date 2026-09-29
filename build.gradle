@@ -331,10 +331,6 @@ def productionJar = tasks.named('jar', Jar).flatMap {
 }
 
 def expectedProductionMappings = [
-        'com/carrot123/eternal_career/mixin/vanilla/AbstractContainerMenuRedemptionMixin': [
-                'doClick':
-                        'Lnet/minecraft/world/inventory/AbstractContainerMenu;m_150430_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V'
-        ],
         'com/carrot123/eternal_career/mixin/compat/until_eternity/TrueChefsKnifeItemMixin': [
                 'hurtEnemy(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/LivingEntity;)Z':
                         'Lcom/carrot123/until_eternity/item/TrueChefsKnifeItem;m_7579_(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/LivingEntity;)Z'

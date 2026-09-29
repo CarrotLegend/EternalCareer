@@ -29,44 +29,47 @@ public abstract class AbstractContainerMenuRedemptionMixin {
     public abstract ItemStack getCarried();
 
     @Inject(
-            method = "doClick",
-            at = @At("HEAD"),
-            cancellable = true,
-            remap = true,
-            require = 1
-    )
-    private void eternalCareer$validateRedemptionClick(
-            int slotIndex,
-            int button,
-            ClickType clickType,
-            Player player,
-            CallbackInfo callback
-    ) {
-        if (slotIndex < 0 || slotIndex >= this.slots.size()) {
-            return;
-        }
-
-        AbstractContainerMenu self =
-                (AbstractContainerMenu) (Object) this;
-
-        if (self instanceof RedemptionMenuAccess recipeMenu
-                && recipeMenu.eternalCareer$isResultSlot(slotIndex)
-                && containsRedemptionInput(recipeMenu)
-                && !RedemptionAccessController.hasRedemptionAccess(player)) {
-            callback.cancel();
-            return;
-        }
-
-        if (self instanceof InventoryMenu
-                && wouldEquipRestrictedArmor(
-                        slotIndex,
-                        button,
-                        clickType,
-                        player
-                )) {
-            callback.cancel();
-        }
+        method = {
+                "clicked(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V",
+                "m_150399_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V"
+        },
+        at = @At("HEAD"),
+        cancellable = true,
+        remap = false,
+        require = 1
+)
+private void eternalCareer$validateRedemptionClick(
+        int slotIndex,
+        int button,
+        ClickType clickType,
+        Player player,
+        CallbackInfo callback
+) {
+    if (slotIndex < 0 || slotIndex >= this.slots.size()) {
+        return;
     }
+
+    AbstractContainerMenu self =
+            (AbstractContainerMenu) (Object) this;
+
+    if (self instanceof RedemptionMenuAccess recipeMenu
+            && recipeMenu.eternalCareer$isResultSlot(slotIndex)
+            && containsRedemptionInput(recipeMenu)
+            && !RedemptionAccessController.hasRedemptionAccess(player)) {
+        callback.cancel();
+        return;
+    }
+
+    if (self instanceof InventoryMenu
+            && wouldEquipRestrictedArmor(
+                    slotIndex,
+                    button,
+                    clickType,
+                    player
+            )) {
+        callback.cancel();
+    }
+}
 
     private boolean wouldEquipRestrictedArmor(
             int slotIndex,
