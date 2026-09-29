@@ -206,6 +206,19 @@ public final class ModItems {
             ITEMS.register("velocity_modification", () -> new BowModificationItem(
                     new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "velocity")));
 
+    public static final RegistryObject<Item> BLAST_MODIFICATION =
+            ITEMS.register("blast_modification", () -> new BowModificationItem(
+                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "blast")));
+    public static final RegistryObject<Item> RANGER_MODIFICATION =
+            ITEMS.register("ranger_modification", () -> new BowModificationItem(
+                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "ranger")));
+    public static final RegistryObject<Item> BLOODTHIRST_MODIFICATION =
+            ITEMS.register("bloodthirst_modification", () -> new BowModificationItem(
+                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "bloodthirst")));
+    public static final RegistryObject<Item> END_MODIFICATION =
+            ITEMS.register("end_modification", () -> new BowModificationItem(
+                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "end")));
+
     public static final RegistryObject<Item> DARK_BOOTS =
             ITEMS.register(
                     "dark_boots",

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/spectral_arrow"
+    "layer0": "eternal_career:item/whirlwind_update"
   }
 }

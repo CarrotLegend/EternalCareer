@@ -115,7 +115,7 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
             BowModification modification = selectedModification();
             for (int index = 0; index < modification.materials().size(); index++) {
                 int x = leftPos + 113;
-                int y = topPos + 96 + index * 16;
+                int y = topPos + 106 + index * 16;
                 if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
                     graphics.renderTooltip(font, modification.materials().get(index).icon(),
                             mouseX, mouseY);
@@ -205,12 +205,14 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
         graphics.drawString(font, Component.translatable("fletching.eternal_career.maximum",
                         FletchingBowTooltipEvents.numeral(selectedEntry.maxLevel())),
                 x + 112, y + 71, 0x404040, false);
-        graphics.drawString(font, Component.translatable(selectedEntry.effectKey(),
-                (int) Math.round(selectedEntry.amountPerLevel() * 100.0D)),
-                x + 112, y + 83, 0x315B31, false);
+        int effectLine = 0;
+        for (var line : font.split(selectedEntry.effect(1), 112)) {
+            graphics.drawString(font, line, x + 112, y + 80 + effectLine++ * 9,
+                    0x315B31, false);
+        }
         for (int index = 0; index < selectedEntry.materials().size(); index++) {
             BowModification.Material material = selectedEntry.materials().get(index);
-            int materialY = y + 96 + index * 16;
+            int materialY = y + 106 + index * 16;
             graphics.renderItem(material.icon(), x + 113, materialY);
             graphics.drawString(font, Component.translatable("fletching.eternal_career.material",
                     material.count(), owned(material)), x + 134, materialY + 4,
@@ -221,8 +223,8 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
     private void renderModifyPage(GuiGraphics graphics) {
         int x = leftPos;
         int y = topPos;
-        graphics.fill(x + 10, y + 31, x + 127, y + 107, DARK);
-        graphics.fill(x + 12, y + 33, x + 125, y + 105, 0xFF999999);
+        graphics.fill(x + 10, y + 31, x + 127, y + 145, DARK);
+        graphics.fill(x + 12, y + 33, x + 125, y + 143, 0xFF999999);
         graphics.drawString(font, Component.translatable("fletching.eternal_career.existing"),
                 x + 17, y + 37, 0x303030, false);
         boolean found = false;

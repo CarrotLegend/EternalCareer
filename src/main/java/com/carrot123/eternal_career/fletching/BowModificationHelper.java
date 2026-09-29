@@ -4,6 +4,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStack.TooltipPart;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 
 public final class BowModificationHelper {
     private static final String ROOT = "EternalCareer";
@@ -35,6 +37,7 @@ public final class BowModificationHelper {
         CompoundTag levels = root.getCompound(LEVELS);
         levels.putInt(id.getPath(), Math.max(0, Math.min(modification.maxLevel(), level)));
         root.put(LEVELS, levels);
+        stack.hideTooltipPart(TooltipPart.MODIFIERS);
     }
 
     public static boolean canApply(ItemStack stack, BowModification modification) {
@@ -49,5 +52,16 @@ public final class BowModificationHelper {
         }
         setLevel(stack, id, getLevel(stack, id) + 1);
         return true;
+    }
+
+    public static void captureProjectile(AbstractArrow arrow, ItemStack bow) {
+        int blast = getLevel(bow, BowModifications.BLAST.id());
+        int bloodthirst = getLevel(bow, BowModifications.BLOODTHIRST.id());
+        if (blast > 0) {
+            arrow.getPersistentData().putInt("EternalCareerFletchingBlast", blast);
+        }
+        if (bloodthirst > 0) {
+            arrow.getPersistentData().putInt("EternalCareerFletchingBloodthirst", bloodthirst);
+        }
     }
 }

@@ -107,6 +107,10 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.ARCHERY_MASTER_CORE);
             event.accept(ModItems.POWER_MODIFICATION);
             event.accept(ModItems.VELOCITY_MODIFICATION);
+            event.accept(ModItems.BLAST_MODIFICATION);
+            event.accept(ModItems.RANGER_MODIFICATION);
+            event.accept(ModItems.BLOODTHIRST_MODIFICATION);
+            event.accept(ModItems.END_MODIFICATION);
             event.accept(ModItems.DARK_BOOTS);
             event.accept(ModItems.DARK_CHAIN);
         }

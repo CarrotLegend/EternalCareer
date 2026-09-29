@@ -29,13 +29,11 @@ public abstract class AbstractContainerMenuRedemptionMixin {
     public abstract ItemStack getCarried();
 
     @Inject(
-            method = {
-                    "doClick(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V",
-                    "m_150430_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V"
-            },
+            method = "doClick",
             at = @At("HEAD"),
             cancellable = true,
-            remap = false
+            remap = true,
+            require = 1
     )
     private void eternalCareer$validateRedemptionClick(
             int slotIndex,

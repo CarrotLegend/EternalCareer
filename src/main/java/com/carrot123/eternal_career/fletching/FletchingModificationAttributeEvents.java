@@ -6,24 +6,35 @@ import com.carrot123.eternal_career.util.StableAttributeModifiers;
 import java.util.UUID;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID)
+@Mod.EventBusSubscriber(
+        modid = EternalCareer.MOD_ID,
+        bus = Mod.EventBusSubscriber.Bus.FORGE
+)
 public final class FletchingModificationAttributeEvents {
 
     private static final ResourceLocation RANGED_DAMAGE =
-            new ResourceLocation("puffish_attributes", "ranged_damage");
+            new ResourceLocation(
+                    "puffish_attributes",
+                    "ranged_damage"
+            );
 
     private static final ResourceLocation RANGED_VELOCITY =
-            new ResourceLocation("terra_curio", "ranged_velocity");
+            new ResourceLocation(
+                    "terra_curio",
+                    "ranged_velocity"
+            );
+
+    private static final ResourceLocation CHARGE_SPEED =
+            new ResourceLocation("until_eternity", "charge_speed");
 
     private static final UUID POWER_UUID =
             StableAttributeModifiers.id(
@@ -35,109 +46,99 @@ public final class FletchingModificationAttributeEvents {
                     "eternal_career:fletching/velocity"
             );
 
+    private static final UUID RANGER_UUID =
+            StableAttributeModifiers.id("eternal_career:fletching/ranger");
+    private static final UUID END_UUID =
+            StableAttributeModifiers.id("eternal_career:fletching/end");
+
     private FletchingModificationAttributeEvents() {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END
-                || !(event.player instanceof ServerPlayer player)) {
+    public static void onItemAttributes(
+            ItemAttributeModifierEvent event
+    ) {
+        if (event.getSlotType() != EquipmentSlot.MAINHAND) {
             return;
         }
 
-        ItemStack mainHand = player.getMainHandItem();
+        ItemStack stack = event.getItemStack();
 
-        int powerLevel = 0;
-        int velocityLevel = 0;
-
-        if (BowModificationHelper.isBow(mainHand)) {
-            powerLevel = BowModificationHelper.getLevel(
-                    mainHand,
-                    BowModifications.POWER.id()
-            );
-
-            velocityLevel = BowModificationHelper.getLevel(
-                    mainHand,
-                    BowModifications.VELOCITY.id()
-            );
+        if (!BowModificationHelper.isBow(stack)) {
+            return;
         }
 
-        double powerAmount =
-                powerLevel * BowModifications.POWER.amountPerLevel();
+        int powerLevel =
+                BowModificationHelper.getLevel(
+                        stack,
+                        BowModifications.POWER.id()
+                );
 
-        double velocityAmount =
-                velocityLevel * BowModifications.VELOCITY.amountPerLevel();
+        int velocityLevel =
+                BowModificationHelper.getLevel(
+                        stack,
+                        BowModifications.VELOCITY.id()
+                );
 
-        updateModifier(
-                player,
-                RANGED_DAMAGE,
-                POWER_UUID,
-                "eternal_career:fletching/power",
-                powerAmount
-        );
+        int rangerLevel = BowModificationHelper.getLevel(stack, BowModifications.RANGER.id());
+        int endLevel = BowModificationHelper.getLevel(stack, BowModifications.END.id());
 
-        updateModifier(
-                player,
-                RANGED_VELOCITY,
-                VELOCITY_UUID,
-                "eternal_career:fletching/velocity",
-                velocityAmount
-        );
+        if (powerLevel > 0) {
+            Attribute rangedDamage =
+                    ForgeRegistries.ATTRIBUTES.getValue(
+                            RANGED_DAMAGE
+                    );
+
+            if (rangedDamage != null) {
+                event.addModifier(
+                        rangedDamage,
+                        new AttributeModifier(
+                                POWER_UUID,
+                                "eternal_career:fletching/power",
+                                powerLevel
+                                        * BowModifications.POWER.amountPerLevel(),
+                                AttributeModifier.Operation.MULTIPLY_BASE
+                        )
+                );
+            }
+        }
+
+        if (velocityLevel > 0) {
+            Attribute rangedVelocity =
+                    ForgeRegistries.ATTRIBUTES.getValue(
+                            RANGED_VELOCITY
+                    );
+
+            if (rangedVelocity != null) {
+                event.addModifier(
+                        rangedVelocity,
+                        new AttributeModifier(
+                                VELOCITY_UUID,
+                                "eternal_career:fletching/velocity",
+                                velocityLevel
+                                        * BowModifications.VELOCITY.amountPerLevel(),
+                                AttributeModifier.Operation.MULTIPLY_BASE
+                        )
+                );
+            }
+        }
+
+        addModifier(event, CHARGE_SPEED, RANGER_UUID, "ranger",
+                rangerLevel * BowModifications.RANGER.amountPerLevel());
+        addModifier(event, RANGED_DAMAGE, END_UUID, "end",
+                endLevel * BowModifications.END.amountPerLevel());
     }
 
-    private static void updateModifier(
-            ServerPlayer player,
-            ResourceLocation attributeId,
-            UUID uuid,
-            String name,
-            double amount
-    ) {
-        Attribute attribute =
-                ForgeRegistries.ATTRIBUTES.getValue(attributeId);
-
-        if (attribute == null) {
-            return;
-        }
-
-        AttributeInstance instance =
-                player.getAttribute(attribute);
-
-        if (instance == null) {
-            return;
-        }
-
-        AttributeModifier current =
-                instance.getModifier(uuid);
-
+    private static void addModifier(ItemAttributeModifierEvent event, ResourceLocation id,
+            UUID uuid, String name, double amount) {
         if (amount <= 0.0D) {
-            if (current != null) {
-                instance.removeModifier(uuid);
-            }
-
             return;
         }
-
-        if (current != null
-                && current.getOperation()
-                == AttributeModifier.Operation.MULTIPLY_BASE
-                && Double.compare(
-                        current.getAmount(),
-                        amount
-                ) == 0) {
-            return;
+        Attribute attribute = ForgeRegistries.ATTRIBUTES.getValue(id);
+        if (attribute != null) {
+            event.addModifier(attribute, new AttributeModifier(uuid,
+                    "eternal_career:fletching/" + name, amount,
+                    AttributeModifier.Operation.MULTIPLY_BASE));
         }
-
-        if (current != null) {
-            instance.removeModifier(uuid);
-        }
-
-        instance.addTransientModifier(
-                new AttributeModifier(
-                        uuid,
-                        name,
-                        amount,
-                        AttributeModifier.Operation.MULTIPLY_BASE
-                )
-        );
     }
 }
