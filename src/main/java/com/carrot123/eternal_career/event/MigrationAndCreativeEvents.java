@@ -84,6 +84,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.SIN_ROCK);
             event.accept(ModItems.HEAD_CHEF_SHEATH);
             event.accept(ModItems.CALL_OF_DEATH);
+            event.accept(ModItems.SOUL_REAPING_SKULL);
             event.accept(ModItems.LICH_RESEARCH_NOTES);
             event.accept(ModItems.NOVICE_PURIFIED_PANACEA);
             event.accept(ModItems.INTERMEDIATE_PURIFIED_PANACEA);
@@ -105,6 +106,9 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.NECROMANCY_ORB_FOCUS);
             event.accept(ModItems.FROST_CHARM);
             event.accept(ModItems.ARCHERY_MASTER_CORE);
+            event.accept(ModItems.IRON_ARROW);
+            event.accept(ModItems.DIAMOND_ARROW);
+            event.accept(ModItems.NETHERITE_ARROW);
             event.accept(ModItems.POWER_MODIFICATION);
             event.accept(ModItems.VELOCITY_MODIFICATION);
             event.accept(ModItems.BLAST_MODIFICATION);

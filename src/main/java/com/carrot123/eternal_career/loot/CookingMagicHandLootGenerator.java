@@ -14,8 +14,10 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
-/** Executes every configured roll as an independent full loot-table draw. */
 public final class CookingMagicHandLootGenerator {
+    private static final float BONUS_ROLLS_PER_LUCK = 0.1F;
+    private static final float MAX_BONUS_ROLLS = 10.0F;
+
     private CookingMagicHandLootGenerator() {
     }
 
@@ -27,6 +29,11 @@ public final class CookingMagicHandLootGenerator {
     ) {
         LivingEntity victim = event.getEntity();
         Entity directKiller = event.getSource().getDirectEntity();
+
+        float playerLuck = Math.max(0.0F, player.getLuck());
+        float maxEffectiveLuck = MAX_BONUS_ROLLS / BONUS_ROLLS_PER_LUCK;
+        float effectiveLuck = Math.min(playerLuck, maxEffectiveLuck);
+
         LootParams params = new LootParams.Builder(level)
                 .withParameter(LootContextParams.THIS_ENTITY, victim)
                 .withParameter(LootContextParams.ORIGIN, victim.position())
@@ -34,11 +41,13 @@ public final class CookingMagicHandLootGenerator {
                 .withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player)
                 .withParameter(LootContextParams.KILLER_ENTITY, player)
                 .withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, directKiller)
-                .withLuck(player.getLuck())
+                .withLuck(effectiveLuck)
                 .create(LootContextParamSets.ENTITY);
 
-        LootTable table = level.getServer().getLootData().getElement(
-                new LootDataId<>(LootDataType.TABLE, rule.lootTable()));
+        LootTable table = level.getServer()
+                .getLootData()
+                .getElement(new LootDataId<>(LootDataType.TABLE, rule.lootTable()));
+
         if (table == null) {
             return;
         }
@@ -48,16 +57,23 @@ public final class CookingMagicHandLootGenerator {
         }
     }
 
-    private static void appendDrop(LivingDropsEvent event, LivingEntity victim, ItemStack stack) {
+    private static void appendDrop(
+            LivingDropsEvent event,
+            LivingEntity victim,
+            ItemStack stack
+    ) {
         if (stack.isEmpty()) {
             return;
         }
+
         ItemEntity itemEntity = new ItemEntity(
                 victim.level(),
                 victim.getX(),
                 victim.getY(),
                 victim.getZ(),
-                stack);
+                stack
+        );
+
         itemEntity.setDefaultPickUpDelay();
         event.getDrops().add(itemEntity);
     }

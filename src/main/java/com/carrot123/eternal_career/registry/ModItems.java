@@ -19,9 +19,11 @@ import com.carrot123.eternal_career.item.GodsRecognitionItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
 import com.carrot123.eternal_career.item.LichResearchNotesItem;
 import com.carrot123.eternal_career.item.LichEssenceItem;
+import com.carrot123.eternal_career.item.MaterialArrowItem;
 import com.carrot123.eternal_career.item.PurifiedPanaceaItem;
 import com.carrot123.eternal_career.item.SinRockItem;
 import com.carrot123.eternal_career.item.SoulTankItem;
+import com.carrot123.eternal_career.item.SoulReapingSkullItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
 import com.carrot123.eternal_career.lich.LichStage;
 import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
@@ -149,6 +151,16 @@ public final class ModItems {
                     )
             );
 
+    public static final RegistryObject<Item> SOUL_REAPING_SKULL =
+            ITEMS.register(
+                    "soul_reaping_skull",
+                    () -> new SoulReapingSkullItem(
+                            new Item.Properties()
+                                    .stacksTo(1)
+                                    .rarity(Rarity.EPIC)
+                    )
+            );
+
     public static final RegistryObject<Item> LICH_RESEARCH_NOTES =
             ITEMS.register(
                     "lich_research_notes",
@@ -197,6 +209,16 @@ public final class ModItems {
             ITEMS.register("archery_master_core",
                     () -> new ArcheryMasterCoreItem(new Item.Properties().stacksTo(1)
                             .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<MaterialArrowItem> IRON_ARROW =
+            ITEMS.register("iron_arrow", () -> new MaterialArrowItem(
+                    MaterialArrowItem.Material.IRON, new Item.Properties()));
+    public static final RegistryObject<MaterialArrowItem> DIAMOND_ARROW =
+            ITEMS.register("diamond_arrow", () -> new MaterialArrowItem(
+                    MaterialArrowItem.Material.DIAMOND, new Item.Properties()));
+    public static final RegistryObject<MaterialArrowItem> NETHERITE_ARROW =
+            ITEMS.register("netherite_arrow", () -> new MaterialArrowItem(
+                    MaterialArrowItem.Material.NETHERITE, new Item.Properties()));
 
     public static final RegistryObject<Item> POWER_MODIFICATION =
             ITEMS.register("power_modification", () -> new BowModificationItem(

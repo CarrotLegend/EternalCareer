@@ -11,10 +11,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityLichMobTypeMixin {
-    @Inject(method = "getMobType()Lnet/minecraft/world/entity/MobType;", at = @At("HEAD"),
-            cancellable = true)
-    private void eternalCareer$lichMobType(CallbackInfoReturnable<MobType> result) {
-        if ((Object) this instanceof Player player && LichUtils.isLich(player)) {
+
+    @Inject(
+            method = {
+                    "getMobType()Lnet/minecraft/world/entity/MobType;",
+                    "m_6336_()Lnet/minecraft/world/entity/MobType;"
+            },
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false,
+            require = 1
+    )
+    private void eternalCareer$lichMobType(
+            CallbackInfoReturnable<MobType> result
+    ) {
+        if ((Object) this instanceof Player player
+                && LichUtils.isLich(player)) {
             result.setReturnValue(MobType.UNDEAD);
         }
     }

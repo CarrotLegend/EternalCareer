@@ -3,25 +3,59 @@ package com.carrot123.eternal_career.mixin;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import net.minecraftforge.fml.loading.FMLLoader;
+
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class EternalCareerMixinPlugin implements IMixinConfigPlugin {
-    private static final Map<String, String> REQUIRED_MODS = Map.of(
-        ".compat.irons_spellbooks.", "irons_spellbooks",
-        ".compat.goety.", "goety",
-        ".compat.cataclysm.", "cataclysm",
-        ".compat.legendary_monsters.", "legendary_monsters",
-        ".compat.until_eternity.", "until_eternity",
-        ".compat.goety_revelation.", "goety_revelation",
-        ".compat.enigmaticlegacy.", "enigmaticlegacy",
-        ".compat.enigmaticaddons.", "enigmaticaddons"
-    );
+
+    private static final Map<String, String> REQUIRED_MODS =
+            Map.ofEntries(
+                    Map.entry(
+                            ".compat.irons_spellbooks.",
+                            "irons_spellbooks"
+                    ),
+                    Map.entry(
+                            ".compat.goety.",
+                            "goety"
+                    ),
+                    Map.entry(
+                            ".compat.cataclysm.",
+                            "cataclysm"
+                    ),
+                    Map.entry(
+                            ".compat.legendary_monsters.",
+                            "legendary_monsters"
+                    ),
+                    Map.entry(
+                            ".compat.until_eternity.",
+                            "until_eternity"
+                    ),
+                    Map.entry(
+                            ".compat.goety_revelation.",
+                            "goety_revelation"
+                    ),
+                    Map.entry(
+                            ".compat.enigmaticlegacy.",
+                            "enigmaticlegacy"
+                    ),
+                    Map.entry(
+                            ".compat.enigmaticaddons.",
+                            "enigmaticaddons"
+                    ),
+                    Map.entry(
+                            ".compat.corpse.",
+                            "corpse"
+                    )
+            );
 
     @Override
-    public void onLoad(String mixinPackage) {
+    public void onLoad(
+            String mixinPackage
+    ) {
     }
 
     @Override
@@ -30,16 +64,34 @@ public final class EternalCareerMixinPlugin implements IMixinConfigPlugin {
     }
 
     @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return REQUIRED_MODS.entrySet().stream()
-                .filter(entry -> mixinClassName.contains(entry.getKey()))
+    public boolean shouldApplyMixin(
+            String targetClassName,
+            String mixinClassName
+    ) {
+        return REQUIRED_MODS
+                .entrySet()
+                .stream()
+                .filter(entry ->
+                        mixinClassName.contains(
+                                entry.getKey()
+                        )
+                )
                 .findFirst()
-                .map(entry -> FMLLoader.getLoadingModList().getModFileById(entry.getValue()) != null)
+                .map(entry ->
+                        FMLLoader
+                                .getLoadingModList()
+                                .getModFileById(
+                                        entry.getValue()
+                                ) != null
+                )
                 .orElse(true);
     }
 
     @Override
-    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
+    public void acceptTargets(
+            Set<String> myTargets,
+            Set<String> otherTargets
+    ) {
     }
 
     @Override
@@ -48,12 +100,20 @@ public final class EternalCareerMixinPlugin implements IMixinConfigPlugin {
     }
 
     @Override
-    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName,
-                         IMixinInfo mixinInfo) {
+    public void preApply(
+            String targetClassName,
+            ClassNode targetClass,
+            String mixinClassName,
+            IMixinInfo mixinInfo
+    ) {
     }
 
     @Override
-    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName,
-                          IMixinInfo mixinInfo) {
+    public void postApply(
+            String targetClassName,
+            ClassNode targetClass,
+            String mixinClassName,
+            IMixinInfo mixinInfo
+    ) {
     }
 }

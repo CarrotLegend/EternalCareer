@@ -4,21 +4,24 @@ import com.carrot123.eternal_career.EternalCareer;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(
         modid = EternalCareer.MOD_ID,
@@ -26,190 +29,263 @@ import net.minecraftforge.fml.common.Mod;
 )
 public final class FletchingProjectileEvents {
 
-    private static final String ARROW_BLAST =
+    private static final String SOURCE_BOW =
+            "EternalCareerFletchingSourceBow";
+
+    private static final String MANUAL_COMPAT =
+            "EternalCareerFletchingManualCompat";
+
+    private static final String POWER =
+            "EternalCareerFletchingPower";
+
+    private static final String VELOCITY =
+            "EternalCareerFletchingVelocity";
+
+    private static final String END =
+            "EternalCareerFletchingEnd";
+
+    private static final String BLAST =
             "EternalCareerFletchingBlast";
 
-    private static final String ARROW_BLOODTHIRST =
+    private static final String BLOODTHIRST =
             "EternalCareerFletchingBloodthirst";
 
     private static final String BLAST_TRIGGERED =
             "EternalCareerFletchingBlastTriggered";
 
-    private static final String PENDING_BLAST =
-            "EternalCareerPendingFletchingBlast";
-
-    private static final String PENDING_BLOODTHIRST =
-            "EternalCareerPendingFletchingBloodthirst";
-
-    private static final String PENDING_TICK =
-            "EternalCareerPendingFletchingTick";
-
-    private static final double BLAST_RADIUS = 1.5D;
+    private static final double BLAST_RADIUS =
+            1.5D;
 
     private FletchingProjectileEvents() {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onArrowLoose(
-            ArrowLooseEvent event
+    public static void onProjectileJoin(
+            EntityJoinLevelEvent event
     ) {
-        if (!(event.getEntity() instanceof ServerPlayer player)
-                || event.getLevel().isClientSide()) {
+        if (event.getLevel().isClientSide()
+                || event.loadedFromDisk()
+                || !(event.getEntity()
+                instanceof AbstractArrow arrow)
+                || !(arrow.getOwner()
+                instanceof ServerPlayer player)) {
+            return;
+        }
+
+        ItemStack bow =
+                findSourceBow(player);
+
+        if (bow.isEmpty()) {
             return;
         }
 
         CompoundTag data =
-                player.getPersistentData();
+                arrow.getPersistentData();
 
-        clearPending(data);
+        ResourceLocation bowId =
+                ForgeRegistries.ITEMS
+                        .getKey(bow.getItem());
 
-        if (!BowModificationHelper.isBow(event.getBow())) {
-            return;
+        if (bowId != null) {
+            data.putString(
+                    SOURCE_BOW,
+                    bowId.toString()
+            );
         }
+
+        int powerLevel =
+                BowModificationHelper.getLevel(
+                        bow,
+                        BowModifications.POWER.id()
+                );
+
+        int velocityLevel =
+                BowModificationHelper.getLevel(
+                        bow,
+                        BowModifications.VELOCITY.id()
+                );
+
+        int endLevel =
+                BowModificationHelper.getLevel(
+                        bow,
+                        BowModifications.END.id()
+                );
 
         int blastLevel =
                 BowModificationHelper.getLevel(
-                        event.getBow(),
+                        bow,
                         BowModifications.BLAST.id()
                 );
 
         int bloodthirstLevel =
                 BowModificationHelper.getLevel(
-                        event.getBow(),
+                        bow,
                         BowModifications.BLOODTHIRST.id()
                 );
 
-        if (blastLevel <= 0
-                && bloodthirstLevel <= 0) {
-            return;
-        }
-
-        if (blastLevel > 0) {
-            data.putInt(
-                    PENDING_BLAST,
-                    blastLevel
-            );
-        }
-
-        if (bloodthirstLevel > 0) {
-            data.putInt(
-                    PENDING_BLOODTHIRST,
-                    bloodthirstLevel
-            );
-        }
-
-        data.putLong(
-                PENDING_TICK,
-                player.level().getGameTime()
+        putLevel(
+                data,
+                POWER,
+                powerLevel
         );
-    }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onArrowJoin(
-            EntityJoinLevelEvent event
-    ) {
-        if (event.getLevel().isClientSide()
-                || event.loadedFromDisk()
-                || !(event.getEntity() instanceof AbstractArrow arrow)
-                || !(arrow.getOwner() instanceof ServerPlayer player)) {
-            return;
-        }
+        putLevel(
+                data,
+                VELOCITY,
+                velocityLevel
+        );
 
-        CompoundTag playerData =
-                player.getPersistentData();
+        putLevel(
+                data,
+                END,
+                endLevel
+        );
 
-        if (!playerData.contains(PENDING_TICK)) {
-            return;
-        }
+        putLevel(
+                data,
+                BLAST,
+                blastLevel
+        );
 
-        long currentTick =
-                event.getLevel().getGameTime();
+        putLevel(
+                data,
+                BLOODTHIRST,
+                bloodthirstLevel
+        );
 
-        long pendingTick =
-                playerData.getLong(PENDING_TICK);
+        boolean manualCompat =
+                FletchingBowCompat
+                        .usesManualProjectileCompatibility(
+                                bow
+                        );
 
-        if (currentTick != pendingTick) {
-            return;
-        }
-
-        CompoundTag arrowData =
-                arrow.getPersistentData();
-
-        int blastLevel =
-                playerData.getInt(PENDING_BLAST);
-
-        int bloodthirstLevel =
-                playerData.getInt(PENDING_BLOODTHIRST);
-
-        if (blastLevel > 0) {
-            arrowData.putInt(
-                    ARROW_BLAST,
-                    blastLevel
+        if (manualCompat) {
+            data.putBoolean(
+                    MANUAL_COMPAT,
+                    true
             );
-        }
 
-        if (bloodthirstLevel > 0) {
-            arrowData.putInt(
-                    ARROW_BLOODTHIRST,
-                    bloodthirstLevel
-            );
-        }
-    }
+            if (velocityLevel > 0) {
+                double multiplier =
+                        1.0D
+                                + velocityLevel
+                                * BowModifications.VELOCITY
+                                .amountPerLevel();
 
-    @SubscribeEvent
-    public static void onPlayerTick(
-            TickEvent.PlayerTickEvent event
-    ) {
-        if (event.phase != TickEvent.Phase.END
-                || !(event.player instanceof ServerPlayer player)) {
-            return;
-        }
-
-        CompoundTag data =
-                player.getPersistentData();
-
-        if (!data.contains(PENDING_TICK)) {
-            return;
-        }
-
-        long currentTick =
-                player.level().getGameTime();
-
-        long pendingTick =
-                data.getLong(PENDING_TICK);
-
-        if (currentTick >= pendingTick) {
-            clearPending(data);
+                arrow.setDeltaMovement(
+                        arrow.getDeltaMovement()
+                                .scale(multiplier)
+                );
+            }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onArrowDamage(
+    public static void onProjectileHurt(
+            LivingHurtEvent event
+    ) {
+        if (event.getEntity()
+                .level()
+                .isClientSide()) {
+            return;
+        }
+
+        if (!(event.getSource()
+                .getDirectEntity()
+                instanceof AbstractArrow arrow)) {
+            return;
+        }
+
+        CompoundTag data =
+                arrow.getPersistentData();
+
+        if (!data.getBoolean(
+                MANUAL_COMPAT
+        )) {
+            return;
+        }
+
+        int powerLevel =
+                Math.max(
+                        0,
+                        data.getInt(POWER)
+                );
+
+        int endLevel =
+                Math.max(
+                        0,
+                        data.getInt(END)
+                );
+
+        if (powerLevel <= 0
+                && endLevel <= 0) {
+            return;
+        }
+
+        float original =
+                event.getAmount();
+
+        if (original <= 0.0F
+                || !Float.isFinite(original)) {
+            return;
+        }
+
+        double bonus =
+                powerLevel
+                        * BowModifications.POWER
+                        .amountPerLevel()
+                        + endLevel
+                        * BowModifications.END
+                        .amountPerLevel();
+
+        double modified =
+                original
+                        * (1.0D + bonus);
+
+        if (!Double.isFinite(modified)) {
+            return;
+        }
+
+        event.setAmount(
+                modified >= Float.MAX_VALUE
+                        ? Float.MAX_VALUE
+                        : (float) modified
+        );
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onProjectileDamage(
             LivingDamageEvent event
     ) {
-        if (!(event.getEntity().level()
+        if (!(event.getEntity()
+                .level()
                 instanceof ServerLevel level)
-                || !(event.getSource().getDirectEntity()
+                || !(event.getSource()
+                .getDirectEntity()
                 instanceof AbstractArrow arrow)
-                || !(arrow.getOwner() instanceof Player shooter)
-                || event.getSource().getEntity() != shooter
+                || !(arrow.getOwner()
+                instanceof Player shooter)
                 || event.getAmount() <= 0.0F) {
             return;
         }
 
-        CompoundTag arrowData =
+        CompoundTag data =
                 arrow.getPersistentData();
 
         float directDamage =
                 event.getAmount();
 
         int blastLevel =
-                arrowData.getInt(ARROW_BLAST);
+                Math.max(
+                        0,
+                        data.getInt(BLAST)
+                );
 
         if (blastLevel > 0
-                && !arrowData.getBoolean(BLAST_TRIGGERED)) {
-
-            arrowData.putBoolean(
+                && !data.getBoolean(
+                BLAST_TRIGGERED
+        )) {
+            data.putBoolean(
                     BLAST_TRIGGERED,
                     true
             );
@@ -219,10 +295,12 @@ public final class FletchingProjectileEvents {
                             directDamage
                                     * BowModifications.BLAST
                                     .amountPerLevel()
+                                    * blastLevel
                     );
 
             event.setAmount(
-                    directDamage + blastDamage
+                    directDamage
+                            + blastDamage
             );
 
             LivingEntity directTarget =
@@ -231,7 +309,9 @@ public final class FletchingProjectileEvents {
             AABB area =
                     directTarget
                             .getBoundingBox()
-                            .inflate(BLAST_RADIUS);
+                            .inflate(
+                                    BLAST_RADIUS
+                            );
 
             for (LivingEntity nearby :
                     level.getEntitiesOfClass(
@@ -242,14 +322,16 @@ public final class FletchingProjectileEvents {
                                             && entity != shooter
                                             && entity.isAlive()
                                             && entity.distanceToSqr(
-                                                    directTarget
-                                            )
+                                            directTarget
+                                    )
                                             <= BLAST_RADIUS
                                             * BLAST_RADIUS
                     )) {
 
                 if (nearby instanceof Player other
-                        && !shooter.canHarmPlayer(other)) {
+                        && !shooter.canHarmPlayer(
+                        other
+                )) {
                     continue;
                 }
 
@@ -289,40 +371,102 @@ public final class FletchingProjectileEvents {
         }
 
         int bloodthirstLevel =
-                arrowData.getInt(
-                        ARROW_BLOODTHIRST
-                );
-
-        if (bloodthirstLevel > 0) {
-            double actualDamage =
-                    Math.min(
-                            event.getAmount(),
-                            event.getEntity().getHealth()
-                    );
-
-            if (actualDamage > 0.0D) {
-                double healAmount =
-                        actualDamage
-                                * BowModifications
-                                .BLOODTHIRST
-                                .amountPerLevel()
-                                * bloodthirstLevel;
-
-                shooter.heal(
-                        (float) Math.min(
-                                50.0D,
-                                healAmount
+                Math.max(
+                        0,
+                        data.getInt(
+                                BLOODTHIRST
                         )
                 );
-            }
+
+        if (bloodthirstLevel <= 0) {
+            return;
         }
+
+        double actualDamage =
+                Math.min(
+                        event.getAmount(),
+                        event.getEntity()
+                                .getHealth()
+                );
+
+        if (actualDamage <= 0.0D) {
+            return;
+        }
+
+        double healAmount =
+                actualDamage
+                        * BowModifications.BLOODTHIRST
+                        .amountPerLevel()
+                        * bloodthirstLevel;
+
+        shooter.heal(
+                (float) Math.min(
+                        50.0D,
+                        healAmount
+                )
+        );
     }
 
-    private static void clearPending(
-            CompoundTag data
+    private static ItemStack findSourceBow(
+            ServerPlayer player
     ) {
-        data.remove(PENDING_BLAST);
-        data.remove(PENDING_BLOODTHIRST);
-        data.remove(PENDING_TICK);
+        ItemStack using =
+                player.getUseItem();
+
+        if (isModifiedBow(using)) {
+            return using;
+        }
+
+        ItemStack mainHand =
+                player.getMainHandItem();
+
+        if (isModifiedBow(mainHand)) {
+            return mainHand;
+        }
+
+        ItemStack offHand =
+                player.getOffhandItem();
+
+        if (isModifiedBow(offHand)) {
+            return offHand;
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    private static boolean isModifiedBow(
+            ItemStack stack
+    ) {
+        if (!BowModificationHelper.isBow(
+                stack
+        )) {
+            return false;
+        }
+
+        for (BowModification modification :
+                BowModifications.ALL) {
+
+            if (BowModificationHelper.getLevel(
+                    stack,
+                    modification.id()
+            ) > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static void putLevel(
+            CompoundTag data,
+            String key,
+            int level
+    ) {
+        if (level > 0) {
+            data.putInt(
+                    key,
+                    level
+            );
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.carrot123.eternal_career.event;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.career.capability.soul.SoulCapability;
+import com.carrot123.eternal_career.curio.CurioEquipmentHelper;
 import com.carrot123.eternal_career.soul.ReaperSkillManager;
 import com.carrot123.eternal_career.soul.ScytheCombat;
 import com.carrot123.eternal_career.soul.SoulSetManager;
@@ -77,6 +78,14 @@ public final class SoulCombatEvents {
 
             if (ReaperSkillManager.isActive(player)) {
                 reward = ReaperSkillManager.boostSoulReward(reward);
+            }
+
+            if (CurioEquipmentHelper.hasSoulReapingSkull(player)) {
+                long doubled = (long) reward * 2L;
+                reward = (int) Math.max(
+                        5L,
+                        Math.min(doubled, Integer.MAX_VALUE)
+                );
             }
 
             soul.addSoul(reward, set.get().maxSoul());

@@ -5,6 +5,10 @@
   "item.eternal_career.death_leggings": "Death Leggings",
   "item.eternal_career.death_boots": "Death Boots",
   "item.eternal_career.call_of_death": "Call of Death",
+  "item.eternal_career.soul_reaping_skull": "Soul-Reaping Skull",
+  "tooltip.eternal_career.soul_reaping_skull.scythe_damage": "§6+%1$s §dScythe Damage",
+  "tooltip.eternal_career.soul_reaping_skull.soul_gain": "§6+%1$s §dSoul Gain",
+  "tooltip.eternal_career.soul_reaping_skull.minimum_soul": "§5Gain at least §6%1$s §5Soul each time",
   "tooltip.eternal_career.head_chef_sheath.kitchenware_damage": "§6+%1$s §dKitchenware Damage",
   "tooltip.eternal_career.head_chef_sheath.non_kitchenware_damage": "§6-%1$s §dNon-Kitchenware Damage",
   "tooltip.eternal_career.call_of_death.scythe_damage": "§6+%1$s §dScythe Damage",
@@ -195,5 +199,11 @@
   "fletching.eternal_career.upgrade": "Upgrade slot",
   "fletching.eternal_career.modified": "Modifications:",
   "fletching.eternal_career.level": "%s %s",
-  "fletching.eternal_career.tooltip.entry": "%s %s  %s"
+  "fletching.eternal_career.tooltip.entry": "%s %s  %s",
+  "item.eternal_career.iron_arrow": "Iron Arrow",
+  "item.eternal_career.diamond_arrow": "Diamond Arrow",
+  "item.eternal_career.netherite_arrow": "Netherite Arrow",
+  "tooltip.eternal_career.iron_arrow": "Projectile damage: ×1.25",
+  "tooltip.eternal_career.diamond_arrow": "Projectile damage: ×2",
+  "tooltip.eternal_career.netherite_arrow": "Projectile damage: ×4"
 }

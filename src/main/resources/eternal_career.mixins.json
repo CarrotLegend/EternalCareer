@@ -13,6 +13,7 @@
     "vanilla.StonecutterMenuRedemptionMixin",
     "vanilla.LivingEntityBreakStanceMixin",
     "vanilla.LivingEntityLichMobTypeMixin",
+    "vanilla.MaterialArrowPickupMixin",
     "compat.enigmaticlegacy.ItemBaseCurioCanEquipMixin",
     "compat.enigmaticlegacy.SuperpositionHandlerCursedMixin",
     "compat.enigmaticaddons.BlessRingCanEquipMixin",
@@ -20,7 +21,9 @@
     "compat.until_eternity.TrueChefsKnifeAttackContextMixin",
     "compat.until_eternity.TrueChefsKnifeItemMixin",
     "compat.goety_revelation.BlessingScrollLookupMixin",
-    "compat.goety_revelation.BlessingScrollAttributesMixin"
+    "compat.goety_revelation.BlessingScrollAttributesMixin",
+    "compat.corpse.CorpseAdditionalContainerMixin",
+    "compat.corpse.CorpseInventoryContainerMixin"
   ],
   "client": [
     "client.ArcheryCoreContainerScreenMixin",

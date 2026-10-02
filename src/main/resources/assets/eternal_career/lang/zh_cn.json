@@ -5,6 +5,10 @@
   "item.eternal_career.death_leggings": "死神护腿",
   "item.eternal_career.death_boots": "死神靴子",
   "item.eternal_career.call_of_death": "死神征召",
+  "item.eternal_career.soul_reaping_skull": "摄魂颅",
+  "tooltip.eternal_career.soul_reaping_skull.scythe_damage": "§6+%1$s §d镰刀伤害",
+  "tooltip.eternal_career.soul_reaping_skull.soul_gain": "§6+%1$s §d灵魂获取",
+  "tooltip.eternal_career.soul_reaping_skull.minimum_soul": "§5每次至少获取 §6%1$s §5灵魂",
   "tooltip.eternal_career.head_chef_sheath.kitchenware_damage": "§6+%1$s §d厨具伤害",
   "tooltip.eternal_career.head_chef_sheath.non_kitchenware_damage": "§6-%1$s §d非厨具伤害",
   "tooltip.eternal_career.call_of_death.scythe_damage": "§6+%1$s §d镰刀伤害",
@@ -195,5 +199,11 @@
   "fletching.eternal_career.upgrade": "改造槽",
   "fletching.eternal_career.modified": "改造：",
   "fletching.eternal_career.level": "%s %s",
-  "fletching.eternal_career.tooltip.entry": "%s %s  %s"
+  "fletching.eternal_career.tooltip.entry": "%s %s  %s",
+  "item.eternal_career.iron_arrow": "铁箭",
+  "item.eternal_career.diamond_arrow": "钻石箭",
+  "item.eternal_career.netherite_arrow": "下界合金箭",
+  "tooltip.eternal_career.iron_arrow": "弹射物伤害：×1.25",
+  "tooltip.eternal_career.diamond_arrow": "弹射物伤害：×2",
+  "tooltip.eternal_career.netherite_arrow": "弹射物伤害：×4"
 }

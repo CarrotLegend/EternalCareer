@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "pattern": ["N", "S", "F"],
+  "key": {
+    "N": {"item": "minecraft:netherite_ingot"},
+    "S": {"item": "minecraft:stick"},
+    "F": {"item": "minecraft:feather"}
+  },
+  "result": {"item": "eternal_career:netherite_arrow", "count": 4}
+}

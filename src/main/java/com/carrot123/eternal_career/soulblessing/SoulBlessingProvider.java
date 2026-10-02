@@ -8,18 +8,25 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-public final class SoulBlessingProvider implements ICapabilitySerializable<CompoundTag> {
+public final class SoulBlessingProvider
+        implements ICapabilitySerializable<CompoundTag> {
 
     private final SoulBlessingInventory inventory;
-    private LazyOptional<SoulBlessingInventory> optional;
 
-    public SoulBlessingProvider(Runnable changed) {
-        this.inventory = new SoulBlessingInventory(changed);
-        this.optional = createOptional();
-    }
+    private final LazyOptional<SoulBlessingInventory> optional;
 
-    private LazyOptional<SoulBlessingInventory> createOptional() {
-        return LazyOptional.of(() -> inventory);
+    public SoulBlessingProvider(
+            Runnable changed
+    ) {
+        this.inventory =
+                new SoulBlessingInventory(
+                        changed
+                );
+
+        this.optional =
+                LazyOptional.of(
+                        () -> inventory
+                );
     }
 
     @Override
@@ -27,12 +34,9 @@ public final class SoulBlessingProvider implements ICapabilitySerializable<Compo
             Capability<T> capability,
             @Nullable Direction side
     ) {
-        if (capability != SoulBlessingCapability.INVENTORY) {
+        if (capability
+                != SoulBlessingCapability.INVENTORY) {
             return LazyOptional.empty();
-        }
-
-        if (!optional.isPresent()) {
-            optional = createOptional();
         }
 
         return optional.cast();
@@ -44,8 +48,12 @@ public final class SoulBlessingProvider implements ICapabilitySerializable<Compo
     }
 
     @Override
-    public void deserializeNBT(CompoundTag tag) {
-        inventory.deserializeNBT(tag);
+    public void deserializeNBT(
+            CompoundTag tag
+    ) {
+        inventory.deserializeNBT(
+                tag
+        );
     }
 
     public void invalidate() {

@@ -133,6 +133,15 @@ public final class CurioEquipmentHelper {
     );
 }
 
+    public static boolean hasSoulReapingSkull(Player player) {
+        return player != null
+                && hasEquippedCurio(
+                        player,
+                        ModItems.SOUL_REAPING_SKULL.get(),
+                        FoodBookCurio.CHARM_SLOT
+                );
+    }
+
     public static boolean hasEquippedCurio(
             Player player,
             Item item
