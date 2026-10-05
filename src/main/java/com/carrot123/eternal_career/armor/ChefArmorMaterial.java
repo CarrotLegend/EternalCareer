@@ -1,13 +1,13 @@
 package com.carrot123.eternal_career.armor;
 
 import com.carrot123.eternal_career.EternalCareer;
+
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.crafting.Ingredient;
 
-/** Chef armor: iron defense defaults with netherite toughness and knockback resistance. */
 public enum ChefArmorMaterial implements ArmorMaterial {
     INSTANCE;
 

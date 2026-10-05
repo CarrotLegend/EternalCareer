@@ -8,6 +8,8 @@ import net.minecraft.world.damagesource.DamageTypes;
 
 public final class ScytheCombat {
 
+    private static final int MAX_SOUL_REWARD = 4000;
+
     private ScytheCombat() {
     }
 
@@ -42,15 +44,28 @@ public final class ScytheCombat {
     }
 
     public static int reward(float maxHealth) {
-        if (Float.isNaN(maxHealth)) {
+        if (!Float.isFinite(maxHealth)
+                || maxHealth <= 0.0F) {
             return 1;
         }
 
         return (int) Math.max(
-                1,
+                1L,
                 Math.min(
-                        1000,
-                        Math.floor(maxHealth / 100.0D)
+                        MAX_SOUL_REWARD,
+                        (long) Math.floor(
+                                maxHealth / 20.0D
+                        )
+                )
+        );
+    }
+
+    public static int clampSoulReward(int reward) {
+        return Math.max(
+                0,
+                Math.min(
+                        MAX_SOUL_REWARD,
+                        reward
                 )
         );
     }

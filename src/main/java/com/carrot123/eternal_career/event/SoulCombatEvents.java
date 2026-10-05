@@ -6,11 +6,13 @@ import com.carrot123.eternal_career.curio.CurioEquipmentHelper;
 import com.carrot123.eternal_career.soul.ReaperSkillManager;
 import com.carrot123.eternal_career.soul.ScytheCombat;
 import com.carrot123.eternal_career.soul.SoulSetManager;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
+
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -20,6 +22,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -28,15 +31,21 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID)
 public final class SoulCombatEvents {
+
     private static final int REVIVE_SOUL_COST = 1000;
 
     private static final Set<LivingEntity> REWARDED =
-            Collections.newSetFromMap(new WeakHashMap<>());
+            Collections.newSetFromMap(
+                    new WeakHashMap<>()
+            );
 
     private static final Set<LivingDeathEvent> REVIVED =
-            Collections.newSetFromMap(new WeakHashMap<>());
+            Collections.newSetFromMap(
+                    new WeakHashMap<>()
+            );
 
-    private static final Set<UUID> REVIVING = new HashSet<>();
+    private static final Set<UUID> REVIVING =
+            new HashSet<>();
 
     private SoulCombatEvents() {
     }
@@ -47,9 +56,15 @@ public final class SoulCombatEvents {
         REVIVING.clear();
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-    public static void reward(LivingDropsEvent event) {
-        LivingEntity target = event.getEntity();
+    @SubscribeEvent(
+            priority = EventPriority.LOWEST,
+            receiveCanceled = true
+    )
+    public static void reward(
+            LivingDropsEvent event
+    ) {
+        LivingEntity target =
+                event.getEntity();
 
         if (target.level().isClientSide
                 || !(target instanceof Enemy)
@@ -57,126 +72,204 @@ public final class SoulCombatEvents {
             return;
         }
 
-        ServerPlayer player = ScytheCombat.directAttacker(event.getSource());
+        ServerPlayer player =
+                ScytheCombat.directAttacker(
+                        event.getSource()
+                );
 
-        if (player == null || REWARDED.contains(target)) {
+        if (player == null
+                || REWARDED.contains(target)) {
             return;
         }
 
-        var set = SoulSetManager.findActiveSoulSet(player);
+        var set =
+                SoulSetManager.findActiveSoulSet(
+                        player
+                );
 
         if (set.isEmpty()) {
             return;
         }
 
-        player.getCapability(SoulCapability.SOUL).ifPresent(soul -> {
-            if (!REWARDED.add(target)) {
-                return;
-            }
+        player.getCapability(
+                        SoulCapability.SOUL
+                )
+                .ifPresent(soul -> {
+                    if (!REWARDED.add(target)) {
+                        return;
+                    }
 
-            int reward = ScytheCombat.reward(target.getMaxHealth());
+                    int reward =
+                            ScytheCombat.reward(
+                                    target.getMaxHealth()
+                            );
 
-            if (ReaperSkillManager.isActive(player)) {
-                reward = ReaperSkillManager.boostSoulReward(reward);
-            }
+                    if (ReaperSkillManager.isActive(
+                            player
+                    )) {
+                        reward =
+                                ReaperSkillManager
+                                        .boostSoulReward(
+                                                reward
+                                        );
+                    }
 
-            if (CurioEquipmentHelper.hasSoulReapingSkull(player)) {
-                long doubled = (long) reward * 2L;
-                reward = (int) Math.max(
-                        5L,
-                        Math.min(doubled, Integer.MAX_VALUE)
-                );
-            }
+                    if (CurioEquipmentHelper
+                            .hasSoulReapingSkull(
+                                    player
+                            )) {
 
-            soul.addSoul(reward, set.get().maxSoul());
-        });
+                        long doubled =
+                                (long) reward * 2L;
+
+                        reward =
+                                (int) Math.max(
+                                        5L,
+                                        Math.min(
+                                                doubled,
+                                                Integer.MAX_VALUE
+                                        )
+                                );
+                    }
+
+                    reward =
+                            ScytheCombat.clampSoulReward(
+                                    reward
+                            );
+
+                    soul.addSoul(
+                            reward,
+                            set.get().maxSoul()
+                    );
+                });
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void revive(LivingDeathEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)
+    @SubscribeEvent(
+            priority = EventPriority.LOWEST
+    )
+    public static void revive(
+            LivingDeathEvent event
+    ) {
+        if (!(event.getEntity()
+                instanceof ServerPlayer player)
                 || event.isCanceled()
                 || REVIVED.contains(event)
-                || REVIVING.contains(player.getUUID())
-                || SoulSetManager.findActiveSoulSet(player).isEmpty()) {
+                || REVIVING.contains(
+                        player.getUUID()
+                )
+                || SoulSetManager
+                .findActiveSoulSet(
+                        player
+                )
+                .isEmpty()) {
             return;
         }
 
-        player.getCapability(SoulCapability.SOUL).ifPresent(soul -> {
-            if (soul.getSoul() <= REVIVE_SOUL_COST) {
-                return;
-            }
+        player.getCapability(
+                        SoulCapability.SOUL
+                )
+                .ifPresent(soul -> {
+                    if (soul.getSoul()
+                            <= REVIVE_SOUL_COST) {
+                        return;
+                    }
 
-            REVIVING.add(player.getUUID());
+                    REVIVING.add(
+                            player.getUUID()
+                    );
 
-            try {
-                event.setCanceled(true);
-                player.setHealth(1.0F);
+                    try {
+                        event.setCanceled(
+                                true
+                        );
 
-                if (player.getHealth() <= 0.0F) {
-                    event.setCanceled(false);
-                    return;
-                }
+                        player.setHealth(
+                                1.0F
+                        );
 
-                if (!soul.consumeSoul(REVIVE_SOUL_COST)) {
-                    event.setCanceled(false);
-                    player.setHealth(0.0F);
-                    return;
-                }
+                        if (player.getHealth()
+                                <= 0.0F) {
+                            event.setCanceled(
+                                    false
+                            );
+                            return;
+                        }
 
-                REVIVED.add(event);
+                        if (!soul.consumeSoul(
+                                REVIVE_SOUL_COST
+                        )) {
+                            event.setCanceled(
+                                    false
+                            );
 
-                player.removeAllEffects();
+                            player.setHealth(
+                                    0.0F
+                            );
 
-                player.addEffect(
-                        new MobEffectInstance(
-                                MobEffects.REGENERATION,
-                                900,
-                                1
-                        )
-                );
+                            return;
+                        }
 
-                player.addEffect(
-                        new MobEffectInstance(
-                                MobEffects.ABSORPTION,
-                                100,
-                                1
-                        )
-                );
+                        REVIVED.add(
+                                event
+                        );
 
-                player.addEffect(
-                        new MobEffectInstance(
-                                MobEffects.FIRE_RESISTANCE,
-                                800,
-                                0
-                        )
-                );
+                        player.removeAllEffects();
 
-                player.serverLevel().playSound(
-                        null,
-                        player.getX(),
-                        player.getY(),
-                        player.getZ(),
-                        SoundEvents.TOTEM_USE,
-                        SoundSource.PLAYERS,
-                        1.0F,
-                        1.0F
-                );
+                        player.addEffect(
+                                new MobEffectInstance(
+                                        MobEffects.REGENERATION,
+                                        900,
+                                        1
+                                )
+                        );
 
-                player.serverLevel().sendParticles(
-                        ParticleTypes.TOTEM_OF_UNDYING,
-                        player.getX(),
-                        player.getY() + player.getBbHeight() * 0.5D,
-                        player.getZ(),
-                        60,
-                        0.5D,
-                        0.7D,
-                        0.5D,
-                        0.15D
-                );
-            } finally {
-                REVIVING.remove(player.getUUID());
-            }
-        });
+                        player.addEffect(
+                                new MobEffectInstance(
+                                        MobEffects.ABSORPTION,
+                                        100,
+                                        1
+                                )
+                        );
+
+                        player.addEffect(
+                                new MobEffectInstance(
+                                        MobEffects.FIRE_RESISTANCE,
+                                        800,
+                                        0
+                                )
+                        );
+
+                        player.serverLevel()
+                                .playSound(
+                                        null,
+                                        player.getX(),
+                                        player.getY(),
+                                        player.getZ(),
+                                        SoundEvents.TOTEM_USE,
+                                        SoundSource.PLAYERS,
+                                        1.0F,
+                                        1.0F
+                                );
+
+                        player.serverLevel()
+                                .sendParticles(
+                                        ParticleTypes.TOTEM_OF_UNDYING,
+                                        player.getX(),
+                                        player.getY()
+                                                + player.getBbHeight()
+                                                * 0.5D,
+                                        player.getZ(),
+                                        60,
+                                        0.5D,
+                                        0.7D,
+                                        0.5D,
+                                        0.15D
+                                );
+                    } finally {
+                        REVIVING.remove(
+                                player.getUUID()
+                        );
+                    }
+                });
     }
 }

@@ -18,6 +18,8 @@
     "compat.enigmaticlegacy.SuperpositionHandlerCursedMixin",
     "compat.enigmaticaddons.BlessRingCanEquipMixin",
     "compat.enigmaticaddons.SuperAddonHandlerBlessMixin",
+    "compat.enigmaticaddons.DragonBreathSelfDamageMixin",
+    "compat.enigmaticaddons.DragonBowMaterialArrowMixin",
     "compat.until_eternity.TrueChefsKnifeAttackContextMixin",
     "compat.until_eternity.TrueChefsKnifeItemMixin",
     "compat.goety_revelation.BlessingScrollLookupMixin",

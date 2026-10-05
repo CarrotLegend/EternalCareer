@@ -1,13 +1,15 @@
 package com.carrot123.eternal_career.armor;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+import java.util.function.Consumer;
+
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-import java.util.function.Consumer;
+
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -28,10 +30,9 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-/** A chef armor piece with slot-bound career damage modifiers. */
 public final class ChefArmorItem extends ArmorItem implements GeoItem {
     public static final double KITCHENWARE_BONUS_PER_PIECE = 0.15D;
-    public static final double LUCK_BONUS_PER_PIECE = 10.0D;
+    public static final double LUCK_BONUS_PER_PIECE = 2.0D;
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
 
     public ChefArmorItem(ArmorMaterial material, Type type, Properties properties) {
@@ -111,7 +112,6 @@ public final class ChefArmorItem extends ArmorItem implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        // The chef armor currently has no independent GeckoLib animations.
     }
 
     @Override

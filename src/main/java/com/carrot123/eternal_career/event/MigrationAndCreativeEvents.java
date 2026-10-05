@@ -39,6 +39,10 @@ public final class MigrationAndCreativeEvents {
                     mapping.remap(
                             ModItems.GODS_RECOGNITION.get()
                     );
+                } else if ("crystal_of_drawn_bow".equals(
+                        mapping.getKey().getPath()
+                )) {
+                    mapping.remap(ModItems.CRYSTAL_OF_DRAWN_BOW.get());
                 }
             }
         }
@@ -100,12 +104,15 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.BLAZING_ESSENCE);
             event.accept(ModItems.SUBLIMATION_ESSENCE);
             event.accept(ModItems.SOUL_TANK);
+            event.accept(ModItems.SPINNING_GLOVES);
             event.accept(ModItems.CHAOS_STEAK);
             event.accept(ModItems.CHAOS_MEAT);
             event.accept(ModItems.CHAOS_BLADE);
             event.accept(ModItems.NECROMANCY_ORB_FOCUS);
+            event.accept(ModItems.NECROMANCY_LASER_FOCUS);
             event.accept(ModItems.FROST_CHARM);
             event.accept(ModItems.ARCHERY_MASTER_CORE);
+            event.accept(ModItems.CRYSTAL_OF_DRAWN_BOW);
             event.accept(ModItems.IRON_ARROW);
             event.accept(ModItems.DIAMOND_ARROW);
             event.accept(ModItems.NETHERITE_ARROW);

@@ -64,6 +64,16 @@
   "item.eternal_career.lich_research_notes": "Lich Research Notes",
   "item.eternal_career.necromancy_orb_focus": "Necromancy Orb Focus",
   "item.eternal_career.necromancy_orb_focus.info": "Rapidly fires four powerful necromantic orbs.",
+  "item.eternal_career.necromancy_laser_focus": "Necromancy Laser Focus",
+  "item.eternal_career.necromancy_laser_focus.info": "Fires a fast-moving green necromantic laser.",
+  "item.eternal_career.crystal_of_drawn_bow": "Crystal of the Drawn Bow",
+  "tooltip.eternal_career.crystal_of_drawn_bow.end_power": "Power of the End.",
+  "tooltip.eternal_career.crystal_of_drawn_bow.bow_damage": "Your bow damage is increased by 300%.",
+  "tooltip.eternal_career.crystal_of_drawn_bow.draw_power": "Power of the Draw.",
+  "tooltip.eternal_career.crystal_of_drawn_bow.draw_effect": "Your bow draw speed is increased by 40%, and projectile velocity by 50%.",
+  "tooltip.eternal_career.crystal_of_drawn_bow.piercing_power": "Power of Piercing.",
+  "tooltip.eternal_career.crystal_of_drawn_bow.armor_break": "Your arrows permanently shatter 20% of an enemy's armor.",
+  "entity.eternal_career.necromancy_laser": "Necromancy Laser",
   "item.eternal_career.novice_lich_essence": "Novice Lich Essence",
   "item.eternal_career.intermediate_lich_essence": "Intermediate Lich Essence",
   "item.eternal_career.advanced_lich_essence": "Advanced Lich Essence",
@@ -205,5 +215,7 @@
   "item.eternal_career.netherite_arrow": "Netherite Arrow",
   "tooltip.eternal_career.iron_arrow": "Projectile damage: ×1.25",
   "tooltip.eternal_career.diamond_arrow": "Projectile damage: ×2",
-  "tooltip.eternal_career.netherite_arrow": "Projectile damage: ×4"
+  "tooltip.eternal_career.netherite_arrow": "Projectile damage: ×4",
+  "item.eternal_career.spinning_gloves": "Spinning Gloves",
+"tooltip.eternal_career.spinning_gloves.effect": "Your scythe spins through the air to attack your enemies"
 }

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.registry.ModEffects;
+import com.carrot123.eternal_career.registry.ModEntityTypes;
 import com.carrot123.eternal_career.registry.ModItems;
 import com.carrot123.eternal_career.registry.ModMenus;
 import com.mojang.logging.LogUtils;
@@ -42,7 +43,15 @@ public final class EternalCareer {
                 modEventBus
         );
 
+        ModEntityTypes.register(
+                modEventBus
+        );
+
         ModItems.register(
+                modEventBus
+        );
+
+        ModEntityTypes.register(
                 modEventBus
         );
 

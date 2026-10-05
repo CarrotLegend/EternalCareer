@@ -11,6 +11,7 @@ import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
 import com.carrot123.eternal_career.fletching.BowModificationItem;
 import com.carrot123.eternal_career.item.ChaosBladeItem;
 import com.carrot123.eternal_career.item.ChaosFoodItem;
+import com.carrot123.eternal_career.item.CrystalOfDrawnBowItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
 import com.carrot123.eternal_career.item.DarkBootsItem;
 import com.carrot123.eternal_career.item.DarkChainItem;
@@ -25,8 +26,10 @@ import com.carrot123.eternal_career.item.SinRockItem;
 import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SoulReapingSkullItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
+import com.carrot123.eternal_career.item.SpinningGlovesItem;
 import com.carrot123.eternal_career.lich.LichStage;
 import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
+import com.carrot123.eternal_career.magic.NecromancyLaserSpell;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingAttribute;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingItem;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingSlotType;
@@ -179,6 +182,12 @@ public final class ModItems {
                     )
             );
 
+    public static final RegistryObject<Item> NECROMANCY_LASER_FOCUS =
+            ITEMS.register(
+                    "necromancy_laser_focus",
+                    () -> new MagicFocus(new NecromancyLaserSpell())
+            );
+
     public static final RegistryObject<Item> NOVICE_LICH_ESSENCE =
             ITEMS.register("novice_lich_essence",
                     () -> new LichEssenceItem(new Item.Properties(), "novice_lich_essence"));
@@ -209,6 +218,11 @@ public final class ModItems {
             ITEMS.register("archery_master_core",
                     () -> new ArcheryMasterCoreItem(new Item.Properties().stacksTo(1)
                             .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> CRYSTAL_OF_DRAWN_BOW =
+            ITEMS.register("crystal_of_drawn_bow",
+                    () -> new CrystalOfDrawnBowItem(new Item.Properties()
+                            .stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<MaterialArrowItem> IRON_ARROW =
             ITEMS.register("iron_arrow", () -> new MaterialArrowItem(
@@ -397,6 +411,14 @@ public final class ModItems {
                             "chaos_steak"
                     )
             );
+    public static final RegistryObject<Item> SPINNING_GLOVES =
+        ITEMS.register(
+                "spinning_gloves",
+                () -> new SpinningGlovesItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
 
     public static final RegistryObject<Item> CHAOS_MEAT =
             ITEMS.register(

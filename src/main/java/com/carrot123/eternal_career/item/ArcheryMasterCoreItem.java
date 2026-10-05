@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -57,9 +58,33 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
 
     @Override
     public boolean canEquip(SlotContext context, ItemStack stack) {
-        return context != null
-                && SLOT.equals(context.identifier())
-                && !context.cosmetic();
+        if (context == null
+                || !SLOT.equals(context.identifier())
+                || context.cosmetic()) {
+            return false;
+        }
+
+        return CuriosApi.getCuriosInventory(context.entity())
+                .resolve()
+                .map(handler ->
+                        handler.findCurios(this)
+                                .stream()
+                                .noneMatch(result -> {
+                                    SlotContext equippedContext =
+                                            result.slotContext();
+
+                                    return !(
+                                            SLOT.equals(
+                                                    equippedContext.identifier()
+                                            )
+                                                    && equippedContext.index()
+                                                    == context.index()
+                                                    && equippedContext.cosmetic()
+                                                    == context.cosmetic()
+                                    );
+                                })
+                )
+                .orElse(true);
     }
 
     @Override

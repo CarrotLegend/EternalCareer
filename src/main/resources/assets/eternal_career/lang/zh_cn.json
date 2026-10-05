@@ -64,6 +64,16 @@
   "item.eternal_career.lich_research_notes": "巫妖研究笔记",
   "item.eternal_career.necromancy_orb_focus": "死灵法球聚晶",
   "item.eternal_career.necromancy_orb_focus.info": "快速连续发射四颗强力的死灵法球。",
+  "item.eternal_career.necromancy_laser_focus": "死灵激光聚晶",
+  "item.eternal_career.necromancy_laser_focus.info": "发射一道高速飞行的绿色死灵激光。",
+  "item.eternal_career.crystal_of_drawn_bow": "终末挽弓魂晶",
+  "tooltip.eternal_career.crystal_of_drawn_bow.end_power": "终末之力。",
+  "tooltip.eternal_career.crystal_of_drawn_bow.bow_damage": "你的弓箭伤害增加300%。",
+  "tooltip.eternal_career.crystal_of_drawn_bow.draw_power": "挽弓之力。",
+  "tooltip.eternal_career.crystal_of_drawn_bow.draw_effect": "你的拉弓速度增加40%，弹射物速度增加50%。",
+  "tooltip.eternal_career.crystal_of_drawn_bow.piercing_power": "穿杨之力。",
+  "tooltip.eternal_career.crystal_of_drawn_bow.armor_break": "你的弓箭能够永久击碎敌人20%的护甲。",
+  "entity.eternal_career.necromancy_laser": "死灵激光",
   "item.eternal_career.novice_lich_essence": "初级巫妖精华",
   "item.eternal_career.intermediate_lich_essence": "中级巫妖精华",
   "item.eternal_career.advanced_lich_essence": "高级巫妖精华",
@@ -205,5 +215,7 @@
   "item.eternal_career.netherite_arrow": "下界合金箭",
   "tooltip.eternal_career.iron_arrow": "弹射物伤害：×1.25",
   "tooltip.eternal_career.diamond_arrow": "弹射物伤害：×2",
-  "tooltip.eternal_career.netherite_arrow": "弹射物伤害：×4"
+  "tooltip.eternal_career.netherite_arrow": "弹射物伤害：×4",
+  "item.eternal_career.spinning_gloves": "飞转手套",
+"tooltip.eternal_career.spinning_gloves.effect": "你的镰刀会旋转飞出攻击你的敌人"
 }
