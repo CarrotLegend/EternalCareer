@@ -1,0 +1,9 @@
+{
+  "item": "eternal_career:armor_break_curse_spirit",
+  "bosses": [
+    "mowziesmobs:ferrous_wroughtnaut"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 1
+}

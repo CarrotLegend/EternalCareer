@@ -1,8 +1,12 @@
 package com.carrot123.eternal_career.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 import com.carrot123.eternal_career.registry.ModEntityTypes;
 import com.carrot123.eternal_career.soul.SpinningScytheFlightData;
-import com.carrot123.eternal_career.item.SpinningGlovesItem;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -25,12 +29,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 public final class SpinningScytheEntity
         extends ThrowableItemProjectile {
+
+    public static final float THROW_SPEED = 1.75F;
+
+    private static final double RETURN_MIN_SPEED = 0.5D;
+    private static final double RETURN_MAX_SPEED = 2.0D;
+    private static final double RETURN_ACCELERATION = 3.0D;
+    private static final double RETURN_LERP = 0.1D;
 
     private static final int INITIAL_RETURN_TIMER =
             8;
@@ -361,11 +368,49 @@ public final class SpinningScytheEntity
     protected void onHitBlock(
             BlockHitResult result
     ) {
+        super.onHitBlock(
+                result
+        );
+
         returning =
                 true;
 
         returnTimer =
                 0;
+
+        if (!(getOwner()
+                instanceof ServerPlayer player)) {
+            return;
+        }
+
+        Vec3 destination =
+                player.position()
+                        .add(
+                                0.0D,
+                                player.getBbHeight()
+                                        * 0.5D,
+                                0.0D
+                        );
+
+        Vec3 difference =
+                destination.subtract(
+                        position()
+                );
+
+        if (difference.lengthSqr()
+                <= 1.0E-8D) {
+            return;
+        }
+
+        setDeltaMovement(
+                difference.normalize()
+                        .scale(
+                                THROW_SPEED
+                        )
+        );
+
+        hasImpulse =
+                true;
     }
 
     private void flyBack(
@@ -396,40 +441,50 @@ public final class SpinningScytheEntity
             return;
         }
 
+        if (distance
+                <= 1.0E-8D) {
+            return;
+        }
+
         Vec3 current =
                 getDeltaMovement();
 
         double speed =
                 Mth.clamp(
                         current.length()
-                                * 2.5D,
-                        0.65D,
-                        2.5D
+                                * RETURN_ACCELERATION,
+                        RETURN_MIN_SPEED,
+                        RETURN_MAX_SPEED
                 );
 
         Vec3 desired =
                 difference.normalize()
-                        .scale(speed);
+                        .scale(
+                                speed
+                        );
 
         setDeltaMovement(
                 new Vec3(
                         Mth.lerp(
-                                0.15D,
+                                RETURN_LERP,
                                 current.x,
                                 desired.x
                         ),
                         Mth.lerp(
-                                0.15D,
+                                RETURN_LERP,
                                 current.y,
                                 desired.y
                         ),
                         Mth.lerp(
-                                0.15D,
+                                RETURN_LERP,
                                 current.z,
                                 desired.z
                         )
                 )
         );
+
+        hasImpulse =
+                true;
     }
 
     private void returnScythe(
@@ -563,7 +618,9 @@ public final class SpinningScytheEntity
                 tag
         );
 
-        if (tag.hasUUID("FlightId")) {
+        if (tag.hasUUID(
+                "FlightId"
+        )) {
             flightId =
                     tag.getUUID(
                             "FlightId"

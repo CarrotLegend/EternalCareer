@@ -1,0 +1,9 @@
+{
+  "item": "eternal_career:weakness_curse_spirit",
+  "bosses": [
+    "minecraft:warden"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 1
+}

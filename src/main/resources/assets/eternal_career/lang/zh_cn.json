@@ -217,5 +217,63 @@
   "tooltip.eternal_career.diamond_arrow": "弹射物伤害：×2",
   "tooltip.eternal_career.netherite_arrow": "弹射物伤害：×4",
   "item.eternal_career.spinning_gloves": "飞转手套",
-"tooltip.eternal_career.spinning_gloves.effect": "你的镰刀会旋转飞出攻击你的敌人"
+  "tooltip.eternal_career.spinning_gloves.effect": "你的镰刀会旋转飞出攻击你的敌人",
+  "item.eternal_career.pandora_box": "诅咒魔盒",
+  "tooltip.eternal_career.pandora_box.warning": "你最好三思......",
+  "tooltip.eternal_career.pandora_box.released": "你释放了远古的诅咒之灵，诅咒深深刻入你的骨髓和血液......",
+  "curios.identifier.pandora_box": "诅咒魔盒",
+  "curios.identifier.curse_spirit": "诅咒之灵",
+  "item.eternal_career.undead_curse": "亡灵诅咒",
+  "item.eternal_career.dead_curse_spirit": "亡者诅咒之灵",
+  "tooltip.eternal_career.undead_curse": "你会在阳光下自燃。",
+  "tooltip.eternal_career.undead_curse.upgraded.day": "白天时，你的抗性增加12.5%。",
+  "tooltip.eternal_career.undead_curse.upgraded.night": "夜晚时，你的恢复速度增加12.5%。",
+  "item.eternal_career.fragile_curse": "脆弱诅咒",
+"item.eternal_career.shadow_curse_spirit": "阴影诅咒之灵",
+"tooltip.eternal_career.fragile_curse": "受到攻击时25%概率受到5s黑暗和虚弱。",
+"tooltip.eternal_career.fragile_curse.reversed": "受到攻击时获得5s抗性提升Ⅳ。",
+"item.eternal_career.powerless_curse": "无力诅咒",
+"item.eternal_career.weakness_curse_spirit": "虚弱诅咒之灵",
+
+"item.eternal_career.vulnerability_curse": "易伤诅咒",
+"item.eternal_career.armor_break_curse_spirit": "碎甲诅咒之灵",
+
+"item.eternal_career.ignorance_curse": "无知诅咒",
+"item.eternal_career.foolish_curse_spirit": "愚昧诅咒之灵",
+
+"tooltip.eternal_career.powerless_curse": "全部伤害-50%",
+"tooltip.eternal_career.powerless_curse.reversed": "全部伤害+20%，法术强度+80%",
+
+"tooltip.eternal_career.vulnerability_curse": "护甲值-99%",
+"tooltip.eternal_career.vulnerability_curse.reversed": "护甲值+20%，生命值+20%，抗性+10%",
+
+"tooltip.eternal_career.ignorance_curse": "法术强度-10%，法术吟唱缩减-10%，法术冷却缩减-10%",
+"tooltip.eternal_career.ignorance_curse.reversed": "法术强度+40%，吟唱缩减+20%，冷却缩减+20%",
+
+"tooltip.eternal_career.dead_curse_spirit": "由配置指定Boss掉落，右键亡灵诅咒反转其诅咒效果。",
+"tooltip.eternal_career.shadow_curse_spirit": "由堕落圣骑掉落，右键脆弱诅咒反转其诅咒效果。",
+"tooltip.eternal_career.weakness_curse_spirit": "由监守者掉落，右键无力诅咒反转其诅咒效果。",
+"tooltip.eternal_career.armor_break_curse_spirit": "由钢铁守护者掉落，右键易伤诅咒反转其诅咒效果。",
+"tooltip.eternal_career.foolish_curse_spirit": "由暗夜巫妖掉落，右键无知诅咒反转其诅咒效果。",
+"item.eternal_career.heavy_curse": "沉重诅咒",
+"item.eternal_career.slowness_curse_spirit": "缓慢诅咒之灵",
+
+"item.eternal_career.discouraged_curse": "灰心诅咒",
+"item.eternal_career.despair_curse_spirit": "绝望诅咒之灵",
+
+"item.eternal_career.hunger_curse": "饥饿诅咒",
+"item.eternal_career.famine_curse_spirit": "饥荒诅咒之灵",
+
+"tooltip.eternal_career.heavy_curse": "移动速度-20%",
+"tooltip.eternal_career.heavy_curse.reversed": "移动速度+10%，每有0.02移动速度，法术强度+10%，法术冷却缩减+2%",
+
+"tooltip.eternal_career.discouraged_curse": "受到攻击时有概率受到一次额外的相同伤害。",
+"tooltip.eternal_career.discouraged_curse.reversed": "7%概率免疫伤害，法术冷却缩减+10%，法术吟唱缩减+10%，最大法力值+100",
+
+"tooltip.eternal_career.hunger_curse": "耐力-50%",
+"tooltip.eternal_career.hunger_curse.reversed": "耐力+25%，饱食度不为满时法术强度+120%",
+
+"tooltip.eternal_career.slowness_curse_spirit": "由湮灭构造体掉落，右键沉重诅咒反转其诅咒效果。",
+"tooltip.eternal_career.despair_curse_spirit": "由咒翼灵骸掉落，右键灰心诅咒反转其诅咒效果。",
+"tooltip.eternal_career.famine_curse_spirit": "由下界合金巨兽掉落，右键饥饿诅咒反转其诅咒效果。"
 }

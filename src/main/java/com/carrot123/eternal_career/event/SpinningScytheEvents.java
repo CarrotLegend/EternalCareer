@@ -1,11 +1,15 @@
 package com.carrot123.eternal_career.event;
 
+import java.util.UUID;
+
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.curio.CurioEquipmentHelper;
 import com.carrot123.eternal_career.entity.SpinningScytheEntity;
+import com.carrot123.eternal_career.item.SpinningGlovesItem;
 import com.carrot123.eternal_career.registry.ModItems;
 import com.carrot123.eternal_career.registry.ModTags;
 import com.carrot123.eternal_career.soul.SpinningScytheFlightData;
+
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -19,8 +23,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.UUID;
 
 @Mod.EventBusSubscriber(
         modid = EternalCareer.MOD_ID,
@@ -203,12 +205,14 @@ public final class SpinningScytheEvents {
                 serverPlayer.getXRot(),
                 serverPlayer.getYRot(),
                 0.0F,
-                1.75F,
+                SpinningScytheEntity.THROW_SPEED,
                 0.0F
         );
 
         if (!serverPlayer.level()
-                .addFreshEntity(projectile)) {
+                .addFreshEntity(
+                        projectile
+                )) {
             SpinningScytheFlightData
                     .recoverImmediately(
                             serverPlayer

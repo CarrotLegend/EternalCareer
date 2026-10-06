@@ -51,10 +51,6 @@ public final class EternalCareer {
                 modEventBus
         );
 
-        ModEntityTypes.register(
-                modEventBus
-        );
-
         ModMenus.register(
                 modEventBus
         );

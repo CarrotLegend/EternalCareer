@@ -1,0 +1,9 @@
+{
+  "item": "eternal_career:famine_curse_spirit",
+  "bosses": [
+    "cataclysm:netherite_monstrosity"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 1
+}

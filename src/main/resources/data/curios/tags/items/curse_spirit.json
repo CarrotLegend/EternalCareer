@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "eternal_career:undead_curse",
+    "eternal_career:fragile_curse",
+    "eternal_career:powerless_curse",
+    "eternal_career:vulnerability_curse",
+    "eternal_career:ignorance_curse",
+    "eternal_career:heavy_curse",
+    "eternal_career:discouraged_curse",
+    "eternal_career:hunger_curse"
+  ]
+}

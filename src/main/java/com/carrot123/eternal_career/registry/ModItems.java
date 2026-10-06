@@ -6,40 +6,56 @@ import com.carrot123.eternal_career.armor.ChefArmorItem;
 import com.carrot123.eternal_career.armor.ChefArmorMaterial;
 import com.carrot123.eternal_career.armor.DeathArmorItem;
 import com.carrot123.eternal_career.armor.DeathArmorMaterial;
-import com.carrot123.eternal_career.item.CallOfDeathItem;
-import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
 import com.carrot123.eternal_career.fletching.BowModificationItem;
+import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
+import com.carrot123.eternal_career.item.ArmorBreakCurseSpiritItem;
+import com.carrot123.eternal_career.item.CallOfDeathItem;
 import com.carrot123.eternal_career.item.ChaosBladeItem;
 import com.carrot123.eternal_career.item.ChaosFoodItem;
-import com.carrot123.eternal_career.item.CrystalOfDrawnBowItem;
 import com.carrot123.eternal_career.item.CookingMagicHandItem;
+import com.carrot123.eternal_career.item.CrystalOfDrawnBowItem;
 import com.carrot123.eternal_career.item.DarkBootsItem;
 import com.carrot123.eternal_career.item.DarkChainItem;
 import com.carrot123.eternal_career.item.FrostCharmItem;
 import com.carrot123.eternal_career.item.GodsRecognitionItem;
 import com.carrot123.eternal_career.item.HeadChefSheathItem;
-import com.carrot123.eternal_career.item.LichResearchNotesItem;
+import com.carrot123.eternal_career.item.HeavyCurseItem;
+import com.carrot123.eternal_career.item.HungerCurseItem;
+import com.carrot123.eternal_career.item.IgnoranceCurseItem;
 import com.carrot123.eternal_career.item.LichEssenceItem;
+import com.carrot123.eternal_career.item.LichResearchNotesItem;
 import com.carrot123.eternal_career.item.MaterialArrowItem;
+import com.carrot123.eternal_career.item.PandoraBoxItem;
+import com.carrot123.eternal_career.item.PowerlessCurseItem;
 import com.carrot123.eternal_career.item.PurifiedPanaceaItem;
+import com.carrot123.eternal_career.item.ShadowCurseSpiritItem;
 import com.carrot123.eternal_career.item.SinRockItem;
-import com.carrot123.eternal_career.item.SoulTankItem;
+import com.carrot123.eternal_career.item.SlownessCurseSpiritItem;
 import com.carrot123.eternal_career.item.SoulReapingSkullItem;
-import com.carrot123.eternal_career.item.SublimationEssenceItem;
+import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SpinningGlovesItem;
+import com.carrot123.eternal_career.item.SublimationEssenceItem;
+import com.carrot123.eternal_career.item.DeadCurseSpiritItem;
+import com.carrot123.eternal_career.item.DespairCurseSpiritItem;
+import com.carrot123.eternal_career.item.DiscouragedCurseItem;
+import com.carrot123.eternal_career.item.FamineCurseSpiritItem;
+import com.carrot123.eternal_career.item.FoolishCurseSpiritItem;
+import com.carrot123.eternal_career.item.FragileCurseItem;
+import com.carrot123.eternal_career.item.UndeadCurseItem;
+import com.carrot123.eternal_career.item.VulnerabilityCurseItem;
+import com.carrot123.eternal_career.item.WeaknessCurseSpiritItem;
 import com.carrot123.eternal_career.lich.LichStage;
-import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
 import com.carrot123.eternal_career.magic.NecromancyLaserSpell;
+import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingAttribute;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingItem;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingSlotType;
 import com.carrot123.eternal_career.soulblessing.SoulBlessingSlots;
 import com.carrot123.until_eternity.registry.ModAttributes;
 import java.util.List;
-
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -58,17 +74,39 @@ public final class ModItems {
             );
 
     public static final RegistryObject<Item> GENERIC_HEAD_BLESSING =
-            registerGenericBlessing("generic_head_blessing", SoulBlessingSlotType.HEAD, -1);
+            registerGenericBlessing(
+                    "generic_head_blessing",
+                    SoulBlessingSlotType.HEAD,
+                    -1
+            );
+
     public static final RegistryObject<Item> GENERIC_NECKLACE_BLESSING =
-            registerGenericBlessing("generic_necklace_blessing", SoulBlessingSlotType.NECKLACE, -1);
+            registerGenericBlessing(
+                    "generic_necklace_blessing",
+                    SoulBlessingSlotType.NECKLACE,
+                    -1
+            );
+
     public static final RegistryObject<Item> GENERIC_RING_BLESSING =
-            registerGenericBlessing("generic_ring_blessing", SoulBlessingSlotType.RING, -1);
+            registerGenericBlessing(
+                    "generic_ring_blessing",
+                    SoulBlessingSlotType.RING,
+                    -1
+            );
+
     public static final RegistryObject<Item> GENERIC_LEFT_BOOT_BLESSING =
-            registerGenericBlessing("generic_left_boot_blessing", SoulBlessingSlotType.BOOTS,
-                    SoulBlessingSlots.BOOTS_LEFT);
+            registerGenericBlessing(
+                    "generic_left_boot_blessing",
+                    SoulBlessingSlotType.BOOTS,
+                    SoulBlessingSlots.BOOTS_LEFT
+            );
+
     public static final RegistryObject<Item> GENERIC_RIGHT_BOOT_BLESSING =
-            registerGenericBlessing("generic_right_boot_blessing", SoulBlessingSlotType.BOOTS,
-                    SoulBlessingSlots.BOOTS_RIGHT);
+            registerGenericBlessing(
+                    "generic_right_boot_blessing",
+                    SoulBlessingSlotType.BOOTS,
+                    SoulBlessingSlots.BOOTS_RIGHT
+            );
 
     public static final RegistryObject<Item> CHEF_HAT =
             registerChefArmor(
@@ -185,24 +223,46 @@ public final class ModItems {
     public static final RegistryObject<Item> NECROMANCY_LASER_FOCUS =
             ITEMS.register(
                     "necromancy_laser_focus",
-                    () -> new MagicFocus(new NecromancyLaserSpell())
+                    () -> new MagicFocus(
+                            new NecromancyLaserSpell()
+                    )
             );
 
     public static final RegistryObject<Item> NOVICE_LICH_ESSENCE =
-            ITEMS.register("novice_lich_essence",
-                    () -> new LichEssenceItem(new Item.Properties(), "novice_lich_essence"));
+            ITEMS.register(
+                    "novice_lich_essence",
+                    () -> new LichEssenceItem(
+                            new Item.Properties(),
+                            "novice_lich_essence"
+                    )
+            );
 
     public static final RegistryObject<Item> INTERMEDIATE_LICH_ESSENCE =
-            ITEMS.register("intermediate_lich_essence",
-                    () -> new LichEssenceItem(new Item.Properties(), "intermediate_lich_essence"));
+            ITEMS.register(
+                    "intermediate_lich_essence",
+                    () -> new LichEssenceItem(
+                            new Item.Properties(),
+                            "intermediate_lich_essence"
+                    )
+            );
 
     public static final RegistryObject<Item> ADVANCED_LICH_ESSENCE =
-            ITEMS.register("advanced_lich_essence",
-                    () -> new LichEssenceItem(new Item.Properties(), "advanced_lich_essence"));
+            ITEMS.register(
+                    "advanced_lich_essence",
+                    () -> new LichEssenceItem(
+                            new Item.Properties(),
+                            "advanced_lich_essence"
+                    )
+            );
 
     public static final RegistryObject<Item> LICH_KING_ESSENCE =
-            ITEMS.register("lich_king_essence",
-                    () -> new LichEssenceItem(new Item.Properties(), "lich_king_essence"));
+            ITEMS.register(
+                    "lich_king_essence",
+                    () -> new LichEssenceItem(
+                            new Item.Properties(),
+                            "lich_king_essence"
+                    )
+            );
 
     public static final RegistryObject<Item> FROST_CHARM =
             ITEMS.register(
@@ -215,45 +275,279 @@ public final class ModItems {
             );
 
     public static final RegistryObject<Item> ARCHERY_MASTER_CORE =
-            ITEMS.register("archery_master_core",
-                    () -> new ArcheryMasterCoreItem(new Item.Properties().stacksTo(1)
-                            .rarity(Rarity.RARE)));
+            ITEMS.register(
+                    "archery_master_core",
+                    () -> new ArcheryMasterCoreItem(
+                            new Item.Properties()
+                                    .stacksTo(1)
+                                    .rarity(Rarity.RARE)
+                    )
+            );
+
+    public static final RegistryObject<Item> PANDORA_BOX =
+            ITEMS.register(
+                    "pandora_box",
+                    () -> new PandoraBoxItem(
+                            new Item.Properties()
+                                    .stacksTo(1)
+                                    .rarity(Rarity.EPIC)
+                                    .fireResistant()
+                    )
+            );
+
+    public static final RegistryObject<Item> UNDEAD_CURSE =
+        ITEMS.register(
+                "undead_curse",
+                () -> new UndeadCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+     public static final RegistryObject<Item> DEAD_CURSE_SPIRIT =
+        ITEMS.register(
+                "dead_curse_spirit",
+                () -> new DeadCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+        public static final RegistryObject<Item> FRAGILE_CURSE =
+        ITEMS.register(
+                "fragile_curse",
+                () -> new FragileCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> SHADOW_CURSE_SPIRIT =
+        ITEMS.register(
+                "shadow_curse_spirit",
+                () -> new ShadowCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+        public static final RegistryObject<Item> POWERLESS_CURSE =
+        ITEMS.register(
+                "powerless_curse",
+                () -> new PowerlessCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> WEAKNESS_CURSE_SPIRIT =
+        ITEMS.register(
+                "weakness_curse_spirit",
+                () -> new WeaknessCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+public static final RegistryObject<Item> VULNERABILITY_CURSE =
+        ITEMS.register(
+                "vulnerability_curse",
+                () -> new VulnerabilityCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> ARMOR_BREAK_CURSE_SPIRIT =
+        ITEMS.register(
+                "armor_break_curse_spirit",
+                () -> new ArmorBreakCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+public static final RegistryObject<Item> IGNORANCE_CURSE =
+        ITEMS.register(
+                "ignorance_curse",
+                () -> new IgnoranceCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> FOOLISH_CURSE_SPIRIT =
+        ITEMS.register(
+                "foolish_curse_spirit",
+                () -> new FoolishCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+        public static final RegistryObject<Item> HEAVY_CURSE =
+        ITEMS.register(
+                "heavy_curse",
+                () -> new HeavyCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> SLOWNESS_CURSE_SPIRIT =
+        ITEMS.register(
+                "slowness_curse_spirit",
+                () -> new SlownessCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+public static final RegistryObject<Item> DISCOURAGED_CURSE =
+        ITEMS.register(
+                "discouraged_curse",
+                () -> new DiscouragedCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> DESPAIR_CURSE_SPIRIT =
+        ITEMS.register(
+                "despair_curse_spirit",
+                () -> new DespairCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
+
+public static final RegistryObject<Item> HUNGER_CURSE =
+        ITEMS.register(
+                "hunger_curse",
+                () -> new HungerCurseItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                )
+        );
+
+public static final RegistryObject<Item> FAMINE_CURSE_SPIRIT =
+        ITEMS.register(
+                "famine_curse_spirit",
+                () -> new FamineCurseSpiritItem(
+                        new Item.Properties()
+                                .stacksTo(64)
+                )
+        );
 
     public static final RegistryObject<Item> CRYSTAL_OF_DRAWN_BOW =
-            ITEMS.register("crystal_of_drawn_bow",
-                    () -> new CrystalOfDrawnBowItem(new Item.Properties()
-                            .stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+            ITEMS.register(
+                    "crystal_of_drawn_bow",
+                    () -> new CrystalOfDrawnBowItem(
+                            new Item.Properties()
+                                    .stacksTo(1)
+                                    .rarity(Rarity.EPIC)
+                                    .fireResistant()
+                    )
+            );
 
     public static final RegistryObject<MaterialArrowItem> IRON_ARROW =
-            ITEMS.register("iron_arrow", () -> new MaterialArrowItem(
-                    MaterialArrowItem.Material.IRON, new Item.Properties()));
+            ITEMS.register(
+                    "iron_arrow",
+                    () -> new MaterialArrowItem(
+                            MaterialArrowItem.Material.IRON,
+                            new Item.Properties()
+                    )
+            );
+
     public static final RegistryObject<MaterialArrowItem> DIAMOND_ARROW =
-            ITEMS.register("diamond_arrow", () -> new MaterialArrowItem(
-                    MaterialArrowItem.Material.DIAMOND, new Item.Properties()));
+            ITEMS.register(
+                    "diamond_arrow",
+                    () -> new MaterialArrowItem(
+                            MaterialArrowItem.Material.DIAMOND,
+                            new Item.Properties()
+                    )
+            );
+
     public static final RegistryObject<MaterialArrowItem> NETHERITE_ARROW =
-            ITEMS.register("netherite_arrow", () -> new MaterialArrowItem(
-                    MaterialArrowItem.Material.NETHERITE, new Item.Properties()));
+            ITEMS.register(
+                    "netherite_arrow",
+                    () -> new MaterialArrowItem(
+                            MaterialArrowItem.Material.NETHERITE,
+                            new Item.Properties()
+                    )
+            );
 
     public static final RegistryObject<Item> POWER_MODIFICATION =
-            ITEMS.register("power_modification", () -> new BowModificationItem(
-                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "power")));
+            ITEMS.register(
+                    "power_modification",
+                    () -> new BowModificationItem(
+                            new Item.Properties(),
+                            new ResourceLocation(
+                                    EternalCareer.MOD_ID,
+                                    "power"
+                            )
+                    )
+            );
 
     public static final RegistryObject<Item> VELOCITY_MODIFICATION =
-            ITEMS.register("velocity_modification", () -> new BowModificationItem(
-                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "velocity")));
+            ITEMS.register(
+                    "velocity_modification",
+                    () -> new BowModificationItem(
+                            new Item.Properties(),
+                            new ResourceLocation(
+                                    EternalCareer.MOD_ID,
+                                    "velocity"
+                            )
+                    )
+            );
 
     public static final RegistryObject<Item> BLAST_MODIFICATION =
-            ITEMS.register("blast_modification", () -> new BowModificationItem(
-                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "blast")));
+            ITEMS.register(
+                    "blast_modification",
+                    () -> new BowModificationItem(
+                            new Item.Properties(),
+                            new ResourceLocation(
+                                    EternalCareer.MOD_ID,
+                                    "blast"
+                            )
+                    )
+            );
+
     public static final RegistryObject<Item> RANGER_MODIFICATION =
-            ITEMS.register("ranger_modification", () -> new BowModificationItem(
-                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "ranger")));
+            ITEMS.register(
+                    "ranger_modification",
+                    () -> new BowModificationItem(
+                            new Item.Properties(),
+                            new ResourceLocation(
+                                    EternalCareer.MOD_ID,
+                                    "ranger"
+                            )
+                    )
+            );
+
     public static final RegistryObject<Item> BLOODTHIRST_MODIFICATION =
-            ITEMS.register("bloodthirst_modification", () -> new BowModificationItem(
-                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "bloodthirst")));
+            ITEMS.register(
+                    "bloodthirst_modification",
+                    () -> new BowModificationItem(
+                            new Item.Properties(),
+                            new ResourceLocation(
+                                    EternalCareer.MOD_ID,
+                                    "bloodthirst"
+                            )
+                    )
+            );
+
     public static final RegistryObject<Item> END_MODIFICATION =
-            ITEMS.register("end_modification", () -> new BowModificationItem(
-                    new Item.Properties(), new ResourceLocation(EternalCareer.MOD_ID, "end")));
+            ITEMS.register(
+                    "end_modification",
+                    () -> new BowModificationItem(
+                            new Item.Properties(),
+                            new ResourceLocation(
+                                    EternalCareer.MOD_ID,
+                                    "end"
+                            )
+                    )
+            );
 
     public static final RegistryObject<Item> DARK_BOOTS =
             ITEMS.register(
@@ -411,14 +705,15 @@ public final class ModItems {
                             "chaos_steak"
                     )
             );
+
     public static final RegistryObject<Item> SPINNING_GLOVES =
-        ITEMS.register(
-                "spinning_gloves",
-                () -> new SpinningGlovesItem(
-                        new Item.Properties()
-                                .stacksTo(1)
-                )
-        );
+            ITEMS.register(
+                    "spinning_gloves",
+                    () -> new SpinningGlovesItem(
+                            new Item.Properties()
+                                    .stacksTo(1)
+                    )
+            );
 
     public static final RegistryObject<Item> CHAOS_MEAT =
             ITEMS.register(
@@ -483,36 +778,95 @@ public final class ModItems {
 
     static {
         if (!FMLEnvironment.production) {
-            registerTestBlessing("test_head_blessing", SoulBlessingSlotType.HEAD,
-                    new SoulBlessingAttribute(Attributes.MAX_HEALTH, 4.0D,
-                            AttributeModifier.Operation.ADDITION));
-            registerTestBlessing("test_necklace_blessing", SoulBlessingSlotType.NECKLACE,
-                    new SoulBlessingAttribute(Attributes.ATTACK_DAMAGE, 2.0D,
-                            AttributeModifier.Operation.ADDITION));
-            registerTestBlessing("test_hand_blessing", SoulBlessingSlotType.HAND,
-                    new SoulBlessingAttribute(Attributes.ATTACK_SPEED, 0.10D,
-                            AttributeModifier.Operation.MULTIPLY_BASE));
-            registerTestBlessing("test_ring_blessing", SoulBlessingSlotType.RING,
-                    new SoulBlessingAttribute(Attributes.LUCK, 5.0D,
-                            AttributeModifier.Operation.ADDITION));
-            registerTestBlessing("test_boots_blessing", SoulBlessingSlotType.BOOTS,
-                    new SoulBlessingAttribute(Attributes.MOVEMENT_SPEED, 0.10D,
-                            AttributeModifier.Operation.MULTIPLY_BASE));
+            registerTestBlessing(
+                    "test_head_blessing",
+                    SoulBlessingSlotType.HEAD,
+                    new SoulBlessingAttribute(
+                            Attributes.MAX_HEALTH,
+                            4.0D,
+                            AttributeModifier.Operation.ADDITION
+                    )
+            );
+
+            registerTestBlessing(
+                    "test_necklace_blessing",
+                    SoulBlessingSlotType.NECKLACE,
+                    new SoulBlessingAttribute(
+                            Attributes.ATTACK_DAMAGE,
+                            2.0D,
+                            AttributeModifier.Operation.ADDITION
+                    )
+            );
+
+            registerTestBlessing(
+                    "test_hand_blessing",
+                    SoulBlessingSlotType.HAND,
+                    new SoulBlessingAttribute(
+                            Attributes.ATTACK_SPEED,
+                            0.10D,
+                            AttributeModifier.Operation.MULTIPLY_BASE
+                    )
+            );
+
+            registerTestBlessing(
+                    "test_ring_blessing",
+                    SoulBlessingSlotType.RING,
+                    new SoulBlessingAttribute(
+                            Attributes.LUCK,
+                            5.0D,
+                            AttributeModifier.Operation.ADDITION
+                    )
+            );
+
+            registerTestBlessing(
+                    "test_boots_blessing",
+                    SoulBlessingSlotType.BOOTS,
+                    new SoulBlessingAttribute(
+                            Attributes.MOVEMENT_SPEED,
+                            0.10D,
+                            AttributeModifier.Operation.MULTIPLY_BASE
+                    )
+            );
         }
     }
 
-    private static void registerTestBlessing(String name, SoulBlessingSlotType type,
-            SoulBlessingAttribute attribute) {
-        ITEMS.register(name, () -> new SoulBlessingItem(
-                new Item.Properties().rarity(Rarity.UNCOMMON), type, List.of(attribute)));
+    private static void registerTestBlessing(
+            String name,
+            SoulBlessingSlotType type,
+            SoulBlessingAttribute attribute
+    ) {
+        ITEMS.register(
+                name,
+                () -> new SoulBlessingItem(
+                        new Item.Properties()
+                                .rarity(Rarity.UNCOMMON),
+                        type,
+                        List.of(attribute)
+                )
+        );
     }
 
-    private static RegistryObject<Item> registerGenericBlessing(String name,
-            SoulBlessingSlotType type, int requiredSlot) {
-        return ITEMS.register(name, () -> new SoulBlessingItem(
-                new Item.Properties().stacksTo(1), type,
-                () -> List.of(new SoulBlessingAttribute(ModAttributes.ALL_DAMAGE.get(), 0.02D,
-                        AttributeModifier.Operation.MULTIPLY_BASE)), requiredSlot));
+    private static RegistryObject<Item> registerGenericBlessing(
+            String name,
+            SoulBlessingSlotType type,
+            int requiredSlot
+    ) {
+        return ITEMS.register(
+                name,
+                () -> new SoulBlessingItem(
+                        new Item.Properties()
+                                .stacksTo(1),
+                        type,
+                        () -> List.of(
+                                new SoulBlessingAttribute(
+                                        ModAttributes.ALL_DAMAGE.get(),
+                                        0.02D,
+                                        AttributeModifier.Operation.MULTIPLY_BASE
+                                )
+                        ),
+                        requiredSlot
+                )
+        );
     }
 
     public static void register(

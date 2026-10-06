@@ -1,0 +1,9 @@
+{
+  "item": "eternal_career:shadow_curse_spirit",
+  "bosses": [
+    "legendary_monsters:posessed_paladin"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 1
+}

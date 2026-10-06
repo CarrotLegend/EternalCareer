@@ -3,7 +3,6 @@ package com.carrot123.eternal_career.event;
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.registry.ModItems;
 import com.carrot123.until_eternity.item.ModCreativeModeTabs;
-
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,7 +41,9 @@ public final class MigrationAndCreativeEvents {
                 } else if ("crystal_of_drawn_bow".equals(
                         mapping.getKey().getPath()
                 )) {
-                    mapping.remap(ModItems.CRYSTAL_OF_DRAWN_BOW.get());
+                    mapping.remap(
+                            ModItems.CRYSTAL_OF_DRAWN_BOW.get()
+                    );
                 }
             }
         }
@@ -112,6 +113,23 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.NECROMANCY_LASER_FOCUS);
             event.accept(ModItems.FROST_CHARM);
             event.accept(ModItems.ARCHERY_MASTER_CORE);
+            event.accept(ModItems.PANDORA_BOX);
+            event.accept(ModItems.UNDEAD_CURSE);
+            event.accept(ModItems.DEAD_CURSE_SPIRIT);
+            event.accept(ModItems.FRAGILE_CURSE);
+            event.accept(ModItems.SHADOW_CURSE_SPIRIT);
+            event.accept(ModItems.POWERLESS_CURSE);
+            event.accept(ModItems.WEAKNESS_CURSE_SPIRIT);
+            event.accept(ModItems.VULNERABILITY_CURSE);
+            event.accept(ModItems.ARMOR_BREAK_CURSE_SPIRIT);
+            event.accept(ModItems.IGNORANCE_CURSE);
+            event.accept(ModItems.FOOLISH_CURSE_SPIRIT);
+            event.accept(ModItems.HEAVY_CURSE);
+            event.accept(ModItems.SLOWNESS_CURSE_SPIRIT);
+            event.accept(ModItems.DISCOURAGED_CURSE);
+            event.accept(ModItems.DESPAIR_CURSE_SPIRIT);
+            event.accept(ModItems.HUNGER_CURSE);
+            event.accept(ModItems.FAMINE_CURSE_SPIRIT);
             event.accept(ModItems.CRYSTAL_OF_DRAWN_BOW);
             event.accept(ModItems.IRON_ARROW);
             event.accept(ModItems.DIAMOND_ARROW);

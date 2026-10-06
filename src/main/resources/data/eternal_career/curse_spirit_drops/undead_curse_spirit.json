@@ -1,0 +1,9 @@
+{
+  "item": "eternal_career:dead_curse_spirit",
+  "bosses": [
+    "eeeabsmobs:corpse_warlock"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 1
+}

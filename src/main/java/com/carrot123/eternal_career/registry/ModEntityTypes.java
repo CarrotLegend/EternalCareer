@@ -2,6 +2,7 @@ package com.carrot123.eternal_career.registry;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.entity.SpinningScytheEntity;
+import com.carrot123.eternal_career.entity.projectile.NecromancyLaserEntity;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -16,6 +17,31 @@ public final class ModEntityTypes {
             DeferredRegister.create(
                     ForgeRegistries.ENTITY_TYPES,
                     EternalCareer.MOD_ID
+            );
+
+    public static final RegistryObject<EntityType<NecromancyLaserEntity>>
+            NECROMANCY_LASER =
+            ENTITY_TYPES.register(
+                    "necromancy_laser",
+                    () -> EntityType.Builder
+                            .<NecromancyLaserEntity>of(
+                                    NecromancyLaserEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(
+                                    0.5F,
+                                    0.5F
+                            )
+                            .clientTrackingRange(
+                                    16
+                            )
+                            .updateInterval(
+                                    1
+                            )
+                            .build(
+                                    EternalCareer.MOD_ID
+                                            + ":necromancy_laser"
+                            )
             );
 
     public static final RegistryObject<EntityType<SpinningScytheEntity>>

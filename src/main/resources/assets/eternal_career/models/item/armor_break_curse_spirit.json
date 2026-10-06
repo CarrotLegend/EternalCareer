@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "eternal_career:item/armor_break_curse_spirit"
+  }
+}

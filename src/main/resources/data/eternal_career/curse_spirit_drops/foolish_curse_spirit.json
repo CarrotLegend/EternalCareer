@@ -1,0 +1,9 @@
+{
+  "item": "eternal_career:foolish_curse_spirit",
+  "bosses": [
+    "bosses_of_mass_destruction:lich"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 1
+}

@@ -23,6 +23,7 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
+
     public static final String SLOT = "charm";
     public static final String MODE_KEY = "Mode";
 
@@ -30,61 +31,132 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
     public static final int RAPID = 1;
 
     private static final ResourceLocation RANGED_DAMAGE =
-            new ResourceLocation("puffish_attributes", "ranged_damage");
+            new ResourceLocation(
+                    "puffish_attributes",
+                    "ranged_damage"
+            );
 
     private static final ResourceLocation RANGED_VELOCITY =
-            new ResourceLocation("terra_curio", "ranged_velocity");
+            new ResourceLocation(
+                    "terra_curio",
+                    "ranged_velocity"
+            );
 
     private static final ResourceLocation CHARGE_SPEED =
-            new ResourceLocation("until_eternity", "charge_speed");
+            new ResourceLocation(
+                    "until_eternity",
+                    "charge_speed"
+            );
 
-    public ArcheryMasterCoreItem(Properties properties) {
-        super(properties);
+    public ArcheryMasterCoreItem(
+            Properties properties
+    ) {
+        super(
+                properties
+        );
     }
 
-    public static int mode(ItemStack stack) {
+    public static int mode(
+            ItemStack stack
+    ) {
         return stack.hasTag()
-                && stack.getTag().getInt(MODE_KEY) == RAPID
+                && stack.getTag()
+                        .getInt(
+                                MODE_KEY
+                        ) == RAPID
                 ? RAPID
                 : BURST;
     }
 
-    public static void toggle(ItemStack stack) {
-        stack.getOrCreateTag().putInt(
-                MODE_KEY,
-                mode(stack) == BURST ? RAPID : BURST
-        );
+    public static void toggle(
+            ItemStack stack
+    ) {
+        stack.getOrCreateTag()
+                .putInt(
+                        MODE_KEY,
+                        mode(
+                                stack
+                        ) == BURST
+                                ? RAPID
+                                : BURST
+                );
     }
 
-    @Override
-    public boolean canEquip(SlotContext context, ItemStack stack) {
+    public static boolean hasAnotherEquipped(
+            SlotContext context,
+            Item item
+    ) {
         if (context == null
-                || !SLOT.equals(context.identifier())
-                || context.cosmetic()) {
-            return false;
+                || context.entity() == null) {
+            return true;
         }
 
-        return CuriosApi.getCuriosInventory(context.entity())
+        return CuriosApi
+                .getCuriosInventory(
+                        context.entity()
+                )
                 .resolve()
                 .map(handler ->
-                        handler.findCurios(this)
+                        handler.findCurios(
+                                        item
+                                )
                                 .stream()
-                                .noneMatch(result -> {
+                                .anyMatch(result -> {
                                     SlotContext equippedContext =
                                             result.slotContext();
 
-                                    return !(
-                                            SLOT.equals(
-                                                    equippedContext.identifier()
-                                            )
-                                                    && equippedContext.index()
-                                                    == context.index()
-                                                    && equippedContext.cosmetic()
-                                                    == context.cosmetic()
+                                    if (equippedContext.cosmetic()) {
+                                        return false;
+                                    }
+
+                                    return !isSameSlot(
+                                            equippedContext,
+                                            context
                                     );
                                 })
                 )
-                .orElse(true);
+                .orElse(
+                        false
+                );
+    }
+
+    private static boolean isSameSlot(
+            SlotContext first,
+            SlotContext second
+    ) {
+        return first.identifier()
+                .equals(
+                        second.identifier()
+                )
+                && first.index()
+                == second.index()
+                && first.cosmetic()
+                == second.cosmetic();
+    }
+
+    @Override
+    public boolean canEquip(
+            SlotContext context,
+            ItemStack stack
+    ) {
+        if (context == null) {
+            return false;
+        }
+
+        if (!SLOT.equals(
+                context.identifier()
+        )) {
+            return false;
+        }
+
+        if (context.cosmetic()) {
+            return false;
+        }
+
+        return !hasAnotherEquipped(
+                context,
+                this
+        );
     }
 
     @Override
@@ -93,14 +165,12 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
             UUID slotUuid,
             ItemStack stack
     ) {
-        if (!canEquip(context, stack)) {
-            return ImmutableMultimap.of();
-        }
-
         ImmutableMultimap.Builder<Attribute, AttributeModifier> result =
                 ImmutableMultimap.builder();
 
-        if (mode(stack) == BURST) {
+        if (mode(
+                stack
+        ) == BURST) {
             add(
                     result,
                     RANGED_DAMAGE,
@@ -145,11 +215,15 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
             double amount
     ) {
         Attribute attribute =
-                ForgeRegistries.ATTRIBUTES.getValue(attributeId);
+                ForgeRegistries.ATTRIBUTES
+                        .getValue(
+                                attributeId
+                        );
 
         if (attribute == null) {
             throw new IllegalStateException(
-                    "Missing archery master core attribute: " + attributeId
+                    "Missing archery master core attribute: "
+                            + attributeId
             );
         }
 
@@ -177,12 +251,16 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
             List<Component> tooltip,
             TooltipFlag flag
     ) {
-        if (mode(stack) == BURST) {
+        if (mode(
+                stack
+        ) == BURST) {
             tooltip.add(
                     Component.translatable(
                                     "tooltip.eternal_career.archery_master_core.burst"
                             )
-                            .withStyle(ChatFormatting.RED)
+                            .withStyle(
+                                    ChatFormatting.RED
+                            )
             );
 
             CurioTooltipHelper.addLocalizedString(
@@ -194,7 +272,9 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
                     Component.translatable(
                                     "tooltip.eternal_career.archery_master_core.rapid"
                             )
-                            .withStyle(ChatFormatting.AQUA)
+                            .withStyle(
+                                    ChatFormatting.AQUA
+                            )
             );
 
             CurioTooltipHelper.addLocalizedString(
