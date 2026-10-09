@@ -444,6 +444,10 @@ public final class SpecialBowProjectileDamageEvents {
                     .multiplier();
         }
 
+        if (stack.is(com.carrot123.eternal_career.bloodbow.BloodBowItems.BLOOD_HUNTER_ARROW.get())) {
+            return MaterialArrowItem.Material.BLOOD_HUNTER.multiplier();
+        }
+
         return 1.0D;
     }
 

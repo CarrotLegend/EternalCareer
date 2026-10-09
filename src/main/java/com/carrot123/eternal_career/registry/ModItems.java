@@ -35,6 +35,7 @@ import com.carrot123.eternal_career.item.SoulReapingSkullItem;
 import com.carrot123.eternal_career.item.SoulTankItem;
 import com.carrot123.eternal_career.item.SpinningGlovesItem;
 import com.carrot123.eternal_career.item.SublimationEssenceItem;
+import com.carrot123.eternal_career.item.TwistedHeartItem;
 import com.carrot123.eternal_career.item.DeadCurseSpiritItem;
 import com.carrot123.eternal_career.item.DespairCurseSpiritItem;
 import com.carrot123.eternal_career.item.DiscouragedCurseItem;
@@ -436,6 +437,16 @@ public static final RegistryObject<Item> FAMINE_CURSE_SPIRIT =
                 () -> new FamineCurseSpiritItem(
                         new Item.Properties()
                                 .stacksTo(64)
+                )
+        );
+
+        public static final RegistryObject<Item> TWISTED_HEART =
+        ITEMS.register(
+                "twisted_heart",
+                () -> new TwistedHeartItem(
+                        new Item.Properties()
+                                .stacksTo(1)
+                                .rarity(Rarity.EPIC)
                 )
         );
 

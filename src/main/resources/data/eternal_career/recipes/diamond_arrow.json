@@ -5,7 +5,7 @@
   "key": {
     "D": {"item": "minecraft:diamond"},
     "S": {"item": "minecraft:stick"},
-    "F": {"item": "minecraft:feather"}
+    "F": {"item": "minecraft:nether_star"}
   },
   "result": {"item": "eternal_career:diamond_arrow", "count": 4}
 }

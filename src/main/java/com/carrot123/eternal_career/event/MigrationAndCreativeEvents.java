@@ -130,6 +130,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.DESPAIR_CURSE_SPIRIT);
             event.accept(ModItems.HUNGER_CURSE);
             event.accept(ModItems.FAMINE_CURSE_SPIRIT);
+            event.accept(ModItems.TWISTED_HEART);
             event.accept(ModItems.CRYSTAL_OF_DRAWN_BOW);
             event.accept(ModItems.IRON_ARROW);
             event.accept(ModItems.DIAMOND_ARROW);

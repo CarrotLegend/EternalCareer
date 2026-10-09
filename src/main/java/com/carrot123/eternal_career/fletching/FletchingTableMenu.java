@@ -91,7 +91,7 @@ public final class FletchingTableMenu extends AbstractContainerMenu {
     }
 
     public boolean craft(Player player, BowModification modification) {
-        if (!stillValid(player) || modification == null) {
+        if (!stillValid(player) || modification == null || !BowModifications.CRAFTABLE.contains(modification)) {
             return false;
         }
         int[] deductions = new int[36];
@@ -183,3 +183,4 @@ public final class FletchingTableMenu extends AbstractContainerMenu {
         }
     }
 }
+

@@ -58,7 +58,8 @@ public final class MaterialArrowItem extends ArrowItem {
     public enum Material {
         IRON("iron_arrow", 1.25D),
         DIAMOND("diamond_arrow", 2.0D),
-        NETHERITE("netherite_arrow", 4.0D);
+        NETHERITE("netherite_arrow", 4.0D),
+        BLOOD_HUNTER("blood_hunter_arrow", 6.0D);
 
         private final String id;
         private final double multiplier;
@@ -77,7 +78,9 @@ public final class MaterialArrowItem extends ArrowItem {
                 case IRON -> new ItemStack(ModItems.IRON_ARROW.get());
                 case DIAMOND -> new ItemStack(ModItems.DIAMOND_ARROW.get());
                 case NETHERITE -> new ItemStack(ModItems.NETHERITE_ARROW.get());
+                case BLOOD_HUNTER -> new ItemStack(com.carrot123.eternal_career.bloodbow.BloodBowItems.BLOOD_HUNTER_ARROW.get());
             };
         }
     }
 }
+

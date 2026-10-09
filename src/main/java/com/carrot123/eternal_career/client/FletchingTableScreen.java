@@ -59,7 +59,7 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
     }
 
     private BowModification selectedModification() {
-        return BowModifications.ALL.get(Mth.clamp(selected, 0, BowModifications.ALL.size() - 1));
+        return BowModifications.CRAFTABLE.get(Mth.clamp(selected, 0, BowModifications.CRAFTABLE.size() - 1));
     }
 
     private void refreshButtons() {
@@ -109,7 +109,7 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
             int row = hoveredRow(mouseX, mouseY);
             if (row >= 0) {
                 graphics.renderTooltip(font,
-                        Component.translatable(BowModifications.ALL.get(row).nameKey()),
+                        Component.translatable(BowModifications.CRAFTABLE.get(row).nameKey()),
                         mouseX, mouseY);
             }
             BowModification modification = selectedModification();
@@ -177,12 +177,12 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
                 x + LIST_X + LIST_WIDTH, y + LIST_Y + LIST_HEIGHT, 0xFF999999);
         graphics.enableScissor(x + LIST_X, y + LIST_Y,
                 x + LIST_X + LIST_WIDTH, y + LIST_Y + LIST_HEIGHT);
-        for (int index = scroll; index < BowModifications.ALL.size(); index++) {
+        for (int index = scroll; index < BowModifications.CRAFTABLE.size(); index++) {
             int rowY = y + LIST_Y + (index - scroll) * ROW_HEIGHT;
             if (rowY >= y + LIST_Y + LIST_HEIGHT) {
                 break;
             }
-            BowModification modification = BowModifications.ALL.get(index);
+            BowModification modification = BowModifications.CRAFTABLE.get(index);
             if (index == selected) {
                 graphics.fill(x + LIST_X + 1, rowY + 1,
                         x + LIST_X + LIST_WIDTH - 1, rowY + ROW_HEIGHT - 1, PANEL);
@@ -229,7 +229,7 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
                 x + 17, y + 37, 0x303030, false);
         boolean found = false;
         int line = 0;
-        for (BowModification modification : BowModifications.ALL) {
+        for (BowModification modification : BowModifications.CRAFTABLE) {
             int level = BowModificationHelper.getLevel(menu.bow(), modification.id());
             if (level > 0) {
                 found = true;
@@ -271,7 +271,7 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
             return -1;
         }
         int index = scroll + (int) (mouseY - topPos - LIST_Y) / ROW_HEIGHT;
-        return index < BowModifications.ALL.size() ? index : -1;
+        return index < BowModifications.CRAFTABLE.size() ? index : -1;
     }
 
     @Override
@@ -306,10 +306,11 @@ public final class FletchingTableScreen extends AbstractContainerScreen<Fletchin
                 && mouseY >= topPos + LIST_Y
                 && mouseY < topPos + LIST_Y + LIST_HEIGHT) {
             int visible = Math.max(1, LIST_HEIGHT / ROW_HEIGHT);
-            int maximum = Math.max(0, BowModifications.ALL.size() - visible);
+            int maximum = Math.max(0, BowModifications.CRAFTABLE.size() - visible);
             scroll = Mth.clamp(scroll - (int) Math.signum(delta), 0, maximum);
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, delta);
     }
 }
+

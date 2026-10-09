@@ -2,11 +2,9 @@ package com.carrot123.eternal_career.item;
 
 import com.aizistral.enigmaticlegacy.api.items.ICursed;
 import com.aizistral.enigmaticlegacy.handlers.SuperpositionHandler;
+import com.carrot123.eternal_career.event.PandoraSlotGuardEvents;
 import com.carrot123.eternal_career.registry.ModItems;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import net.minecraft.ChatFormatting;
@@ -18,9 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +26,9 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
+public final class PandoraBoxItem
+        extends Item
+        implements ICurioItem, ICursed {
 
     public static final String PANDORA_BOX_SLOT =
             "pandora_box";
@@ -45,15 +42,9 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
     private static final String STORED_CURSES_TAG =
             "EternalCareerPandoraStoredCurses";
 
-    private static final String INSTALL_PENDING_TAG =
-            "EternalCareerPandoraInstallPending";
-
-    private static final UUID PANDORA_BOX_UNLOCK_UUID =
-            UUID.fromString(
-                    "b1c6c0ef-8518-4ef9-a352-47bd8b9a3327"
-            );
-
-    public PandoraBoxItem(Properties properties) {
+    public PandoraBoxItem(
+            Properties properties
+    ) {
         super(properties);
     }
 
@@ -63,7 +54,9 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
         return stack.hasTag()
                 && stack.getTag() != null
                 && stack.getTag()
-                .getBoolean(ACTIVATED_TAG);
+                .getBoolean(
+                        ACTIVATED_TAG
+                );
     }
 
     @Override
@@ -73,7 +66,9 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
             InteractionHand hand
     ) {
         ItemStack heldStack =
-                player.getItemInHand(hand);
+                player.getItemInHand(
+                        hand
+                );
 
         if (!SuperpositionHandler
                 .isTheCursedOne(player)) {
@@ -83,71 +78,62 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
         }
 
         if (level.isClientSide) {
-            return InteractionResultHolder.sidedSuccess(
-                    heldStack,
-                    true
-            );
+            return InteractionResultHolder
+                    .sidedSuccess(
+                            heldStack,
+                            true
+                    );
         }
 
         return CuriosApi.getCuriosInventory(player)
                 .resolve()
                 .map(handler -> {
 
-                    if (handler.isEquipped(this)) {
+                    if (handler.findCurios(this)
+                            .stream()
+                            .anyMatch(result ->
+                                    PANDORA_BOX_SLOT
+                                            .equals(
+                                                    result.slotContext()
+                                                            .identifier()
+                                            )
+                                            && !result.slotContext()
+                                            .cosmetic()
+                            )) {
                         return InteractionResultHolder
-                                .fail(heldStack);
+                                .fail(
+                                        heldStack
+                                );
                     }
 
-                    boolean alreadyUnlocked =
-                            handler.getModifiers()
-                                    .get(PANDORA_BOX_SLOT)
-                                    .stream()
-                                    .anyMatch(modifier ->
-                                            modifier.getId()
-                                                    .equals(
-                                                            PANDORA_BOX_UNLOCK_UUID
-                                                    )
-                                    );
+                    PandoraSlotGuardEvents
+                            .unlockPandora(
+                                    handler
+                            );
 
-                    if (!alreadyUnlocked) {
-                        handler.addPermanentSlotModifier(
-                                PANDORA_BOX_SLOT,
-                                PANDORA_BOX_UNLOCK_UUID,
-                                EternalCareerName(),
-                                1.0D,
-                                AttributeModifier.Operation.ADDITION
-                        );
-                    }
-
-                    var optionalStacksHandler =
+                    var optional =
                             handler.getStacksHandler(
                                     PANDORA_BOX_SLOT
                             );
 
-                    if (optionalStacksHandler.isEmpty()) {
-                        if (!alreadyUnlocked) {
-                            handler.removeSlotModifier(
-                                    PANDORA_BOX_SLOT,
-                                    PANDORA_BOX_UNLOCK_UUID
-                            );
-                        }
-
+                    if (optional.isEmpty()) {
                         return InteractionResultHolder
-                                .fail(heldStack);
+                                .fail(
+                                        heldStack
+                                );
                     }
 
-                    var stacksHandler =
-                            optionalStacksHandler.get();
+                    var stacks =
+                            optional.get()
+                                    .getStacks();
 
-                    int slots =
-                            stacksHandler.getStacks()
-                                    .getSlots();
+                    int emptySlot =
+                            -1;
 
-                    int emptySlot = -1;
-
-                    for (int i = 0; i < slots; i++) {
-                        if (stacksHandler.getStacks()
-                                .getStackInSlot(i)
+                    for (int i = 0;
+                         i < stacks.getSlots();
+                         i++) {
+                        if (stacks.getStackInSlot(i)
                                 .isEmpty()) {
                             emptySlot = i;
                             break;
@@ -155,43 +141,46 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                     }
 
                     if (emptySlot < 0) {
-                        if (!alreadyUnlocked) {
-                            handler.removeSlotModifier(
-                                    PANDORA_BOX_SLOT,
-                                    PANDORA_BOX_UNLOCK_UUID
-                            );
-                        }
-
                         return InteractionResultHolder
-                                .fail(heldStack);
+                                .fail(
+                                        heldStack
+                                );
                     }
 
-                    ItemStack equippedStack =
+                    ItemStack equipped =
                             heldStack.copy();
 
-                    equippedStack.setCount(1);
+                    equipped.setCount(
+                            1
+                    );
 
-                    equippedStack.getOrCreateTag()
+                    equipped.getOrCreateTag()
                             .putBoolean(
                                     ACTIVATED_TAG,
-                                    true
-                            );
-
-                    player.getPersistentData()
-                            .putBoolean(
-                                    INSTALL_PENDING_TAG,
                                     true
                             );
 
                     handler.setEquippedCurio(
                             PANDORA_BOX_SLOT,
                             emptySlot,
-                            equippedStack
+                            equipped
+                    );
+
+                    PandoraSlotGuardEvents.sync(
+                            player,
+                            handler
+                    );
+
+                    ensureCursesInstalled(
+                            player,
+                            equipped
                     );
 
                     if (!player.getAbilities()
                             .instabuild) {
-                        heldStack.shrink(1);
+                        heldStack.shrink(
+                                1
+                        );
                     }
 
                     return InteractionResultHolder
@@ -202,109 +191,9 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                 })
                 .orElseGet(() ->
                         InteractionResultHolder
-                                .fail(heldStack)
-                );
-    }
-
-    @Override
-    public void onEquip(
-            SlotContext context,
-            ItemStack prevStack,
-            ItemStack stack
-    ) {
-        if (!(context.entity()
-                instanceof ServerPlayer player)) {
-            return;
-        }
-
-        if (!PANDORA_BOX_SLOT.equals(
-                context.identifier()
-        )) {
-            return;
-        }
-
-        if (!isActivated(stack)) {
-            return;
-        }
-
-        player.getPersistentData()
-                .putBoolean(
-                        INSTALL_PENDING_TAG,
-                        true
-                );
-    }
-
-    @Override
-    public void curioTick(
-            SlotContext context,
-            ItemStack stack
-    ) {
-        if (!(context.entity()
-                instanceof ServerPlayer player)) {
-            return;
-        }
-
-        if (!PANDORA_BOX_SLOT.equals(
-                context.identifier()
-        )) {
-            return;
-        }
-
-        if (!isActivated(stack)) {
-            return;
-        }
-
-        if (!player.getPersistentData()
-                .getBoolean(
-                        INSTALL_PENDING_TAG
-                )) {
-            return;
-        }
-
-        if (installCurses(
-                player,
-                stack
-        )) {
-            player.getPersistentData()
-                    .putBoolean(
-                            INSTALL_PENDING_TAG,
-                            false
-                    );
-        }
-    }
-
-    @Override
-    public void onUnequip(
-            SlotContext context,
-            ItemStack newStack,
-            ItemStack stack
-    ) {
-        if (!(context.entity()
-                instanceof ServerPlayer player)) {
-            return;
-        }
-
-        if (!PANDORA_BOX_SLOT.equals(
-                context.identifier()
-        )) {
-            return;
-        }
-
-        if (newStack.is(this)) {
-            return;
-        }
-
-        if (player.getAbilities().instabuild) {
-            saveAndClearCurses(
-                    player,
-                    stack
-            );
-        }
-
-        player.getPersistentData()
-                .putBoolean(
-                        INSTALL_PENDING_TAG,
-                        false
+                                .fail(
+                                        heldStack
+                                )
                 );
     }
 
@@ -337,17 +226,11 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
             return false;
         }
 
-        return CuriosApi.getCuriosInventory(player)
-                .resolve()
-                .map(handler ->
-                        handler.findCurios(this)
-                                .stream()
-                                .noneMatch(result ->
-                                        !result.slotContext()
-                                                .cosmetic()
-                                )
-                )
-                .orElse(false);
+        return CurseEquipHelper.canEquipSingle(
+                player,
+                this,
+                context
+        );
     }
 
     @Override
@@ -370,43 +253,44 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier>
-    getAttributeModifiers(
+    public void onUnequip(
             SlotContext context,
-            UUID slotUuid,
+            ItemStack newStack,
             ItemStack stack
     ) {
-        Multimap<Attribute, AttributeModifier> modifiers =
-                ArrayListMultimap.create();
+        if (!(context.entity()
+                instanceof ServerPlayer player)) {
+            return;
+        }
 
         if (!PANDORA_BOX_SLOT.equals(
                 context.identifier()
         )) {
-            return modifiers;
+            return;
         }
 
-        if (!isActivated(stack)) {
-            return modifiers;
+        if (newStack.is(this)) {
+            return;
         }
 
-        CuriosApi.addSlotModifier(
-                modifiers,
-                CURSE_SPIRIT_SLOT,
-                slotUuid,
-                8.0D,
-                AttributeModifier.Operation.ADDITION
+        if (!player.getAbilities()
+                .instabuild) {
+            return;
+        }
+
+        saveAndClearCurses(
+                player,
+                stack
         );
-
-        return modifiers;
     }
 
-    private boolean installCurses(
-            ServerPlayer player,
+    public static void ensureCursesInstalled(
+            Player player,
             ItemStack box
     ) {
-        return CuriosApi.getCuriosInventory(player)
+        CuriosApi.getCuriosInventory(player)
                 .resolve()
-                .map(handler -> {
+                .ifPresent(handler -> {
 
                     var optional =
                             handler.getStacksHandler(
@@ -414,16 +298,15 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                             );
 
                     if (optional.isEmpty()) {
-                        return false;
+                        return;
                     }
 
-                    int slots =
+                    var stacks =
                             optional.get()
-                                    .getStacks()
-                                    .getSlots();
+                                    .getStacks();
 
-                    if (slots < 8) {
-                        return false;
+                    if (stacks.getSlots() < 8) {
+                        return;
                     }
 
                     List<Supplier<? extends Item>> order =
@@ -436,14 +319,12 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                                             Tag.TAG_COMPOUND
                                     );
 
-                    for (int i = 0; i < 8; i++) {
+                    for (int i = 0;
+                         i < 8;
+                         i++) {
 
-                        ItemStack current =
-                                optional.get()
-                                        .getStacks()
-                                        .getStackInSlot(i);
-
-                        if (!current.isEmpty()) {
+                        if (!stacks.getStackInSlot(i)
+                                .isEmpty()) {
                             continue;
                         }
 
@@ -453,7 +334,9 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                         if (stored.size() > i) {
                             curse =
                                     ItemStack.of(
-                                            stored.getCompound(i)
+                                            stored.getCompound(
+                                                    i
+                                            )
                                     );
                         }
 
@@ -471,17 +354,15 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                                 curse
                         );
                     }
-
-                    return true;
-                })
-                .orElse(false);
+                });
     }
 
-    private void saveAndClearCurses(
+    private static void saveAndClearCurses(
             ServerPlayer player,
             ItemStack box
     ) {
         CuriosApi.getCuriosInventory(player)
+                .resolve()
                 .ifPresent(handler -> {
 
                     var optional =
@@ -493,34 +374,37 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                         return;
                     }
 
-                    int slots =
+                    var stacks =
                             optional.get()
-                                    .getStacks()
-                                    .getSlots();
+                                    .getStacks();
 
-                    if (slots < 8) {
+                    if (stacks.getSlots() < 8) {
                         return;
                     }
 
                     ListTag stored =
                             new ListTag();
 
-                    for (int i = 0; i < 8; i++) {
+                    for (int i = 0;
+                         i < 8;
+                         i++) {
 
                         ItemStack curse =
-                                optional.get()
-                                        .getStacks()
-                                        .getStackInSlot(i)
+                                stacks.getStackInSlot(i)
                                         .copy();
 
                         CompoundTag saved =
                                 new CompoundTag();
 
                         if (!curse.isEmpty()) {
-                            curse.save(saved);
+                            curse.save(
+                                    saved
+                            );
                         }
 
-                        stored.add(saved);
+                        stored.add(
+                                saved
+                        );
 
                         handler.setEquippedCurio(
                                 CURSE_SPIRIT_SLOT,
@@ -549,10 +433,6 @@ public final class PandoraBoxItem extends Item implements ICurioItem, ICursed {
                 ModItems.DISCOURAGED_CURSE,
                 ModItems.HUNGER_CURSE
         );
-    }
-
-    private static String EternalCareerName() {
-        return "eternal_career:pandora_box_unlock";
     }
 
     @Override

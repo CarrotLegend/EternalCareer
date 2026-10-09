@@ -5,7 +5,7 @@
   "key": {
     "N": {"item": "minecraft:netherite_ingot"},
     "S": {"item": "minecraft:stick"},
-    "F": {"item": "minecraft:feather"}
+    "F": {"item": "irons_spellbooks:dragonskin"}
   },
   "result": {"item": "eternal_career:netherite_arrow", "count": 4}
 }

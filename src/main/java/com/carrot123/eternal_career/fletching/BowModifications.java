@@ -2,6 +2,7 @@ package com.carrot123.eternal_career.fletching;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.registry.ModItems;
+import com.carrot123.eternal_career.bloodbow.BloodBowItems;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -211,7 +212,13 @@ public final class BowModifications {
                     )
             );
 
-    public static final List<BowModification> ALL =
+    public static final BowModification BLOOD_HUNT = rare("blood_hunt", "blood_hunt", 0.0D, true, BloodBowItems.BLOOD_HUNT_MODIFICATION::get);
+    public static final BowModification FANG = rare("fang", "fang", 0.20D, false, BloodBowItems.FANG_MODIFICATION::get);
+    public static final BowModification FANG_II = rare("fang_ii", "fang_ii", 0.50D, false, BloodBowItems.FANG_II_MODIFICATION::get);
+    public static final BowModification FANG_III = rare("fang_iii", "fang_iii", 1.00D, false, BloodBowItems.FANG_III_MODIFICATION::get);
+    public static final BowModification FANG_IV = rare("fang_iv", "fang_iv", 4.00D, false, BloodBowItems.FANG_IV_MODIFICATION::get);
+
+    public static final List<BowModification> CRAFTABLE =
             List.of(
                     POWER,
                     VELOCITY,
@@ -220,6 +227,13 @@ public final class BowModifications {
                     BLOODTHIRST,
                     END
             );
+
+    public static final List<BowModification> ALL = List.of(POWER, VELOCITY, BLAST, RANGER, BLOODTHIRST, END, BLOOD_HUNT, FANG, FANG_II, FANG_III, FANG_IV);
+
+    private static BowModification rare(String path, String translation, double bonus, boolean fixed, Supplier<Item> item) {
+        String key = "fletching.eternal_career." + translation;
+        return new BowModification(new ResourceLocation(EternalCareer.MOD_ID, path), key, key + ".description", key + ".effect", 1, bonus, fixed, item, List.of());
+    }
 
     private BowModifications() {
     }

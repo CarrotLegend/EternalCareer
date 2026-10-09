@@ -1,0 +1,7 @@
+{
+  "item": "enigmaticdelicacy:curse_crystal_knife",
+  "bosses": ["minecraft:warden"],
+  "chance": 0.05,
+  "min_count": 1,
+  "max_count": 1
+}

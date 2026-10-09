@@ -51,6 +51,11 @@ public final class EternalCareer {
                 modEventBus
         );
 
+        com.carrot123.eternal_career.bloodbow.BloodBowItems.register(modEventBus);
+        com.carrot123.eternal_career.bloodbow.BloodBowEffects.register(modEventBus);
+
+        com.carrot123.eternal_career.soulcurse.SoulCoreRegistry.register(modEventBus);
+
         ModMenus.register(
                 modEventBus
         );
@@ -87,3 +92,4 @@ public final class EternalCareer {
         );
     }
 }
+
