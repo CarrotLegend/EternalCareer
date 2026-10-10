@@ -169,7 +169,7 @@
   "item.eternal_career.generic_right_boot_blessing": "通用靴子（右）加护",
   "item.eternal_career.archery_master_core": "箭术大师核心",
   "tooltip.eternal_career.archery_master_core.burst": "爆裂模式",
-  "tooltip.eternal_career.archery_master_core.burst_effect": "§5每蓄力一秒，§6伤害增加100%§5（最高§6500%§5）",
+  "tooltip.eternal_career.archery_master_core.burst_effect": "§5每蓄力一秒，§6伤害增加120%§5（最高§6600%§5）",
   "tooltip.eternal_career.archery_master_core.rapid": "极速模式",
   "tooltip.eternal_career.archery_master_core.rapid_effect": "§5能够自动射击",
   "item.eternal_career.power_modification": "狂怒强化",
@@ -294,5 +294,13 @@
   "tooltip.eternal_career.soul_only": "咒魂者方可使用",
   "attribute.name.eternal_career.non_ranged_damage": "非远程伤害",
   "tooltip.eternal_career.blood_hunter_core.ranged": "§5远程伤害：%s",
-  "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5非远程伤害：%s"
+  "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5非远程伤害：%s",
+    "item.eternal_career.soul_box": "咒魂魔匣",
+  "tooltip.eternal_career.soul_box.effect": "§5每收纳一个诅咒灵魂水晶碎片，伤害增加§6%1$s§5。",
+  "tooltip.eternal_career.soul_box.current": "§5当前增加：§6%1$s",
+  "message.eternal_career.soul_box.full": "§c咒魂魔匣已达到当前上限：%1$s枚碎片。",
+  "message.eternal_career.soul_box.unlocked": "§6咒魂魔匣已解锁，伤害上限提高到：%1$s%%。",
+  "message.eternal_career.soul_box.not_ready": "§c需要先将当前伤害加成提升至%1$s%%，才能解锁下一阶段。",
+  "tooltip.eternal_career.soul_box.next_material": "下一阶段所需材料：%1$s（解锁后上限%2$s）",
+  "tooltip.eternal_career.soul_box.max_stage": "§6已达到最高阶段"
 }

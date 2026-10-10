@@ -18,8 +18,7 @@ public final class CrystalOfDrawnBowItem extends Item implements ICurioItem {
 
     @Override
     public boolean canEquip(SlotContext context, ItemStack stack) {
-        return context != null && "charm".equals(context.identifier())
-                && !context.cosmetic();
+        return context != null && !context.cosmetic();
     }
 
     @Override

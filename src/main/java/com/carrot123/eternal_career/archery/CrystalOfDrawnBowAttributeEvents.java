@@ -43,7 +43,6 @@ public final class CrystalOfDrawnBowAttributeEvents {
     @SubscribeEvent
     public static void onCurioChange(CurioChangeEvent event) {
         if (event.getEntity() instanceof Player player && !player.level().isClientSide
-                && "charm".equals(event.getIdentifier())
                 && (event.getFrom().is(ModItems.CRYSTAL_OF_DRAWN_BOW.get())
                 || event.getTo().is(ModItems.CRYSTAL_OF_DRAWN_BOW.get()))) {
             reconcile(player);

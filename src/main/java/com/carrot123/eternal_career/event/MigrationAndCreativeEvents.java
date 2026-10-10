@@ -1,7 +1,9 @@
 package com.carrot123.eternal_career.event;
 
 import com.carrot123.eternal_career.EternalCareer;
+import com.carrot123.eternal_career.bloodbow.BloodBowItems;
 import com.carrot123.eternal_career.registry.ModItems;
+import com.carrot123.eternal_career.soulcurse.SoulCoreRegistry;
 import com.carrot123.until_eternity.item.ModCreativeModeTabs;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -10,82 +12,42 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.MissingMappingsEvent;
 
 public final class MigrationAndCreativeEvents {
+    private MigrationAndCreativeEvents() {}
 
-    private MigrationAndCreativeEvents() {
-    }
-
-    @Mod.EventBusSubscriber(
-            modid = EternalCareer.MOD_ID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static final class ForgeEvents {
-
-        private ForgeEvents() {
-        }
+        private ForgeEvents() {}
 
         @SubscribeEvent
-        public static void onMissingMappings(
-                MissingMappingsEvent event
-        ) {
-            for (MissingMappingsEvent.Mapping<net.minecraft.world.item.Item> mapping
-                    : event.getMappings(
-                    Registries.ITEM,
-                    "until_eternity"
-            )) {
-                if ("gods_recognition".equals(
-                        mapping.getKey().getPath()
-                )) {
-                    mapping.remap(
-                            ModItems.GODS_RECOGNITION.get()
-                    );
-                } else if ("crystal_of_drawn_bow".equals(
-                        mapping.getKey().getPath()
-                )) {
-                    mapping.remap(
-                            ModItems.CRYSTAL_OF_DRAWN_BOW.get()
-                    );
-                }
+        public static void onMissingMappings(MissingMappingsEvent event) {
+            for (MissingMappingsEvent.Mapping<net.minecraft.world.item.Item> mapping : event.getMappings(Registries.ITEM, "until_eternity")) {
+                if ("gods_recognition".equals(mapping.getKey().getPath())) mapping.remap(ModItems.GODS_RECOGNITION.get());
+                else if ("crystal_of_drawn_bow".equals(mapping.getKey().getPath())) mapping.remap(ModItems.CRYSTAL_OF_DRAWN_BOW.get());
             }
         }
     }
 
-    @Mod.EventBusSubscriber(
-            modid = EternalCareer.MOD_ID,
-            bus = Mod.EventBusSubscriber.Bus.MOD
-    )
+    @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static final class ModEvents {
-
-        private ModEvents() {
-        }
+        private ModEvents() {}
 
         @SubscribeEvent
-        public static void onCreativeTab(
-                BuildCreativeModeTabContentsEvent event
-        ) {
-            if (!event.getTabKey().equals(
-                    ModCreativeModeTabs
-                            .UNTIL_ETERNITY_TAB
-                            .getKey()
-            )) {
-                return;
-            }
+        public static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
+            if (!event.getTabKey().equals(ModCreativeModeTabs.UNTIL_ETERNITY_TAB.getKey())) return;
 
             event.accept(ModItems.GENERIC_HEAD_BLESSING);
             event.accept(ModItems.GENERIC_NECKLACE_BLESSING);
             event.accept(ModItems.GENERIC_RING_BLESSING);
             event.accept(ModItems.GENERIC_LEFT_BOOT_BLESSING);
             event.accept(ModItems.GENERIC_RIGHT_BOOT_BLESSING);
-
             event.accept(ModItems.CHEF_HAT);
             event.accept(ModItems.CHEF_JACKET);
             event.accept(ModItems.CHEF_LEGGINGS);
             event.accept(ModItems.CHEF_BOOTS);
-
             event.accept(ModItems.DEATH_HELMET);
             event.accept(ModItems.DEATH_CHESTPLATE);
             event.accept(ModItems.DEATH_LEGGINGS);
             event.accept(ModItems.DEATH_BOOTS);
-
             event.accept(ModItems.SIN_ROCK);
             event.accept(ModItems.HEAD_CHEF_SHEATH);
             event.accept(ModItems.CALL_OF_DEATH);
@@ -132,15 +94,25 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.FAMINE_CURSE_SPIRIT);
             event.accept(ModItems.TWISTED_HEART);
             event.accept(ModItems.CRYSTAL_OF_DRAWN_BOW);
+            event.accept(SoulCoreRegistry.SOUL_CORE);
+            event.accept(SoulCoreRegistry.BLOOD_HUNTER_CORE);
+            event.accept(SoulCoreRegistry.HYENA_CORE);
+            event.accept(SoulCoreRegistry.SOUL_BOX);
             event.accept(ModItems.IRON_ARROW);
             event.accept(ModItems.DIAMOND_ARROW);
             event.accept(ModItems.NETHERITE_ARROW);
+            event.accept(BloodBowItems.BLOOD_HUNTER_ARROW);
             event.accept(ModItems.POWER_MODIFICATION);
             event.accept(ModItems.VELOCITY_MODIFICATION);
             event.accept(ModItems.BLAST_MODIFICATION);
             event.accept(ModItems.RANGER_MODIFICATION);
             event.accept(ModItems.BLOODTHIRST_MODIFICATION);
             event.accept(ModItems.END_MODIFICATION);
+            event.accept(BloodBowItems.BLOOD_HUNT_MODIFICATION);
+            event.accept(BloodBowItems.FANG_MODIFICATION);
+            event.accept(BloodBowItems.FANG_II_MODIFICATION);
+            event.accept(BloodBowItems.FANG_III_MODIFICATION);
+            event.accept(BloodBowItems.FANG_IV_MODIFICATION);
             event.accept(ModItems.DARK_BOOTS);
             event.accept(ModItems.DARK_CHAIN);
         }

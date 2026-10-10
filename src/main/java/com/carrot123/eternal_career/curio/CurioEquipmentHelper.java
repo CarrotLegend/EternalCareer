@@ -146,9 +146,7 @@ public final class CurioEquipmentHelper {
         return player != null && CuriosApi.getCuriosInventory(player).resolve()
                 .map(handler -> handler.findCurios(ModItems.CRYSTAL_OF_DRAWN_BOW.get())
                         .stream()
-                        .anyMatch(result -> FoodBookCurio.CHARM_SLOT.equals(
-                                result.slotContext().identifier())
-                                && !result.slotContext().cosmetic()))
+                        .anyMatch(result -> !result.slotContext().cosmetic()))
                 .orElse(false);
     }
 

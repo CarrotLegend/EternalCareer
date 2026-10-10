@@ -13,6 +13,7 @@ public final class SoulCoreRegistry {
     public static final RegistryObject<Item> SOUL_CORE = registerItem("soul_core", false);
     public static final RegistryObject<Item> BLOOD_HUNTER_CORE = registerItem("blood_hunter_core", true);
     public static final RegistryObject<Item> HYENA_CORE = registerItem("hyena_core", false);
+    public static final RegistryObject<Item> SOUL_BOX = ITEMS.register("soul_box", () -> new SoulBoxItem(new Item.Properties().rarity(Rarity.EPIC).fireResistant()));
     private static RegistryObject<Item> registerItem(String id, boolean bloodHunter) { return ITEMS.register(id, () -> new SoulCoreItem(new Item.Properties().rarity(Rarity.EPIC).fireResistant(), bloodHunter)); }
     public static void register(IEventBus bus) { ITEMS.register(bus); }
 }

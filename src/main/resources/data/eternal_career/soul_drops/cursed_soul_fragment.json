@@ -1,0 +1,11 @@
+{
+  "item": "enigmaticdelicacy:cursed_soul_fragment",
+  "bosses": [
+    "meetyourfight:swampjaw",
+    "goety:vizier"
+  ],
+  "chance": 1.0,
+  "min_count": 1,
+  "max_count": 4,
+  "requires_core": true
+}

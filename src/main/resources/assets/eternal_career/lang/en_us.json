@@ -169,7 +169,7 @@
   "item.eternal_career.generic_right_boot_blessing": "Generic Right Boot Blessing",
   "item.eternal_career.archery_master_core": "Archery Master Core",
   "tooltip.eternal_career.archery_master_core.burst": "Burst Mode",
-  "tooltip.eternal_career.archery_master_core.burst_effect": "§5每蓄力一秒，§6伤害增加100%§5（最高§6500%§5）",
+  "tooltip.eternal_career.archery_master_core.burst_effect": "§5每蓄力一秒，§6伤害增加120%§5（最高§6500%§5）",
   "tooltip.eternal_career.archery_master_core.rapid": "Rapid Mode",
   "tooltip.eternal_career.archery_master_core.rapid_effect": "§5Automatically fires the bow",
   "item.eternal_career.power_modification": "Fury Modification",
@@ -257,5 +257,11 @@
   "tooltip.eternal_career.soul_only": "Soulbound faction only",
   "attribute.name.eternal_career.non_ranged_damage": "Non-Ranged Damage",
   "tooltip.eternal_career.blood_hunter_core.ranged": "§5Ranged Damage: %s",
-  "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5Non-Ranged Damage: %s"
+  "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5Non-Ranged Damage: %s",
+    "item.eternal_career.soul_box": "Cursed Soul Casket",
+  "tooltip.eternal_career.soul_box.effect": "§5Each Cursed Soul Crystal Fragment stored increases damage by §6%1$s§5.",
+  "tooltip.eternal_career.soul_box.current": "§5Current bonus: §6%1$s",
+  "message.eternal_career.soul_box.full": "§cCasket capacity reached: %1$s fragments.",
+  "message.eternal_career.soul_box.unlocked": "§6Casket unlocked. Maximum damage bonus: %1$s%%.",
+  "message.eternal_career.soul_box.not_ready": "§cReach the current damage cap of %1$s%% before unlocking the next stage."
 }
