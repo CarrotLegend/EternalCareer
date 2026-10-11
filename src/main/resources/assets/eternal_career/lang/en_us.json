@@ -258,10 +258,16 @@
   "attribute.name.eternal_career.non_ranged_damage": "Non-Ranged Damage",
   "tooltip.eternal_career.blood_hunter_core.ranged": "§5Ranged Damage: %s",
   "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5Non-Ranged Damage: %s",
-    "item.eternal_career.soul_box": "Cursed Soul Casket",
-  "tooltip.eternal_career.soul_box.effect": "§5Each Cursed Soul Crystal Fragment stored increases damage by §6%1$s§5.",
-  "tooltip.eternal_career.soul_box.current": "§5Current bonus: §6%1$s",
+  "item.eternal_career.soul_box": "Cursed Soul Casket",
   "message.eternal_career.soul_box.full": "§cCasket capacity reached: %1$s fragments.",
   "message.eternal_career.soul_box.unlocked": "§6Casket unlocked. Maximum damage bonus: %1$s%%.",
-  "message.eternal_career.soul_box.not_ready": "§cReach the current damage cap of %1$s%% before unlocking the next stage."
+  "message.eternal_career.soul_box.not_ready": "§cReach the current damage cap of %1$s%% before unlocking the next stage.",
+  "tooltip.eternal_career.undead_curse.no_healing": "You can no longer recover health.",
+  "tooltip.eternal_career.vulnerability_curse.minimum_damage": "Every damaging hit deals at least 5 damage.",
+  "tooltip.eternal_career.hunger_curse.hunger_five": "Permanently afflicted with Hunger V.",
+  "tooltip.eternal_career.powerless_curse.attack_speed": "Attack Speed -25%",
+  "tooltip.eternal_career.soul_box.effect": "Per Cursed Soul Crystal Fragment stored: %1$s all damage, %2$s attack speed, %3$s dodge chance, %4$s healing received.",
+  "tooltip.eternal_career.soul_box.current": "Current bonuses: %1$s all damage, %2$s attack speed, %3$s dodge chance, %4$s healing received",
+  "tooltip.eternal_career.soul_box.unknown_material": "Unknown material",
+  "tooltip.eternal_career.soul_core.fragment_drop": "Killing any mob has a 0.05% chance to drop a Cursed Soul Crystal Fragment."
 }

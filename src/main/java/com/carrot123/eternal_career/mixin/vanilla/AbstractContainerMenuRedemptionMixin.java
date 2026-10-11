@@ -1,8 +1,8 @@
+
 package com.carrot123.eternal_career.mixin.vanilla;
 
 import com.carrot123.eternal_career.compat.redemption.RedemptionAccessController;
 import com.carrot123.eternal_career.compat.redemption.RedemptionMenuAccess;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -11,9 +11,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,67 +19,60 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AbstractContainerMenu.class)
 public abstract class AbstractContainerMenuRedemptionMixin {
 
-    @Shadow
-    @Final
-    public NonNullList<Slot> slots;
-
-    @Shadow
-    public abstract ItemStack getCarried();
-
     @Inject(
-        method = {
-                "clicked(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V",
-                "m_150399_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V"
-        },
-        at = @At("HEAD"),
-        cancellable = true,
-        remap = false,
-        require = 1
-)
-private void eternalCareer$validateRedemptionClick(
-        int slotIndex,
-        int button,
-        ClickType clickType,
-        Player player,
-        CallbackInfo callback
-) {
-    if (slotIndex < 0 || slotIndex >= this.slots.size()) {
-        return;
-    }
+            method = {
+                    "clicked(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V",
+                    "m_150399_(IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V"
+            },
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false,
+            require = 1
+    )
+    private void eternalCareer$validateRedemptionClick(
+            int slotIndex,
+            int button,
+            ClickType clickType,
+            Player player,
+            CallbackInfo callback
+    ) {
+        AbstractContainerMenu self =
+                (AbstractContainerMenu) (Object) this;
 
-    AbstractContainerMenu self =
-            (AbstractContainerMenu) (Object) this;
+        if (slotIndex < 0 || slotIndex >= self.slots.size()) {
+            return;
+        }
 
-    if (self instanceof RedemptionMenuAccess recipeMenu
-            && recipeMenu.eternalCareer$isResultSlot(slotIndex)
-            && containsRedemptionInput(recipeMenu)
-            && !RedemptionAccessController.hasRedemptionAccess(player)) {
-        callback.cancel();
-        return;
-    }
+        if (self instanceof RedemptionMenuAccess recipeMenu
+                && recipeMenu.eternalCareer$isResultSlot(slotIndex)
+                && containsRedemptionInput(recipeMenu)
+                && !RedemptionAccessController.hasRedemptionAccess(player)) {
+            callback.cancel();
+            return;
+        }
 
-    if (self instanceof InventoryMenu
-            && wouldEquipRestrictedArmor(
-                    slotIndex,
-                    button,
-                    clickType,
-                    player
-            )) {
-        callback.cancel();
+        if (self instanceof InventoryMenu
+                && wouldEquipRestrictedArmor(
+                        self,
+                        slotIndex,
+                        button,
+                        clickType,
+                        player
+                )) {
+            callback.cancel();
+        }
     }
-}
 
     private boolean wouldEquipRestrictedArmor(
+            AbstractContainerMenu menu,
             int slotIndex,
             int button,
             ClickType clickType,
             Player player
     ) {
-        Slot clicked =
-                this.slots.get(slotIndex);
+        Slot clicked = menu.slots.get(slotIndex);
 
-        ItemStack carried =
-                this.getCarried();
+        ItemStack carried = menu.getCarried();
 
         ItemStack placement =
                 clickType == ClickType.SWAP
@@ -104,34 +95,24 @@ private void eternalCareer$validateRedemptionClick(
             return false;
         }
 
-        ItemStack source =
-                clicked.getItem();
+        ItemStack source = clicked.getItem();
 
-        if (RedemptionAccessController.canEquip(
-                player,
-                source
-        )) {
+        if (RedemptionAccessController.canEquip(player, source)) {
             return false;
         }
 
         EquipmentSlot equipmentSlot =
                 Mob.getEquipmentSlotForItem(source);
 
-        return equipmentSlot.getType()
-                == EquipmentSlot.Type.ARMOR
-                && player.getItemBySlot(
-                        equipmentSlot
-                ).isEmpty();
+        return equipmentSlot.getType() == EquipmentSlot.Type.ARMOR
+                && player.getItemBySlot(equipmentSlot).isEmpty();
     }
 
     private static boolean containsRedemptionInput(
             RedemptionMenuAccess menu
     ) {
-        for (ItemStack stack
-                : menu.eternalCareer$getInputStacks()) {
-            if (RedemptionAccessController.isRedemptionItem(
-                    stack
-            )) {
+        for (ItemStack stack : menu.eternalCareer$getInputStacks()) {
+            if (RedemptionAccessController.isRedemptionItem(stack)) {
                 return true;
             }
         }
