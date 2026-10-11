@@ -5,13 +5,19 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class SoulBlessingItem extends Item {
+    private static final ResourceLocation GOETY_SPELL_COOLDOWN =
+            new ResourceLocation("goety_revelation", "spell_cooldown");
+    private static final ResourceLocation GOETY_SPELL_POWER_MULTIPLIER =
+            new ResourceLocation("goety_revelation", "spell_power_multiplier");
     private final SoulBlessingSlotType type;
     private final Supplier<List<SoulBlessingAttribute>> attributes;
     private final int requiredSlot;
@@ -65,11 +71,16 @@ public class SoulBlessingItem extends Item {
                 Component.translatable(type.translationKey())).withStyle(ChatFormatting.GRAY));
         for (SoulBlessingAttribute entry : getSoulBlessingAttributes(stack)) {
             double amount = entry.amount();
-            String key = entry.operation() == net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION
+            ResourceLocation attributeId = ForgeRegistries.ATTRIBUTES.getKey(entry.attribute());
+            boolean cooldownReduction = GOETY_SPELL_COOLDOWN.equals(attributeId);
+            boolean addition = entry.operation()
+                    == net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION;
+            String key = addition && !cooldownReduction
                     ? "soul_blessing.eternal_career.tooltip.add"
                     : "soul_blessing.eternal_career.tooltip.percent";
-            String value = entry.operation() == net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION
-                    ? String.format(java.util.Locale.ROOT, "%+.2f", amount)
+            String value = addition && !cooldownReduction
+                    ? String.format(java.util.Locale.ROOT,
+                            GOETY_SPELL_POWER_MULTIPLIER.equals(attributeId) ? "%+.0f" : "%+.2f", amount)
                     : String.format(java.util.Locale.ROOT, "%+.0f%%", amount * 100.0D);
             tooltip.add(Component.translatable(key, value,
                     Component.translatable(entry.attribute().getDescriptionId()))

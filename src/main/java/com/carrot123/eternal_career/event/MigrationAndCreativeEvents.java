@@ -2,6 +2,7 @@ package com.carrot123.eternal_career.event;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.bloodbow.BloodBowItems;
+import com.carrot123.eternal_career.registry.CareerSoulBlessings;
 import com.carrot123.eternal_career.registry.ModItems;
 import com.carrot123.eternal_career.soulcurse.SoulCoreRegistry;
 import com.carrot123.until_eternity.item.ModCreativeModeTabs;
@@ -41,6 +42,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.GENERIC_HAND_BLESSING);
             event.accept(ModItems.GENERIC_LEFT_BOOT_BLESSING);
             event.accept(ModItems.GENERIC_RIGHT_BOOT_BLESSING);
+            CareerSoulBlessings.ALL.forEach(event::accept);
             event.accept(ModItems.CHEF_HAT);
             event.accept(ModItems.CHEF_JACKET);
             event.accept(ModItems.CHEF_LEGGINGS);

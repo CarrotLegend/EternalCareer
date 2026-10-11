@@ -897,6 +897,18 @@ public static final RegistryObject<Item> FAMINE_CURSE_SPIRIT =
     public static void register(
             IEventBus modEventBus
     ) {
+        CareerSoulBlessings.init();
         ITEMS.register(modEventBus);
+    }
+
+    static RegistryObject<Item> registerCareerBlessing(
+            String name,
+            SoulBlessingSlotType type,
+            int requiredSlot,
+            java.util.function.Supplier<List<SoulBlessingAttribute>> attributes
+    ) {
+        return ITEMS.register(name, () -> new SoulBlessingItem(
+                new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON),
+                type, attributes, requiredSlot));
     }
 }
