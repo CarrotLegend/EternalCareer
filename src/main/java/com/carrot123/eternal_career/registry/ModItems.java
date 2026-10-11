@@ -88,6 +88,21 @@ public final class ModItems {
                     -1
             );
 
+    public static final RegistryObject<Item> GENERIC_HAND_BLESSING =
+            ITEMS.register(
+                    "generic_hand_blessing",
+                    () -> new SoulBlessingItem(
+                            new Item.Properties().stacksTo(1),
+                            SoulBlessingSlotType.HAND,
+                            () -> List.of(new SoulBlessingAttribute(
+                                    ModAttributes.ALL_DAMAGE.get(),
+                                    0.04D,
+                                    AttributeModifier.Operation.MULTIPLY_BASE
+                            )),
+                            SoulBlessingSlots.HAND
+                    )
+            );
+
     public static final RegistryObject<Item> GENERIC_RING_BLESSING =
             registerGenericBlessing(
                     "generic_ring_blessing",
