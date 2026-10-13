@@ -8,6 +8,7 @@
   "mixins": [
     "vanilla.AbstractContainerMenuRedemptionMixin",
     "vanilla.AbstractContainerMenuCurseUpgradeMixin",
+    "vanilla.SoulScarUpgradeMixin",
     "vanilla.InventoryMenuRedemptionMixin",
     "vanilla.CraftingMenuRedemptionMixin",
     "vanilla.ItemCombinerMenuRedemptionMixin",

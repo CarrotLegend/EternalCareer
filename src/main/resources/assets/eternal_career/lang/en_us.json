@@ -335,5 +335,6 @@
   "tooltip.eternal_career.soul_box.unknown_material": "Unknown material",
   "tooltip.eternal_career.soul_core.fragment_drop": "Killing any mob has a 0.05% chance to drop a Cursed Soul Crystal Fragment.",
   "item.eternal_career.twisted_heart": "Twisted Heart",
-  "tooltip.eternal_career.twisted_heart": "Spell Power +20% for each reversed curse"
+  "tooltip.eternal_career.twisted_heart": "Spell Power +20% for each reversed curse",
+  "attribute.name.eternal_career.servant_damage": "Servant Damage"
 }
