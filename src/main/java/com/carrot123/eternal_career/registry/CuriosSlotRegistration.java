@@ -13,10 +13,17 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class CuriosSlotRegistration {
     private CuriosSlotRegistration() {}
-    @SubscribeEvent @SuppressWarnings("removal")
+
+    @SubscribeEvent
+    @SuppressWarnings("removal")
     public static void onInterModEnqueue(InterModEnqueueEvent event) {
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder(PandoraBoxItem.PANDORA_BOX_SLOT).size(0).build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder(PandoraBoxItem.CURSE_SPIRIT_SLOT).size(0).build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder(TransformingScarItem.SLOT).size(0).build());
+        register(PandoraBoxItem.PANDORA_BOX_SLOT, 0);
+        register(PandoraBoxItem.CURSE_SPIRIT_SLOT, 0);
+        register(TransformingScarItem.SLOT, 0);
+    }
+
+    @SuppressWarnings("removal")
+    private static void register(String slot, int size) {
+        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder(slot).size(size).build());
     }
 }

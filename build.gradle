@@ -245,7 +245,6 @@ dependencies {
             )
     )
     implementation fg.deobf("local:l2library:2.5.3")
-        implementation fg.deobf("local:l2tabs:0.3.3")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

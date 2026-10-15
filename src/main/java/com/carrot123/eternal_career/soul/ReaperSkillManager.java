@@ -6,8 +6,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.joml.Vector3f;
+
 import com.carrot123.eternal_career.career.capability.soul.SoulCapability;
 
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -29,6 +33,12 @@ public final class ReaperSkillManager {
                     "eternal_career_reaper_skill_attack_speed",
                     0.10D,
                     AttributeModifier.Operation.MULTIPLY_TOTAL
+            );
+
+    private static final DustParticleOptions REAPER_FLAME_PARTICLE =
+            new DustParticleOptions(
+                    new Vector3f(1.0F, 0.02F, 0.02F),
+                    1.25F
             );
 
     private static final Set<UUID> ACTIVE = new HashSet<>();
@@ -64,6 +74,7 @@ public final class ReaperSkillManager {
         }
 
         var soulOptional = player.getCapability(SoulCapability.SOUL).resolve();
+
         if (soulOptional.isEmpty()) {
             return;
         }
@@ -78,6 +89,7 @@ public final class ReaperSkillManager {
         TICKS.put(id, 0);
 
         applyAttackSpeed(player);
+        spawnActivationParticles(player);
 
         player.serverLevel().playSound(
                 null,
@@ -94,10 +106,27 @@ public final class ReaperSkillManager {
     public static void stop(ServerPlayer player) {
         UUID id = player.getUUID();
 
-        ACTIVE.remove(id);
-        TICKS.remove(id);
+        boolean wasActive = ACTIVE.remove(id);
 
+        TICKS.remove(id);
         removeAttackSpeed(player);
+
+        if (!wasActive) {
+            return;
+        }
+
+        spawnDeactivationParticles(player);
+
+        player.serverLevel().playSound(
+                null,
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                SoundEvents.FIRE_EXTINGUISH,
+                SoundSource.PLAYERS,
+                1.5F,
+                0.8F
+        );
     }
 
     public static void forget(ServerPlayer player) {
@@ -232,5 +261,170 @@ public final class ReaperSkillManager {
         }
 
         attribute.removeModifier(ATTACK_SPEED_MODIFIER_UUID);
+    }
+
+    private static void spawnActivationParticles(ServerPlayer player) {
+        double centerX = player.getX();
+        double centerY = player.getY() + 0.08D;
+        double centerZ = player.getZ();
+
+        int rays = 32;
+
+        for (int i = 0; i < rays; i++) {
+            double angle = Math.PI * 2.0D * i / rays;
+
+            double speed =
+                    0.18D + player.getRandom().nextDouble() * 0.10D;
+
+            double upwardSpeed =
+                    0.16D + player.getRandom().nextDouble() * 0.08D;
+
+            double velocityX =
+                    Math.cos(angle) * speed;
+
+            double velocityZ =
+                    Math.sin(angle) * speed;
+
+            double spawnDistance = 0.15D;
+
+            double spawnX =
+                    centerX + Math.cos(angle) * spawnDistance;
+
+            double spawnZ =
+                    centerZ + Math.sin(angle) * spawnDistance;
+
+            player.serverLevel().sendParticles(
+                    REAPER_FLAME_PARTICLE,
+                    spawnX,
+                    centerY,
+                    spawnZ,
+                    0,
+                    velocityX,
+                    upwardSpeed,
+                    velocityZ,
+                    1.0D
+            );
+        }
+
+        for (int i = 0; i < 16; i++) {
+            double angle =
+                    player.getRandom().nextDouble() * Math.PI * 2.0D;
+
+            double speed =
+                    0.10D + player.getRandom().nextDouble() * 0.08D;
+
+            double upwardSpeed =
+                    0.10D + player.getRandom().nextDouble() * 0.08D;
+
+            player.serverLevel().sendParticles(
+                    REAPER_FLAME_PARTICLE,
+                    centerX,
+                    centerY,
+                    centerZ,
+                    0,
+                    Math.cos(angle) * speed,
+                    upwardSpeed,
+                    Math.sin(angle) * speed,
+                    1.0D
+            );
+        }
+    }
+
+    private static void spawnDeactivationParticles(ServerPlayer player) {
+        double centerX = player.getX();
+        double centerY = player.getY() + 0.12D;
+        double centerZ = player.getZ();
+
+        int count = 28;
+
+        for (int i = 0; i < count; i++) {
+            double angle =
+                    Math.PI * 2.0D * i / count;
+
+            double distance =
+                    0.15D + player.getRandom().nextDouble() * 0.45D;
+
+            double spawnX =
+                    centerX + Math.cos(angle) * distance;
+
+            double spawnY =
+                    centerY + player.getRandom().nextDouble() * 0.18D;
+
+            double spawnZ =
+                    centerZ + Math.sin(angle) * distance;
+
+            double inwardSpeed =
+                    0.03D + player.getRandom().nextDouble() * 0.04D;
+
+            double velocityX =
+                    -Math.cos(angle) * inwardSpeed;
+
+            double velocityZ =
+                    -Math.sin(angle) * inwardSpeed;
+
+            double velocityY =
+                    0.04D + player.getRandom().nextDouble() * 0.05D;
+
+            player.serverLevel().sendParticles(
+                    ParticleTypes.SMOKE,
+                    spawnX,
+                    spawnY,
+                    spawnZ,
+                    0,
+                    velocityX,
+                    velocityY,
+                    velocityZ,
+                    1.0D
+            );
+        }
+
+        for (int i = 0; i < 12; i++) {
+            double angle =
+                    player.getRandom().nextDouble() * Math.PI * 2.0D;
+
+            double distance =
+                    player.getRandom().nextDouble() * 0.35D;
+
+            double spawnX =
+                    centerX + Math.cos(angle) * distance;
+
+            double spawnY =
+                    centerY + player.getRandom().nextDouble() * 0.12D;
+
+            double spawnZ =
+                    centerZ + Math.sin(angle) * distance;
+
+            player.serverLevel().sendParticles(
+                    ParticleTypes.POOF,
+                    spawnX,
+                    spawnY,
+                    spawnZ,
+                    0,
+                    0.0D,
+                    0.035D,
+                    0.0D,
+                    1.0D
+            );
+        }
+
+        for (int i = 0; i < 8; i++) {
+            double angle =
+                    player.getRandom().nextDouble() * Math.PI * 2.0D;
+
+            double distance =
+                    player.getRandom().nextDouble() * 0.25D;
+
+            player.serverLevel().sendParticles(
+                    REAPER_FLAME_PARTICLE,
+                    centerX + Math.cos(angle) * distance,
+                    centerY,
+                    centerZ + Math.sin(angle) * distance,
+                    0,
+                    0.0D,
+                    0.025D,
+                    0.0D,
+                    0.5D
+            );
+        }
     }
 }

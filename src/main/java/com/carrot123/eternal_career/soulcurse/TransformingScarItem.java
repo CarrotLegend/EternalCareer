@@ -1,18 +1,13 @@
 package com.carrot123.eternal_career.soulcurse;
 
 import com.carrot123.eternal_career.item.CurseEquipHelper;
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
 import java.util.List;
-import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
@@ -35,11 +30,6 @@ public final class TransformingScarItem extends Item implements ICurioItem {
     @Override public boolean canEquipFromUse(SlotContext context, ItemStack stack) { return canEquip(context, stack); }
     @Override public boolean canUnequip(SlotContext context, ItemStack stack) { return context.entity() instanceof Player p && p.getAbilities().instabuild; }
     @Override public ICurio.DropRule getDropRule(SlotContext context, DamageSource source, int looting, boolean recentlyHit, ItemStack stack) { return ICurio.DropRule.ALWAYS_KEEP; }
-    @Override public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext context, UUID slotUuid, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> attributes = LinkedHashMultimap.create();
-        if (!context.cosmetic() && "charm".equals(context.identifier())) CuriosApi.addSlotModifier(attributes, SLOT, slotUuid, 4.0D, AttributeModifier.Operation.ADDITION);
-        return attributes;
-    }
     @Override public void appendHoverText(ItemStack stack, Level level, List<Component> lines, TooltipFlag flag) {
         lines.add(Component.translatable("tooltip.eternal_career.transforming_scar.slots").withStyle(ChatFormatting.GOLD));
         lines.add(Component.translatable("tooltip.eternal_career.transforming_scar.flavor").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));

@@ -36,11 +36,13 @@ public final class SoulScarEquipmentEvents {
     public static void onKill(LivingDeathEvent event) {
         if (event.getEntity().level().isClientSide || !(event.getSource().getEntity() instanceof ServerPlayer player)
                 || event.getEntity() == player || !SoulFaction.hasCore(player)) return;
+        ResourceLocation mobId = ForgeRegistries.ENTITY_TYPES.getKey(event.getEntity().getType());
+        if (mobId == null) return;
         CuriosApi.getCuriosInventory(player).resolve().ifPresent(handler -> handler.findCurios(SoulScarRegistry.SOUL_GAUNTLET.get())
                 .stream().filter(result -> !result.slotContext().cosmetic() && "hands".equals(result.slotContext().identifier()))
                 .findFirst().ifPresent(result -> {
                     ItemStack upgraded = result.stack().copy();
-                    if (SoulGauntletItem.addKill(upgraded)) {
+                    if (SoulGauntletItem.addKill(upgraded, mobId)) {
                         handler.setEquippedCurio(result.slotContext().identifier(), result.slotContext().index(), upgraded);
                         refresh(player, handler);
                     }

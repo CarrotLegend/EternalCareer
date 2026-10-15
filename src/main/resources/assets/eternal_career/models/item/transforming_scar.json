@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/transforming_scar"
+    "layer0": "eternal_career:item/transforming_scar"
   }
 }

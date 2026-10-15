@@ -6,5 +6,6 @@
     "pandora_box",
     "curse_spirit",
     "scar"
-  ]
+  ],
+  "replace": false
 }

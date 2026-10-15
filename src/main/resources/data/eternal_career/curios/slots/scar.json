@@ -1,4 +1,9 @@
 {
+  "replace": false,
   "size": 0,
-  "add_cosmetic": false
+  "operation": "SET",
+  "order": 150,
+  "add_cosmetic": false,
+  "use_native_gui": true,
+  "drop_rule": "ALWAYS_KEEP"
 }

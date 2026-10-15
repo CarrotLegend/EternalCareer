@@ -1,3 +1,4 @@
+
 package com.carrot123.eternal_career.network;
 
 import com.carrot123.eternal_career.soulblessing.SoulBlessingLifecycleEvents;
@@ -17,9 +18,7 @@ public record SoulBlessingRequestPacket(boolean open) {
     }
 
     public static SoulBlessingRequestPacket decode(FriendlyByteBuf buffer) {
-        return new SoulBlessingRequestPacket(
-                buffer.readBoolean()
-        );
+        return new SoulBlessingRequestPacket(buffer.readBoolean());
     }
 
     public static void handle(
@@ -31,19 +30,13 @@ public record SoulBlessingRequestPacket(boolean open) {
         ctx.enqueueWork(() -> {
             ServerPlayer sender = ctx.getSender();
 
-            if (sender == null) {
-                return;
-            }
-
-            if (!sender.containerMenu.getCarried().isEmpty()) {
+            if (sender == null
+                    || !sender.isAlive()
+                    || !sender.containerMenu.getCarried().isEmpty()) {
                 return;
             }
 
             if (packet.open()) {
-                if (sender.containerMenu instanceof SoulBlessingMenu) {
-                    return;
-                }
-
                 if (sender.containerMenu != sender.inventoryMenu) {
                     sender.closeContainer();
                 }
@@ -52,10 +45,7 @@ public record SoulBlessingRequestPacket(boolean open) {
                         sender,
                         new SimpleMenuProvider(
                                 (id, inventory, player) ->
-                                        new SoulBlessingMenu(
-                                                id,
-                                                inventory
-                                        ),
+                                        new SoulBlessingMenu(id, inventory),
                                 Component.translatable(
                                         "soul_blessing.eternal_career.title"
                                 )
@@ -63,7 +53,6 @@ public record SoulBlessingRequestPacket(boolean open) {
                 );
 
                 SoulBlessingLifecycleEvents.sync(sender);
-
                 return;
             }
 

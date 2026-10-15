@@ -31,7 +31,8 @@
   ],
   "client": [
     "client.ArcheryCoreContainerScreenMixin",
-    "client.FletchingContainerScreenMixin"
+    "client.FletchingContainerScreenMixin",
+    "client.SoulBlessingReturnScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
