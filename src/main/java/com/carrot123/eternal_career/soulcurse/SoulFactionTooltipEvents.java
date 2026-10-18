@@ -45,6 +45,13 @@ public final class SoulFactionTooltipEvents {
             ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.blood_hunter_core.ranged", ChatFormatting.GOLD, "+20%");
             ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.blood_hunter_core.non_ranged", ChatFormatting.GOLD, "-80%");
             ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.enigmaticlegacy.void");
+        } else if (stack.is(SoulCoreRegistry.HYENA_CORE.get())) {
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.enigmaticlegacy.void");
+            ItemLoreHelper.addLocalizedFormattedString(event.getToolTip(), "curios.modifiers.ring", ChatFormatting.GOLD);
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.fist_blade_damage", ChatFormatting.GOLD);
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.non_fist_blade_damage", ChatFormatting.GOLD);
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.fragment_drop", ChatFormatting.GOLD);
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.enigmaticlegacy.void");
         }
 
         Player player = event.getEntity() != null ? event.getEntity() : Minecraft.getInstance().player;

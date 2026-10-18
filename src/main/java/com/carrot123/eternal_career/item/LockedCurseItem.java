@@ -4,10 +4,12 @@ import com.aizistral.enigmaticlegacy.api.items.ICursed;
 import com.aizistral.enigmaticlegacy.handlers.SuperpositionHandler;
 import java.util.List;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public abstract class LockedCurseItem
@@ -61,6 +63,17 @@ public abstract class LockedCurseItem
             ItemStack stack
     ) {
         return false;
+    }
+
+    @Override
+    public ICurio.DropRule getDropRule(
+            SlotContext context,
+            DamageSource source,
+            int lootingLevel,
+            boolean recentlyHit,
+            ItemStack stack
+    ) {
+        return ICurio.DropRule.ALWAYS_KEEP;
     }
 
     @Override

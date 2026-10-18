@@ -1,0 +1,8 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {"item": "minecraft:amethyst_block"},
+  "effect": "eternal_career:witch_domain",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600
+}

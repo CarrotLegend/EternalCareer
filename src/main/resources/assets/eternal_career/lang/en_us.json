@@ -51,6 +51,8 @@
   "attribute.eternal_career.non_scythe_damage": "Non-Scythe Damage",
   "attribute.name.eternal_career.kitchenware_damage": "Kitchenware Damage",
   "attribute.name.eternal_career.non_kitchenware_damage": "Non-Kitchenware Damage",
+  "attribute.name.eternal_career.fist_blade_damage": "Fist Blade Damage",
+  "attribute.name.eternal_career.non_fist_blade_damage": "Non-Fist Blade Damage",
   "gui.eternal_career.soul": "Soul",
   "item.eternal_career.soul_tank": "Soul Tank",
   "tooltip.eternal_career.soul_tank.max_health": "§6+%1$s §dMax Health",
@@ -320,6 +322,9 @@
   "attribute.name.eternal_career.non_ranged_damage": "Non-Ranged Damage",
   "tooltip.eternal_career.blood_hunter_core.ranged": "§5Ranged Damage: %s",
   "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5Non-Ranged Damage: %s",
+  "tooltip.eternal_career.hyena_core.fist_blade_damage": "+20% Fist Blade Damage",
+  "tooltip.eternal_career.hyena_core.non_fist_blade_damage": "-80% Non-Fist Blade Damage",
+  "tooltip.eternal_career.hyena_core.fragment_drop": "Killing an Ancient Guardian or Wither Necromancer drops 1-4 additional Cursed Soul Fragments.",
   "item.eternal_career.soul_box": "Cursed Soul Casket",
   "message.eternal_career.soul_box.full": "§cCasket capacity reached: %1$s fragments.",
   "message.eternal_career.soul_box.unlocked": "§6Casket unlocked. Maximum damage bonus: %1$s%%.",
@@ -336,5 +341,13 @@
   "tooltip.eternal_career.soul_core.fragment_drop": "Killing any mob has a 0.05% chance to drop a Cursed Soul Crystal Fragment.",
   "item.eternal_career.twisted_heart": "Twisted Heart",
   "tooltip.eternal_career.twisted_heart": "Spell Power +20% for each reversed curse",
-  "attribute.name.eternal_career.servant_damage": "Servant Damage"
+  "attribute.name.eternal_career.servant_damage": "Servant Damage",
+  "effect.eternal_career.witch_critical": "Witch Critical",
+  "effect.eternal_career.witch_domain": "Witch Domain",
+  "effect.eternal_career.perfect_state": "Perfect State",
+  "death.attack.witch_critical": "%1$s was struck by a witch's critical brew",
+  "death.attack.witch_critical.player": "%1$s was struck by %2$s's witch's critical brew",
+  "death.attack.witch_domain": "%1$s perished within a witch's domain",
+  "death.attack.witch_domain.player": "%1$s perished within %2$s's witch's domain",
+  "tooltip.eternal_career.crone_hat_potion": "25% chance not to consume a potion; 100% chance not to consume a brew."
 }

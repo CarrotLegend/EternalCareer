@@ -9,6 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Entity;
 
 public final class ModDamageTypes {
 
@@ -20,6 +22,14 @@ public final class ModDamageTypes {
                             "god_burst"
                     )
             );
+
+    public static final ResourceKey<DamageType> WITCH_CRITICAL =
+            ResourceKey.create(Registries.DAMAGE_TYPE,
+                    new ResourceLocation(EternalCareer.MOD_ID, "witch_critical"));
+
+    public static final ResourceKey<DamageType> WITCH_DOMAIN =
+            ResourceKey.create(Registries.DAMAGE_TYPE,
+                    new ResourceLocation(EternalCareer.MOD_ID, "witch_domain"));
 
     private ModDamageTypes() {
     }
@@ -38,5 +48,17 @@ public final class ModDamageTypes {
                         );
 
         return new DamageSource(type);
+    }
+
+    public static DamageSource witchCritical(LivingEntity target, Entity direct, Player player) {
+        Holder.Reference<DamageType> type = target.level().registryAccess()
+                .registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WITCH_CRITICAL);
+        return player == null ? new DamageSource(type, direct) : new DamageSource(type, direct, player);
+    }
+
+    public static DamageSource witchDomain(LivingEntity target, Player player) {
+        Holder.Reference<DamageType> type = target.level().registryAccess()
+                .registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(WITCH_DOMAIN);
+        return player == null ? new DamageSource(type) : new DamageSource(type, player);
     }
 }

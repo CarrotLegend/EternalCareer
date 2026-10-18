@@ -1,9 +1,9 @@
-
 package com.carrot123.eternal_career.client;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.network.ModNetwork;
 import com.carrot123.eternal_career.network.SoulBlessingRequestPacket;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -65,26 +66,29 @@ public final class SoulBlessingTabs {
         Minecraft minecraft = Minecraft.getInstance();
 
         if (minecraft.player == null
-                || !(minecraft.screen instanceof InventoryScreen)
-                || !minecraft.player.containerMenu.getCarried().isEmpty()) {
+                || !(minecraft.screen instanceof InventoryScreen)) {
             return;
         }
 
-        ModNetwork.sendToServer(new SoulBlessingRequestPacket(true));
+        ModNetwork.sendToServer(
+                new SoulBlessingRequestPacket(true)
+        );
     }
 
     private static void returnToInventory() {
-    Minecraft minecraft = Minecraft.getInstance();
+        Minecraft minecraft = Minecraft.getInstance();
 
-    if (minecraft.player == null
-            || !(minecraft.screen instanceof SoulBlessingScreen)
-            || !minecraft.player.containerMenu.getCarried().isEmpty()) {
-        return;
+        if (minecraft.player == null
+                || !(minecraft.screen instanceof SoulBlessingScreen)) {
+            return;
+        }
+
+        SoulBlessingClientState.requestInventoryReturn();
+
+        ModNetwork.sendToServer(
+                new SoulBlessingRequestPacket(false)
+        );
     }
-
-    SoulBlessingClientState.requestInventoryReturn();
-    ModNetwork.sendToServer(new SoulBlessingRequestPacket(false));
-}
 
     private static final class NavigationButton extends AbstractButton {
 

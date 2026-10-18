@@ -13,20 +13,16 @@ public final class SoulBlessingProvider
 
     private final SoulBlessingInventory inventory;
 
-    private final LazyOptional<SoulBlessingInventory> optional;
+    private LazyOptional<SoulBlessingInventory> optional;
 
     public SoulBlessingProvider(
             Runnable changed
     ) {
         this.inventory =
-                new SoulBlessingInventory(
-                        changed
-                );
+                new SoulBlessingInventory(changed);
 
         this.optional =
-                LazyOptional.of(
-                        () -> inventory
-                );
+                LazyOptional.of(() -> inventory);
     }
 
     @Override
@@ -34,8 +30,7 @@ public final class SoulBlessingProvider
             Capability<T> capability,
             @Nullable Direction side
     ) {
-        if (capability
-                != SoulBlessingCapability.INVENTORY) {
+        if (capability != SoulBlessingCapability.INVENTORY) {
             return LazyOptional.empty();
         }
 
@@ -51,12 +46,14 @@ public final class SoulBlessingProvider
     public void deserializeNBT(
             CompoundTag tag
     ) {
-        inventory.deserializeNBT(
-                tag
-        );
+        inventory.deserializeNBT(tag);
     }
 
     public void invalidate() {
-        optional.invalidate();
+        LazyOptional<SoulBlessingInventory> previous = optional;
+
+        previous.invalidate();
+
+        optional = LazyOptional.of(() -> inventory);
     }
 }

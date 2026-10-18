@@ -75,6 +75,10 @@ public final class LichTooltipEvents {
                 .withStyle(ChatFormatting.DARK_RED));
         event.getToolTip().add(Component.translatable(prefix + "max_health")
                 .withStyle(ChatFormatting.DARK_RED));
+        event.getToolTip().add(Component.translatable(prefix + "necromancy_spell_power")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "focus_damage")
+                .withStyle(ChatFormatting.GRAY));
     }
 
     private static void addIntermediateDescription(ItemTooltipEvent event) {
@@ -92,6 +96,8 @@ public final class LichTooltipEvents {
         event.getToolTip().add(Component.translatable(prefix + "arca_required")
                 .withStyle(ChatFormatting.DARK_RED));
         event.getToolTip().add(Component.translatable(prefix + "soul_heal")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "necromancy_spell_power")
                 .withStyle(ChatFormatting.GRAY));
         event.getToolTip().add(Component.translatable(prefix + "focus_damage")
                 .withStyle(ChatFormatting.GRAY));
@@ -113,6 +119,8 @@ public final class LichTooltipEvents {
                 .withStyle(ChatFormatting.GRAY));
         event.getToolTip().add(Component.translatable(prefix + "spell_power_multiplier")
                 .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "necromancy_spell_power")
+                .withStyle(ChatFormatting.GRAY));
         event.getToolTip().add(Component.translatable(prefix + "focus_damage")
                 .withStyle(ChatFormatting.GRAY));
     }
@@ -130,6 +138,8 @@ public final class LichTooltipEvents {
         event.getToolTip().add(Component.translatable(prefix + "cooldown_reduction")
                 .withStyle(ChatFormatting.GRAY));
         event.getToolTip().add(Component.translatable(prefix + "spell_power_multiplier")
+                .withStyle(ChatFormatting.GRAY));
+        event.getToolTip().add(Component.translatable(prefix + "necromancy_spell_power")
                 .withStyle(ChatFormatting.GRAY));
         event.getToolTip().add(Component.translatable(prefix + "focus_damage")
                 .withStyle(ChatFormatting.GRAY));

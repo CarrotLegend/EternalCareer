@@ -2,6 +2,7 @@ package com.carrot123.eternal_career.event;
 
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.bloodbow.BloodBowItems;
+import com.carrot123.eternal_career.item.FistBladeItems;
 import com.carrot123.eternal_career.registry.CareerSoulBlessings;
 import com.carrot123.eternal_career.registry.ModItems;
 import com.carrot123.eternal_career.soulcurse.SoulCoreRegistry;
@@ -74,6 +75,11 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.CHAOS_STEAK);
             event.accept(ModItems.CHAOS_MEAT);
             event.accept(ModItems.CHAOS_BLADE);
+            event.accept(FistBladeItems.IRON_FIST_BLADE);
+            event.accept(FistBladeItems.DIAMOND_FIST_BLADE);
+            event.accept(FistBladeItems.NETHERITE_FIST_BLADE);
+            event.accept(FistBladeItems.AETHER_FIST_BLADE);
+            event.accept(FistBladeItems.FINAL_ALLOY_FIST_BLADE);
             event.accept(ModItems.NECROMANCY_ORB_FOCUS);
             event.accept(ModItems.NECROMANCY_LASER_FOCUS);
             event.accept(ModItems.FROST_CHARM);

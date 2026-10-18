@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -55,11 +56,11 @@ public final class SoulScarEquipmentEvents {
         CuriosApi.getCuriosInventory(player).resolve().ifPresent(handler -> { installScars(handler, player); refresh(player, handler); });
     }
 
-    private static boolean isWorn(ICuriosItemHandler handler, net.minecraft.world.item.Item item, String slot) {
+    private static boolean isWorn(ICuriosItemHandler handler, Item item, String slot) {
         return handler.findCurios(item).stream().anyMatch(found -> !found.slotContext().cosmetic() && slot.equals(found.slotContext().identifier()));
     }
 
-    private static ItemStack equipped(ICuriosItemHandler handler, net.minecraft.world.item.Item item, String slot) {
+    private static ItemStack equipped(ICuriosItemHandler handler, Item item, String slot) {
         return handler.findCurios(item).stream().filter(found -> !found.slotContext().cosmetic() && slot.equals(found.slotContext().identifier()))
                 .map(found -> found.stack()).findFirst().orElse(ItemStack.EMPTY);
     }
@@ -72,21 +73,66 @@ public final class SoulScarEquipmentEvents {
             var stacks = handlerForSlot.getStacks();
             if (stacks.getSlots() < 3) return;
             ListTag saved = TransformingScarItem.savedScars(charm);
+
             for (int i = 0; i < Math.min(stacks.getSlots(), saved.size()); i++) {
                 if (!stacks.getStackInSlot(i).isEmpty()) continue;
+
                 ItemStack restore = ItemStack.of(saved.getCompound(i));
-                if (!restore.isEmpty()) handler.setEquippedCurio(TransformingScarItem.SLOT, i, restore);
+
+                if (!restore.isEmpty()) {
+                    ItemStack carried = takeFromInventory(player, restore.getItem());
+                    if (!carried.isEmpty()) {
+                        restore = carried;
+                    }
+
+                    handler.setEquippedCurio(TransformingScarItem.SLOT, i, restore);
+                }
             }
-            List<net.minecraft.world.item.Item> required = List.of(SoulScarRegistry.COWARD.get(), SoulScarRegistry.FRAGILE.get(), SoulScarRegistry.PESSIMIST.get());
-            for (var item : required) {
+
+            List<Item> required = List.of(
+                    SoulScarRegistry.COWARD.get(),
+                    SoulScarRegistry.FRAGILE.get(),
+                    SoulScarRegistry.PESSIMIST.get()
+            );
+
+            for (Item item : required) {
                 if (isWorn(handler, item, TransformingScarItem.SLOT)) continue;
+
                 for (int i = 0; i < stacks.getSlots(); i++) {
                     if (!stacks.getStackInSlot(i).isEmpty()) continue;
-                    handler.setEquippedCurio(TransformingScarItem.SLOT, i, new ItemStack(item));
+
+                    ItemStack restore = takeFromInventory(player, item);
+
+                    if (restore.isEmpty()) {
+                        restore = new ItemStack(item);
+                    }
+
+                    handler.setEquippedCurio(TransformingScarItem.SLOT, i, restore);
                     break;
                 }
             }
         });
+    }
+
+    private static ItemStack takeFromInventory(Player player, Item expected) {
+        for (int i = 0; i < player.getInventory().items.size(); i++) {
+            ItemStack stack = player.getInventory().items.get(i);
+
+            if (!stack.is(expected)) {
+                continue;
+            }
+
+            ItemStack restored = stack.split(1);
+
+            if (stack.isEmpty()) {
+                player.getInventory().items.set(i, ItemStack.EMPTY);
+            }
+
+            player.getInventory().setChanged();
+            return restored;
+        }
+
+        return ItemStack.EMPTY;
     }
 
     private static void refresh(Player player, ICuriosItemHandler handler) {

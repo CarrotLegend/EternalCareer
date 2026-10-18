@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "eternal_career:god_burst"
+    "eternal_career:god_burst",
+    "eternal_career:witch_critical",
+    "eternal_career:witch_domain"
   ]
 }

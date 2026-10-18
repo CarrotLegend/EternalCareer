@@ -288,6 +288,10 @@ public final class PandoraBoxItem
             Player player,
             ItemStack box
     ) {
+        if (player.level().isClientSide) {
+            return;
+        }
+
         CuriosApi.getCuriosInventory(player)
                 .resolve()
                 .ifPresent(handler -> {
@@ -328,10 +332,18 @@ public final class PandoraBoxItem
                             continue;
                         }
 
-                        ItemStack curse =
-                                ItemStack.EMPTY;
+                        Item expected =
+                                order.get(i).get();
 
-                        if (stored.size() > i) {
+                        // 优先取回槽位变化时被 Curios 移入背包的原诅咒。
+                        ItemStack curse =
+                                takeFromInventory(
+                                        player,
+                                        expected
+                                );
+
+                        if (curse.isEmpty()
+                                && stored.size() > i) {
                             curse =
                                     ItemStack.of(
                                             stored.getCompound(
@@ -343,8 +355,7 @@ public final class PandoraBoxItem
                         if (curse.isEmpty()) {
                             curse =
                                     new ItemStack(
-                                            order.get(i)
-                                                    .get()
+                                            expected
                                     );
                         }
 
@@ -355,6 +366,39 @@ public final class PandoraBoxItem
                         );
                     }
                 });
+    }
+
+    private static ItemStack takeFromInventory(
+            Player player,
+            Item expected
+    ) {
+        for (int i = 0;
+             i < player.getInventory().items.size();
+             i++) {
+
+            ItemStack stack =
+                    player.getInventory().items.get(i);
+
+            if (!stack.is(expected)) {
+                continue;
+            }
+
+            ItemStack restored =
+                    stack.split(1);
+
+            if (stack.isEmpty()) {
+                player.getInventory().items.set(
+                        i,
+                        ItemStack.EMPTY
+                );
+            }
+
+            player.getInventory().setChanged();
+
+            return restored;
+        }
+
+        return ItemStack.EMPTY;
     }
 
     private static void saveAndClearCurses(

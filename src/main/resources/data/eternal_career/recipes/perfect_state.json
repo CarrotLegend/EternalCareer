@@ -1,0 +1,8 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {"item": "minecraft:gold_block"},
+  "effect": "eternal_career:perfect_state",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600
+}

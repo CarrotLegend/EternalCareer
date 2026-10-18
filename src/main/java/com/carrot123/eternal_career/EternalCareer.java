@@ -1,6 +1,7 @@
 package com.carrot123.eternal_career;
 
 import org.slf4j.Logger;
+import com.carrot123.eternal_career.item.FistBladeItems;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.registry.ModEffects;
 import com.carrot123.eternal_career.registry.ModEntityTypes;
@@ -25,6 +26,7 @@ public final class EternalCareer {
         ModEffects.register(modEventBus);
         ModEntityTypes.register(modEventBus);
         ModItems.register(modEventBus);
+        FistBladeItems.register(modEventBus);
         com.carrot123.eternal_career.bloodbow.BloodBowItems.register(modEventBus);
         com.carrot123.eternal_career.bloodbow.BloodBowEffects.register(modEventBus);
         com.carrot123.eternal_career.soulcurse.SoulCoreRegistry.register(modEventBus);

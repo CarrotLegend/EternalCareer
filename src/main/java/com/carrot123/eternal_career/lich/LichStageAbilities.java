@@ -139,9 +139,10 @@ public final class LichStageAbilities {
                 AttributeModifier.Operation.MULTIPLY_TOTAL);
 
         double focusBonus = switch (stage) {
-            case INTERMEDIATE_LICH -> 0.10D;
-            case ADVANCED_LICH -> 0.20D;
-            case LICH_KING -> 0.50D;
+            case NOVICE_LICH -> 0.10D;
+            case INTERMEDIATE_LICH -> 0.40D;
+            case ADVANCED_LICH -> 0.80D;
+            case LICH_KING -> 1.60D;
             default -> 0.0D;
         };
         syncRegisteredModifier(player, FOCUS_DAMAGE_ID, INTERMEDIATE_FOCUS_DAMAGE_UUID,

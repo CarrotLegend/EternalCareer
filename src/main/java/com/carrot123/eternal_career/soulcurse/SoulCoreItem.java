@@ -111,7 +111,8 @@ public final class SoulCoreItem
             UUID slotUuid,
             ItemStack stack
     ) {
-        if (!bloodHunter
+        boolean hyena = stack.is(SoulCoreRegistry.HYENA_CORE.get());
+        if ((!bloodHunter && !hyena)
                 || context == null
                 || context.cosmetic()
                 || !"ring".equals(
@@ -124,6 +125,18 @@ public final class SoulCoreItem
                 <Attribute, AttributeModifier>
                 result =
                 ImmutableMultimap.builder();
+
+        if (hyena) {
+            result.put(
+                    ModAttributes.FIST_BLADE_DAMAGE.get(),
+                    hyenaModifier(slotUuid, "fist_blade_damage", 0.20D)
+            );
+            result.put(
+                    ModAttributes.NON_FIST_BLADE_DAMAGE.get(),
+                    hyenaModifier(slotUuid, "non_fist_blade_damage", -0.80D)
+            );
+            return result.build();
+        }
 
         Attribute ranged =
                 ForgeRegistries.ATTRIBUTES
@@ -172,6 +185,14 @@ public final class SoulCoreItem
         );
     }
 
+    private static AttributeModifier hyenaModifier(UUID slotUuid, String id, double value) {
+        return StableAttributeModifiers.create(
+                EternalCareer.MOD_ID + ":hyena_core/" + slotUuid + "/" + id,
+                value,
+                AttributeModifier.Operation.MULTIPLY_TOTAL
+        );
+    }
+
     @Override
     public List<Component> getAttributesTooltip(
             List<Component> tooltip,
@@ -181,6 +202,11 @@ public final class SoulCoreItem
                 || stack.is(
                 SoulCoreRegistry
                         .SOUL_CORE
+                        .get()
+        )
+                || stack.is(
+                SoulCoreRegistry
+                        .HYENA_CORE
                         .get()
         )) {
             tooltip.clear();
@@ -198,6 +224,11 @@ public final class SoulCoreItem
                 || stack.is(
                 SoulCoreRegistry
                         .SOUL_CORE
+                        .get()
+        )
+                || stack.is(
+                SoulCoreRegistry
+                        .HYENA_CORE
                         .get()
         )) {
             tooltip.clear();

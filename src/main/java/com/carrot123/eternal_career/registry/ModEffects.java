@@ -6,7 +6,10 @@ import com.carrot123.eternal_career.effect.ChaoticCookingEffect;
 import com.carrot123.eternal_career.effect.FeastSatisfactionEffect;
 import com.carrot123.eternal_career.effect.GodBurstEffect;
 import com.carrot123.eternal_career.effect.IngredientMarkEffect;
+import com.carrot123.eternal_career.effect.PerfectStateEffect;
 import com.carrot123.eternal_career.effect.SweetImpulseEffect;
+import com.carrot123.eternal_career.effect.WitchCriticalEffect;
+import com.carrot123.eternal_career.effect.WitchDomainEffect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -57,6 +60,15 @@ public final class ModEffects {
                     "feast_satisfaction",
                     FeastSatisfactionEffect::new
             );
+
+    public static final RegistryObject<MobEffect> WITCH_CRITICAL =
+            EFFECTS.register("witch_critical", WitchCriticalEffect::new);
+
+    public static final RegistryObject<MobEffect> WITCH_DOMAIN =
+            EFFECTS.register("witch_domain", WitchDomainEffect::new);
+
+    public static final RegistryObject<MobEffect> PERFECT_STATE =
+            EFFECTS.register("perfect_state", PerfectStateEffect::new);
 
     private ModEffects() {
     }

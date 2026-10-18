@@ -99,16 +99,36 @@ public final class LichSpellPowerMultiplierEvents {
 
         AttributeModifier current = instance.getModifier(MODIFIER_UUID);
 
-        if (!LichUtils.isCareerLich(player) || spell == null) {
+        if (spell == null) {
             if (current != null) {
                 instance.removeModifier(MODIFIER_UUID);
             }
             return;
         }
 
-        double amount = spell.getSpellType() == SpellType.NECROMANCY
-                ? NECROMANCY_MULTIPLIER
-                : OTHER_MULTIPLIER;
+        boolean careerLich = LichUtils.isCareerLich(player);
+        double stageNecromancyBonus = switch (LichUtils.getLichStage(player)) {
+            case NOVICE_LICH -> 0.10D;
+            case INTERMEDIATE_LICH -> 0.20D;
+            case ADVANCED_LICH -> 0.30D;
+            case LICH_KING -> 0.40D;
+            default -> 0.0D;
+        };
+
+        double amount;
+        if (spell.getSpellType() == SpellType.NECROMANCY) {
+            amount = (careerLich ? NECROMANCY_MULTIPLIER : 0.0D)
+                    + stageNecromancyBonus;
+        } else {
+            amount = careerLich ? OTHER_MULTIPLIER : 0.0D;
+        }
+
+        if (Double.compare(amount, 0.0D) == 0) {
+            if (current != null) {
+                instance.removeModifier(MODIFIER_UUID);
+            }
+            return;
+        }
 
         if (current != null
                 && current.getOperation() == AttributeModifier.Operation.ADDITION

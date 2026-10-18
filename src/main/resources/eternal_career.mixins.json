@@ -26,6 +26,11 @@
     "compat.until_eternity.TrueChefsKnifeItemMixin",
     "compat.goety_revelation.BlessingScrollLookupMixin",
     "compat.goety_revelation.BlessingScrollAttributesMixin",
+    "compat.goety.ThrownBrewWitchCriticalMixin",
+    "compat.goety.BrewEffectCloudWitchMixin",
+    "compat.goety.BrewGasWitchCriticalMixin",
+    "compat.goety.BrewItemWitchDomainMixin",
+    "compat.goety.BrewUtilsPerfectStateMixin",
     "compat.corpse.CorpseAdditionalContainerMixin",
     "compat.corpse.CorpseInventoryContainerMixin"
   ],

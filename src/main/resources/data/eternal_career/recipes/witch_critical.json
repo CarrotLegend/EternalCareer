@@ -1,0 +1,8 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {"item": "minecraft:amethyst_shard"},
+  "effect": "eternal_career:witch_critical",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 1
+}
