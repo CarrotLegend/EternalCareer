@@ -389,5 +389,11 @@
 "attribute.name.eternal_career.brew_damage": "精酿伤害",
 "attribute.name.eternal_career.non_brew_damage": "非精酿伤害",
 "tooltip.eternal_career.witch_certificate.brew_damage": "§6+20% §d精酿伤害",
-"tooltip.eternal_career.witch_certificate.non_brew_damage": "§6-60% §d非精酿伤害"
+"tooltip.eternal_career.witch_certificate.non_brew_damage": "§6-60% §d非精酿伤害",
+  "item.eternal_career.witch_heart": "女巫之心",
+  "container.eternal_career.witch_heart": "女巫之心",
+  "tooltip.eternal_career.witch_heart.effect": "§5佩戴时，每§660§5秒自动使用储存的第一瓶女巫精酿。",
+  "tooltip.eternal_career.witch_heart.infinite": "§5储存§616§5瓶女巫精酿时，自动使用但不消耗。",
+  "item.eternal_career.witch_frost_eye": "女巫冰洁之眼",
+  "tooltip.eternal_career.witch_frost_eye.brew_damage": "§6+120% §d精酿伤害"
 }

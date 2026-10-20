@@ -1,4 +1,3 @@
-
 package com.carrot123.eternal_career.registry;
 
 import com.Polarice3.Goety.common.items.magic.MagicFocus;
@@ -47,6 +46,8 @@ import com.carrot123.eternal_career.item.UndeadCurseItem;
 import com.carrot123.eternal_career.item.VulnerabilityCurseItem;
 import com.carrot123.eternal_career.item.WeaknessCurseSpiritItem;
 import com.carrot123.eternal_career.item.WitchCertificateItem;
+import com.carrot123.eternal_career.item.WitchFrostEyeItem;
+import com.carrot123.eternal_career.item.WitchHeartItem;
 import com.carrot123.eternal_career.lich.LichStage;
 import com.carrot123.eternal_career.magic.NecromancyLaserSpell;
 import com.carrot123.eternal_career.magic.NecromancyOrbSpell;
@@ -71,7 +72,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class ModItems {
-
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, EternalCareer.MOD_ID);
 
     public static final RegistryObject<Item> GENERIC_HEAD_BLESSING = registerGenericBlessing("generic_head_blessing", SoulBlessingSlotType.HEAD, -1);
@@ -96,6 +96,8 @@ public final class ModItems {
     public static final RegistryObject<Item> HEAD_CHEF_SHEATH = ITEMS.register("head_chef_sheath", () -> new HeadChefSheathItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
     public static final RegistryObject<Item> CALL_OF_DEATH = ITEMS.register("call_of_death", () -> new CallOfDeathItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> WITCH_CERTIFICATE = ITEMS.register("witch_certificate", () -> new WitchCertificateItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+    public static final RegistryObject<Item> WITCH_FROST_EYE = ITEMS.register("witch_frost_eye", () -> new WitchFrostEyeItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> WITCH_HEART = ITEMS.register("witch_heart", () -> new WitchHeartItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> SOUL_REAPING_SKULL = ITEMS.register("soul_reaping_skull", () -> new SoulReapingSkullItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> LICH_RESEARCH_NOTES = ITEMS.register("lich_research_notes", () -> new LichResearchNotesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
@@ -166,8 +168,7 @@ public final class ModItems {
     public static final RegistryObject<Item> CHAOS_MEAT = ITEMS.register("chaos_meat", () -> new ChaosFoodItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5F).meat().alwaysEat().build()), 0, "chaos_meat"));
     public static final RegistryObject<Item> CHAOS_BLADE = ITEMS.register("chaos_blade", () -> new ChaosBladeItem(new Item.Properties().stacksTo(1)));
 
-    private ModItems() {
-    }
+    private ModItems() {}
 
     private static RegistryObject<Item> registerChefArmor(String name, ArmorItem.Type type) {
         return ITEMS.register(name, () -> new ChefArmorItem(ChefArmorMaterial.INSTANCE, type, new Item.Properties().stacksTo(1)));
@@ -179,16 +180,11 @@ public final class ModItems {
 
     static {
         if (!FMLEnvironment.production) {
-            registerTestBlessing("test_head_blessing", SoulBlessingSlotType.HEAD,
-                    new SoulBlessingAttribute(Attributes.MAX_HEALTH, 4.0D, AttributeModifier.Operation.ADDITION));
-            registerTestBlessing("test_necklace_blessing", SoulBlessingSlotType.NECKLACE,
-                    new SoulBlessingAttribute(Attributes.ATTACK_DAMAGE, 2.0D, AttributeModifier.Operation.ADDITION));
-            registerTestBlessing("test_hand_blessing", SoulBlessingSlotType.HAND,
-                    new SoulBlessingAttribute(Attributes.ATTACK_SPEED, 0.10D, AttributeModifier.Operation.MULTIPLY_BASE));
-            registerTestBlessing("test_ring_blessing", SoulBlessingSlotType.RING,
-                    new SoulBlessingAttribute(Attributes.LUCK, 5.0D, AttributeModifier.Operation.ADDITION));
-            registerTestBlessing("test_boots_blessing", SoulBlessingSlotType.BOOTS,
-                    new SoulBlessingAttribute(Attributes.MOVEMENT_SPEED, 0.10D, AttributeModifier.Operation.MULTIPLY_BASE));
+            registerTestBlessing("test_head_blessing", SoulBlessingSlotType.HEAD, new SoulBlessingAttribute(Attributes.MAX_HEALTH, 4.0D, AttributeModifier.Operation.ADDITION));
+            registerTestBlessing("test_necklace_blessing", SoulBlessingSlotType.NECKLACE, new SoulBlessingAttribute(Attributes.ATTACK_DAMAGE, 2.0D, AttributeModifier.Operation.ADDITION));
+            registerTestBlessing("test_hand_blessing", SoulBlessingSlotType.HAND, new SoulBlessingAttribute(Attributes.ATTACK_SPEED, 0.10D, AttributeModifier.Operation.MULTIPLY_BASE));
+            registerTestBlessing("test_ring_blessing", SoulBlessingSlotType.RING, new SoulBlessingAttribute(Attributes.LUCK, 5.0D, AttributeModifier.Operation.ADDITION));
+            registerTestBlessing("test_boots_blessing", SoulBlessingSlotType.BOOTS, new SoulBlessingAttribute(Attributes.MOVEMENT_SPEED, 0.10D, AttributeModifier.Operation.MULTIPLY_BASE));
         }
     }
 

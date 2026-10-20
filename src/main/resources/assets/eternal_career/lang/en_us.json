@@ -349,5 +349,7 @@
   "death.attack.witch_critical.player": "%1$s was struck by %2$s's witch's critical brew",
   "death.attack.witch_domain": "%1$s perished within a witch's domain",
   "death.attack.witch_domain.player": "%1$s perished within %2$s's witch's domain",
-  "tooltip.eternal_career.crone_hat_potion": "25% chance not to consume a potion; 100% chance not to consume a brew."
+  "tooltip.eternal_career.crone_hat_potion": "25% chance not to consume a potion; 100% chance not to consume a brew.",
+  "item.eternal_career.witch_frost_eye": "Witch's Frost Eye",
+  "tooltip.eternal_career.witch_frost_eye.brew_damage": "§6+120% §dBrew Damage"
 }

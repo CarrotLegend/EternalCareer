@@ -125,6 +125,8 @@ public final class MigrationAndCreativeEvents {
             event.accept(ModItems.DARK_BOOTS);
             event.accept(ModItems.DARK_CHAIN);
             event.accept(ModItems.WITCH_CERTIFICATE);
+            event.accept(ModItems.WITCH_FROST_EYE);
+            event.accept(ModItems.WITCH_HEART);
         }
     }
 }

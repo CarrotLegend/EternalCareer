@@ -12,10 +12,18 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = ThrowableBrewItem.class, remap = false)
 public abstract class ThrowableBrewCroneHatMixin {
-    @Redirect(method = "use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;",
+    @Redirect(
+            method = {
+                    "use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;",
+                    "m_7203_(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;"
+            },
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V", remap = true),
-            remap = false, require = 1)
+            remap = false,
+            require = 1
+    )
     private void eternalCareer$preserveThrownBrew(ItemStack stack, int amount, Level level, Player player, InteractionHand hand) {
-        if (!CroneHatBrewEvents.hasCroneHat(player)) stack.shrink(amount);
+        if (!CroneHatBrewEvents.hasCroneHat(player)) {
+            stack.shrink(amount);
+        }
     }
 }
