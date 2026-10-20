@@ -30,8 +30,7 @@ public final class SoulFactionTooltipEvents {
             Component title = tooltip.isEmpty() ? stack.getHoverName() : tooltip.get(0);
             tooltip.clear();
             tooltip.add(title);
-            tooltip.add(Component.translatable("tooltip.eternal_career.soul_core.fragment_drop")
-                    .withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("tooltip.eternal_career.soul_core.fragment_drop"));
             return;
         }
 
@@ -48,11 +47,11 @@ public final class SoulFactionTooltipEvents {
         } else if (stack.is(SoulCoreRegistry.HYENA_CORE.get())) {
             ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.enigmaticlegacy.void");
             ItemLoreHelper.addLocalizedFormattedString(event.getToolTip(), "curios.modifiers.ring", ChatFormatting.GOLD);
-            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.fist_blade_damage", ChatFormatting.GOLD);
-            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.non_fist_blade_damage", ChatFormatting.GOLD);
-            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.fragment_drop", ChatFormatting.GOLD);
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.fist_blade_damage", ChatFormatting.GOLD, "+20%");
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.non_fist_blade_damage", ChatFormatting.GOLD, "-80%");
+            ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.eternal_career.hyena_core.fragment_drop");
             ItemLoreHelper.addLocalizedString(event.getToolTip(), "tooltip.enigmaticlegacy.void");
-        }
+        }   
 
         Player player = event.getEntity() != null ? event.getEntity() : Minecraft.getInstance().player;
         event.getToolTip().add(Component.translatable("tooltip.eternal_career.soul_only")

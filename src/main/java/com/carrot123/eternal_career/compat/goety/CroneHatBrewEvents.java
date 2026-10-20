@@ -7,6 +7,7 @@ import com.carrot123.eternal_career.EternalCareer;
 import java.util.Map;
 import java.util.WeakHashMap;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -17,60 +18,43 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CroneHatBrewEvents {
-    private static final Map<LivingEntity, Integer> BOTTLES_BEFORE_USE = new WeakHashMap<>();
-
-    private CroneHatBrewEvents() {
-    }
+    private record SavedUse(ItemStack original, int bottlesBefore) {}
+    private static final Map<LivingEntity, SavedUse> ACTIVE = new WeakHashMap<>();
+    private CroneHatBrewEvents() {}
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onUseStart(LivingEntityUseItemEvent.Start event) {
-        rememberBottles(event);
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onUseTick(LivingEntityUseItemEvent.Tick event) {
-        rememberBottles(event);
+        LivingEntity entity = event.getEntity();
+        if (!entity.level().isClientSide() && entity instanceof Player player
+                && event.getItem().getItem() instanceof BrewItem
+                && hasCroneHat(player)) {
+            ACTIVE.put(entity, new SavedUse(event.getItem().copy(), countBottles(player)));
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onUseFinish(LivingEntityUseItemEvent.Finish event) {
-        Integer bottlesBefore = BOTTLES_BEFORE_USE.remove(event.getEntity());
-        if (event.getEntity().level().isClientSide()
-                || !(event.getItem().getItem() instanceof BrewItem)
-                || !CuriosFinder.hasCurio(event.getEntity(), ModItems.CRONE_HAT.get())) {
-            return;
-        }
+        SavedUse saved = ACTIVE.remove(event.getEntity());
+        if (saved == null || event.getEntity().level().isClientSide()
+                || !(event.getEntity() instanceof Player player)
+                || !hasCroneHat(player)) return;
 
-        event.setResultStack(event.getItem().copy());
-        if (event.getEntity() instanceof Player player
-                && !player.getAbilities().instabuild
-                && event.getItem().getCount() > 1
-                && bottlesBefore != null
-                && countBottles(player) > bottlesBefore) {
-            removeOneBottle(player);
-        }
+        event.setResultStack(saved.original().copy());
+        if (!player.getAbilities().instabuild && countBottles(player) > saved.bottlesBefore()) removeOneBottle(player);
     }
 
     @SubscribeEvent
-    public static void onUseStop(LivingEntityUseItemEvent.Stop event) {
-        BOTTLES_BEFORE_USE.remove(event.getEntity());
-    }
+    public static void onUseStop(LivingEntityUseItemEvent.Stop event) { ACTIVE.remove(event.getEntity()); }
 
-    private static void rememberBottles(LivingEntityUseItemEvent event) {
-        if (event.getEntity() instanceof Player player
-                && !player.level().isClientSide()
-                && event.getItem().getItem() instanceof BrewItem
-                && CuriosFinder.hasCurio(player, ModItems.CRONE_HAT.get())) {
-            BOTTLES_BEFORE_USE.put(player, countBottles(player));
-        }
+    public static boolean hasCroneHat(LivingEntity entity) {
+        return entity != null && (CuriosFinder.hasCurio(entity, ModItems.CRONE_HAT.get())
+                || entity.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.CRONE_HAT.get()));
     }
 
     private static int countBottles(Player player) {
         int count = 0;
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(Items.GLASS_BOTTLE) && !stack.hasTag()) {
-                count += stack.getCount();
-            }
+            if (stack.is(Items.GLASS_BOTTLE) && !stack.hasTag()) count += stack.getCount();
         }
         return count;
     }

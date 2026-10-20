@@ -1,18 +1,24 @@
+
 package com.carrot123.eternal_career.event;
 
+import com.Polarice3.Goety.common.entities.projectiles.ThrownBrew;
+import com.Polarice3.Goety.common.entities.util.BrewEffectCloud;
+import com.Polarice3.Goety.common.entities.util.BrewGas;
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.career.api.DamageCategoryHelper;
 import com.carrot123.eternal_career.career.api.PlayerDamageCategory;
 import com.carrot123.eternal_career.career.api.RangeDamageHelper;
 import com.carrot123.eternal_career.curio.CurioEquipmentHelper;
+import com.carrot123.eternal_career.damage.ModDamageTypes;
 import com.carrot123.eternal_career.effect.IngredientMarkEffect;
+import com.carrot123.eternal_career.effect.WitchBrewEvents;
 import com.carrot123.eternal_career.item.FistBladeItem;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.registry.ModEffects;
 import com.carrot123.eternal_career.soul.ScytheCombat;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.TraceableEntity;
@@ -27,43 +33,90 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class PlayerDamageEvents {
     public static final double INGREDIENT_MARK_KITCHENWARE_MULTIPLIER = 1.25D;
+
     private PlayerDamageEvents() {}
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLivingDamage(LivingDamageEvent event) {
         if (event.getEntity().level().isClientSide) return;
+
         DamageSource source = event.getSource();
         Player directPlayer = source.getEntity() instanceof Player player ? player : null;
         Player attributedPlayer = directPlayer != null ? directPlayer : findPlayer(source.getEntity(), 0);
         if (attributedPlayer == null) attributedPlayer = findPlayer(source.getDirectEntity(), 0);
+        if (attributedPlayer == null) attributedPlayer = WitchBrewEvents.resolvePlayer(source.getEntity());
+        if (attributedPlayer == null) attributedPlayer = WitchBrewEvents.resolvePlayer(source.getDirectEntity());
         if (attributedPlayer == null) return;
+
         double amount = event.getAmount();
         if (amount <= 0.0D) return;
+
         boolean wasIngredientMarked = directPlayer != null && event.getEntity().hasEffect(ModEffects.INGREDIENT_MARK.get());
+
         if (directPlayer != null) {
             PlayerDamageCategory category = DamageCategoryHelper.classify(directPlayer, source);
-            Attribute categoryAttribute = category == PlayerDamageCategory.KITCHENWARE ? ModAttributes.KITCHENWARE_DAMAGE.get() : ModAttributes.NON_KITCHENWARE_DAMAGE.get();
+            Attribute categoryAttribute = category == PlayerDamageCategory.KITCHENWARE
+                    ? ModAttributes.KITCHENWARE_DAMAGE.get()
+                    : ModAttributes.NON_KITCHENWARE_DAMAGE.get();
+
             amount *= getMultiplier(directPlayer, categoryAttribute);
-            if (ScytheCombat.directAttacker(source) == null) amount *= getMultiplier(directPlayer, ModAttributes.NON_SCYTHE_DAMAGE.get());
-            if (RangeDamageHelper.isNonRanged(source)) amount *= getMultiplier(directPlayer, ModAttributes.NON_RANGED_DAMAGE.get());
-            if (category == PlayerDamageCategory.KITCHENWARE && wasIngredientMarked) amount *= INGREDIENT_MARK_KITCHENWARE_MULTIPLIER;
+
+            if (ScytheCombat.directAttacker(source) == null) {
+                amount *= getMultiplier(directPlayer, ModAttributes.NON_SCYTHE_DAMAGE.get());
+            }
+
+            if (RangeDamageHelper.isNonRanged(source)) {
+                amount *= getMultiplier(directPlayer, ModAttributes.NON_RANGED_DAMAGE.get());
+            }
+
+            if (category == PlayerDamageCategory.KITCHENWARE && wasIngredientMarked) {
+                amount *= INGREDIENT_MARK_KITCHENWARE_MULTIPLIER;
+            }
         }
+
         boolean fistBladeAttack = directPlayer != null
                 && source.getDirectEntity() == directPlayer
                 && source.is(DamageTypes.PLAYER_ATTACK)
                 && directPlayer.getMainHandItem().getItem() instanceof FistBladeItem;
+
         amount *= getMultiplier(attributedPlayer, fistBladeAttack
-                ? ModAttributes.FIST_BLADE_DAMAGE.get() : ModAttributes.NON_FIST_BLADE_DAMAGE.get());
+                ? ModAttributes.FIST_BLADE_DAMAGE.get()
+                : ModAttributes.NON_FIST_BLADE_DAMAGE.get());
+
+        boolean brewDamage = isBrewDamage(source);
+
+        amount *= getMultiplier(attributedPlayer, brewDamage
+                ? ModAttributes.BREW_DAMAGE.get()
+                : ModAttributes.NON_BREW_DAMAGE.get());
+
         if (!Double.isFinite(amount)) amount = Float.MAX_VALUE;
         amount = Math.max(0.0D, Math.min(Float.MAX_VALUE, amount));
         event.setAmount((float) amount);
-        if (directPlayer != null && amount > 0.0D && CurioEquipmentHelper.hasGodsRecognition(directPlayer)) event.getEntity().addEffect(
-            new MobEffectInstance(ModEffects.INGREDIENT_MARK.get(), IngredientMarkEffect.INGREDIENT_MARK_DURATION_TICKS, 0, false, true, true), directPlayer);
+
+        if (directPlayer != null && amount > 0.0D && CurioEquipmentHelper.hasGodsRecognition(directPlayer)) {
+            event.getEntity().addEffect(
+                    new MobEffectInstance(ModEffects.INGREDIENT_MARK.get(),
+                            IngredientMarkEffect.INGREDIENT_MARK_DURATION_TICKS, 0, false, true, true),
+                    directPlayer
+            );
+        }
+    }
+
+    private static boolean isBrewDamage(DamageSource source) {
+        if (source.is(ModDamageTypes.WITCH_CRITICAL) || source.is(ModDamageTypes.WITCH_DOMAIN)) return true;
+        return isBrewEntity(source.getDirectEntity()) || isBrewEntity(source.getEntity());
+    }
+
+    private static boolean isBrewEntity(Entity entity) {
+        return entity instanceof ThrownBrew
+                || entity instanceof BrewEffectCloud
+                || entity instanceof BrewGas;
     }
 
     private static Player findPlayer(Entity entity, int depth) {
         if (entity == null || depth >= 8) return null;
         if (entity instanceof Player player) return player;
+
         if (entity instanceof TraceableEntity traceable) {
             Entity owner = traceable.getOwner();
             if (owner != null && owner != entity) {
@@ -71,10 +124,12 @@ public final class PlayerDamageEvents {
                 if (player != null) return player;
             }
         }
+
         if (entity instanceof OwnableEntity ownable) {
             Entity owner = ownable.getOwner();
             if (owner != null && owner != entity) return findPlayer(owner, depth + 1);
         }
+
         return null;
     }
 

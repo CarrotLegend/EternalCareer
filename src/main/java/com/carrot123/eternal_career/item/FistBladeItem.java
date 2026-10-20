@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class FistBladeItem extends SwordItem {
     private static final ResourceLocation BLEEDING_EFFECT =
-            new ResourceLocation("legendarymonsters", "bleeding");
+            new ResourceLocation("legendary_monsters", "bleeding");
     private static final float BLEEDING_CHANCE = 0.25F;
     private static final int BLEEDING_DURATION = 100;
 
@@ -52,7 +52,6 @@ public final class FistBladeItem extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.eternal_career.fist_blade.bleeding")
-                .withStyle(ChatFormatting.GOLD));
+        tooltip.add(Component.translatable("tooltip.eternal_career.fist_blade.bleeding"));
     }
 }

@@ -317,11 +317,6 @@
   "item.eternal_career.hyena_core": "鬣狗核心",
   "tooltip.eternal_career.soul_only": "咒魂者方可使用",
   "attribute.name.eternal_career.non_ranged_damage": "非远程伤害",
-  "tooltip.eternal_career.blood_hunter_core.ranged": "§5远程伤害：%s",
-  "tooltip.eternal_career.blood_hunter_core.non_ranged": "§5非远程伤害：%s",
-  "tooltip.eternal_career.hyena_core.fist_blade_damage": "+20% 拳刃伤害",
-  "tooltip.eternal_career.hyena_core.non_fist_blade_damage": "-80% 非拳刃伤害",
-  "tooltip.eternal_career.hyena_core.fragment_drop": "击杀荒古守卫者或凋灵死灵法师时，额外掉落1-4个诅咒灵魂水晶碎片。",
   "item.eternal_career.soul_box": "咒魂魔匣",
   "message.eternal_career.soul_box.full": "§c咒魂魔匣已达到当前上限：%1$s枚碎片。",
   "message.eternal_career.soul_box.unlocked": "§6咒魂魔匣已解锁，伤害上限提高到：%1$s%%。",
@@ -335,7 +330,6 @@
   "tooltip.eternal_career.soul_box.effect": "每收纳一枚诅咒灵魂水晶碎片：全部伤害%1$s、攻击速度%2$s、闪避率%3$s、生命恢复%4$s。",
   "tooltip.eternal_career.soul_box.current": "当前加成：全部伤害%1$s、攻击速度%2$s、闪避率%3$s、生命恢复%4$s",
   "tooltip.eternal_career.soul_box.unknown_material": "未知材料",
-  "tooltip.eternal_career.soul_core.fragment_drop": "击杀所有生物都有0.05%概率掉落诅咒灵魂水晶碎片。",
   "item.eternal_career.twisted_heart": "扭曲之心",
   "tooltip.eternal_career.twisted_heart": "每反转一个诅咒，法术强度增加 20%",
   "attribute.name.eternal_career.servant_damage": "仆从伤害",
@@ -374,5 +368,26 @@
   "death.attack.witch_critical.player": "%1$s遭%2$s的女巫暴击药酿击倒了",
   "death.attack.witch_domain": "%1$s倒在了女巫领域中",
   "death.attack.witch_domain.player": "%1$s倒在了%2$s的女巫领域中",
-  "tooltip.eternal_career.crone_hat_potion": "使用普通药水时有25%概率不消耗，使用女巫药酿时100%不消耗。"
+  "tooltip.eternal_career.crone_hat_potion": "使用普通药水时有25%概率不消耗，使用女巫药酿时100%不消耗。",
+  "item.eternal_career.iron_fist_blade": "铁拳刃",
+"item.eternal_career.diamond_fist_blade": "钻石拳刃",
+"item.eternal_career.netherite_fist_blade": "下界合金拳刃",
+"item.eternal_career.aether_fist_blade": "以太拳刃",
+"item.eternal_career.final_alloy_fist_blade": "终式合金拳刃",
+
+"tooltip.eternal_career.fist_blade.bleeding": "§5攻击时有§625%§5概率使目标流血。",
+
+"tooltip.eternal_career.hyena_core.fist_blade_damage": "§d拳刃伤害：%s",
+"tooltip.eternal_career.hyena_core.non_fist_blade_damage": "§d非拳刃伤害：%s",
+"tooltip.eternal_career.hyena_core.fragment_drop": "§5击杀荒古守卫者或凋灵死灵法师时，掉落§61～4§5个诅咒灵魂水晶碎片。",
+
+"tooltip.eternal_career.blood_hunter_core.ranged": "§d远程伤害：%s",
+"tooltip.eternal_career.blood_hunter_core.non_ranged": "§d非远程伤害：%s",
+
+"tooltip.eternal_career.soul_core.fragment_drop": "§5击杀所有生物有§60.05%§5概率掉落诅咒灵魂水晶碎片。",
+"item.eternal_career.witch_certificate": "女巫凭证",
+"attribute.name.eternal_career.brew_damage": "精酿伤害",
+"attribute.name.eternal_career.non_brew_damage": "非精酿伤害",
+"tooltip.eternal_career.witch_certificate.brew_damage": "§6+20% §d精酿伤害",
+"tooltip.eternal_career.witch_certificate.non_brew_damage": "§6-60% §d非精酿伤害"
 }

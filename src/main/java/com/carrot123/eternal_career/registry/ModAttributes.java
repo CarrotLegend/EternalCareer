@@ -25,6 +25,8 @@ public final class ModAttributes {
     public static final RegistryObject<Attribute> SERVANT_DAMAGE = damage("servant_damage", "attribute.name.eternal_career.servant_damage");
     public static final RegistryObject<Attribute> FIST_BLADE_DAMAGE = damage("fist_blade_damage", "attribute.name.eternal_career.fist_blade_damage");
     public static final RegistryObject<Attribute> NON_FIST_BLADE_DAMAGE = damage("non_fist_blade_damage", "attribute.name.eternal_career.non_fist_blade_damage");
+    public static final RegistryObject<Attribute> BREW_DAMAGE = damage("brew_damage", "attribute.name.eternal_career.brew_damage");
+    public static final RegistryObject<Attribute> NON_BREW_DAMAGE = damage("non_brew_damage", "attribute.name.eternal_career.non_brew_damage");
 
     private ModAttributes() {}
 
@@ -46,5 +48,7 @@ public final class ModAttributes {
         event.add(EntityType.PLAYER, SERVANT_DAMAGE.get());
         event.add(EntityType.PLAYER, FIST_BLADE_DAMAGE.get());
         event.add(EntityType.PLAYER, NON_FIST_BLADE_DAMAGE.get());
+        event.add(EntityType.PLAYER, BREW_DAMAGE.get());
+        event.add(EntityType.PLAYER, NON_BREW_DAMAGE.get());
     }
 }

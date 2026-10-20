@@ -124,6 +124,7 @@ public final class MigrationAndCreativeEvents {
             event.accept(BloodBowItems.FANG_IV_MODIFICATION);
             event.accept(ModItems.DARK_BOOTS);
             event.accept(ModItems.DARK_CHAIN);
+            event.accept(ModItems.WITCH_CERTIFICATE);
         }
     }
 }

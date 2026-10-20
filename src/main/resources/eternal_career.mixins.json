@@ -27,6 +27,7 @@
     "compat.goety_revelation.BlessingScrollLookupMixin",
     "compat.goety_revelation.BlessingScrollAttributesMixin",
     "compat.goety.ThrownBrewWitchCriticalMixin",
+    "compat.goety.ThrowableBrewCroneHatMixin",
     "compat.goety.BrewEffectCloudWitchMixin",
     "compat.goety.BrewGasWitchCriticalMixin",
     "compat.goety.BrewItemWitchDomainMixin",
