@@ -1,0 +1,11 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {"item": "cataclysm:ignitium_ingot"},
+  "effect": "eternal_career:witch_ultimate_domain",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600,
+  "conditions": [
+    {"type": "forge:mod_loaded", "modid": "cataclysm"}
+  ]
+}

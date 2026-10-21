@@ -1,0 +1,11 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {"item": "goetydelight:gathering_soul_embryos"},
+  "effect": "eternal_career:witch_super_critical",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 1,
+  "conditions": [
+    {"type": "forge:mod_loaded", "modid": "goetydelight"}
+  ]
+}

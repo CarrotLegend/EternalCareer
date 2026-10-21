@@ -31,7 +31,9 @@ public abstract class BrewEffectCloudWitchMixin {
         if (PerfectStateBrewHelper.blocks(target, effect.getEffect())) {
             return false;
         }
-        if (effect.getEffect() == ModEffects.WITCH_DOMAIN.get()) {
+        if (effect.getEffect() == ModEffects.WITCH_DOMAIN.get()
+                || effect.getEffect() == ModEffects.WITCH_SUPER_DOMAIN.get()
+                || effect.getEffect() == ModEffects.WITCH_ULTIMATE_DOMAIN.get()) {
             return target.addEffect(effect, (BrewEffectCloud) (Object) this);
         }
         return target.addEffect(effect);
@@ -64,8 +66,8 @@ public abstract class BrewEffectCloudWitchMixin {
                 || cloud.tickCount % 5 != 0) {
             return;
         }
-        MobEffectInstance critical = WitchCriticalImmuneHelper.find(effects);
-        if (critical == null) {
+        List<MobEffectInstance> criticalEffects = WitchCriticalImmuneHelper.findAll(effects);
+        if (criticalEffects.isEmpty()) {
             return;
         }
         double radiusSquared = (double) cloud.getRadius() * cloud.getRadius();
@@ -77,7 +79,9 @@ public abstract class BrewEffectCloudWitchMixin {
             double dz = target.getZ() - cloud.getZ();
             if (dx * dx + dz * dz <= radiusSquared) {
                 victims.put(target, cloud.tickCount + reapplicationDelay);
-                WitchCriticalImmuneHelper.apply(cloud, cloud.getOwner(), target, critical);
+                for (MobEffectInstance critical : criticalEffects) {
+                    WitchCriticalImmuneHelper.apply(cloud, cloud.getOwner(), target, critical);
+                }
             }
         }
     }

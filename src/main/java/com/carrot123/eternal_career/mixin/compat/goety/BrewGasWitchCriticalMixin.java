@@ -27,15 +27,17 @@ public abstract class BrewGasWitchCriticalMixin {
         if (gas.level().isClientSide || gas.isRemoved()) {
             return;
         }
-        MobEffectInstance critical = WitchCriticalImmuneHelper.find(effects);
-        if (critical == null) {
+        List<MobEffectInstance> criticalEffects = WitchCriticalImmuneHelper.findAll(effects);
+        if (criticalEffects.isEmpty()) {
             return;
         }
         String hitTag = ConstantPaths.gassed();
         for (LivingEntity target : gas.level().getEntitiesOfClass(LivingEntity.class, gas.getBoundingBox())) {
             if (target.isAlive() && !target.isAffectedByPotions() && !target.getTags().contains(hitTag)) {
                 target.addTag(hitTag);
-                WitchCriticalImmuneHelper.apply(gas, gas.getOwner(), target, critical);
+                for (MobEffectInstance critical : criticalEffects) {
+                    WitchCriticalImmuneHelper.apply(gas, gas.getOwner(), target, critical);
+                }
             }
         }
     }

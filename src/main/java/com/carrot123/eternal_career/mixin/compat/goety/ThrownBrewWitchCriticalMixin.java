@@ -29,8 +29,8 @@ public abstract class ThrownBrewWitchCriticalMixin {
         if (brew.level().isClientSide) {
             return;
         }
-        MobEffectInstance critical = WitchCriticalImmuneHelper.find(effects);
-        if (critical == null) {
+        List<MobEffectInstance> criticalEffects = WitchCriticalImmuneHelper.findAll(effects);
+        if (criticalEffects.isEmpty()) {
             return;
         }
         int radius = BrewUtils.getAreaOfEffect(brew.getItem()) + 4;
@@ -38,7 +38,9 @@ public abstract class ThrownBrewWitchCriticalMixin {
         double radiusSquared = (double) radius * radius;
         for (LivingEntity target : brew.level().getEntitiesOfClass(LivingEntity.class, bounds)) {
             if (brew.distanceToSqr(target) < radiusSquared) {
-                WitchCriticalImmuneHelper.apply(brew, brew.getOwner(), target, critical);
+                for (MobEffectInstance critical : criticalEffects) {
+                    WitchCriticalImmuneHelper.apply(brew, brew.getOwner(), target, critical);
+                }
             }
         }
     }

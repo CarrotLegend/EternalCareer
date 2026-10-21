@@ -6,6 +6,7 @@ import com.carrot123.eternal_career.armor.ChefArmorItem;
 import com.carrot123.eternal_career.armor.ChefArmorMaterial;
 import com.carrot123.eternal_career.armor.DeathArmorItem;
 import com.carrot123.eternal_career.armor.DeathArmorMaterial;
+import com.carrot123.eternal_career.armor.WitchArmorItem;
 import com.carrot123.eternal_career.fletching.BowModificationItem;
 import com.carrot123.eternal_career.item.ArcheryMasterCoreItem;
 import com.carrot123.eternal_career.item.ArmorBreakCurseSpiritItem;
@@ -90,6 +91,11 @@ public final class ModItems {
     public static final RegistryObject<Item> DEATH_CHESTPLATE = registerDeathArmor("death_chestplate", ArmorItem.Type.CHESTPLATE);
     public static final RegistryObject<Item> DEATH_LEGGINGS = registerDeathArmor("death_leggings", ArmorItem.Type.LEGGINGS);
     public static final RegistryObject<Item> DEATH_BOOTS = registerDeathArmor("death_boots", ArmorItem.Type.BOOTS);
+
+    public static final RegistryObject<Item> WITCH_HELMET = registerWitchArmor("witch_helmet", ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> WITCH_CHESTPLATE = registerWitchArmor("witch_chestplate", ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> WITCH_LEGGINGS = registerWitchArmor("witch_leggings", ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> WITCH_BOOTS = registerWitchArmor("witch_boots", ArmorItem.Type.BOOTS);
 
     public static final RegistryObject<Item> GODS_RECOGNITION = ITEMS.register("gods_recognition", () -> new GodsRecognitionItem(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SIN_ROCK = ITEMS.register("sin_rock", () -> new SinRockItem(new Item.Properties()));
@@ -176,6 +182,10 @@ public final class ModItems {
 
     private static RegistryObject<Item> registerDeathArmor(String name, ArmorItem.Type type) {
         return ITEMS.register(name, () -> new DeathArmorItem(DeathArmorMaterial.INSTANCE, type, new Item.Properties().stacksTo(1).fireResistant()));
+    }
+
+    private static RegistryObject<Item> registerWitchArmor(String name, ArmorItem.Type type) {
+        return ITEMS.register(name, () -> new WitchArmorItem(type, new Item.Properties().stacksTo(1).fireResistant()));
     }
 
     static {

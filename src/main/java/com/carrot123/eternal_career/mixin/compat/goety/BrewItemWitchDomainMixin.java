@@ -26,7 +26,9 @@ public abstract class BrewItemWitchDomainMixin {
         if (PerfectStateBrewHelper.blocks(target, effect.getEffect())) {
             return false;
         }
-        if (effect.getEffect() == ModEffects.WITCH_DOMAIN.get()) {
+        if (effect.getEffect() == ModEffects.WITCH_DOMAIN.get()
+                || effect.getEffect() == ModEffects.WITCH_SUPER_DOMAIN.get()
+                || effect.getEffect() == ModEffects.WITCH_ULTIMATE_DOMAIN.get()) {
             return target.addEffect(effect, target);
         }
         return target.addEffect(effect);

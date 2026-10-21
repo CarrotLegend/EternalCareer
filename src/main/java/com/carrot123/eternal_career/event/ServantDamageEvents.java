@@ -78,15 +78,18 @@ public final class ServantDamageEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onServantDamage(LivingHurtEvent event) {
-        Entity attacker = event.getSource().getEntity();
-
-        if (!(attacker instanceof OwnableEntity pet)) return;
-        if (attacker instanceof TamableAnimal tamable && !tamable.isTame()) return;
-        if (!(pet.getOwner() instanceof Player owner)) return;
+        Player owner = servantOwner(event.getSource().getEntity());
+        if (owner == null) return;
 
         double multiplier = owner.getAttributeValue(ModAttributes.SERVANT_DAMAGE.get());
         if (!Double.isFinite(multiplier) || multiplier <= 0.0D || multiplier == 1.0D) return;
 
         event.setAmount((float) (event.getAmount() * multiplier));
+    }
+
+    static Player servantOwner(Entity attacker) {
+        if (!(attacker instanceof OwnableEntity pet)) return null;
+        if (attacker instanceof TamableAnimal tamable && !tamable.isTame()) return null;
+        return pet.getOwner() instanceof Player owner ? owner : null;
     }
 }

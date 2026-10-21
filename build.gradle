@@ -195,7 +195,7 @@ dependencies {
             "local:irons_lib:1.20.1-1.0.2"
     )
 
-    runtimeOnly fg.deobf(
+    implementation fg.deobf(
             "local:irons_spellbooks:1.20.1-3.15.6"
     )
 

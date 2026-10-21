@@ -1,0 +1,11 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {"item": "goetydelight:soul_convergence_room"},
+  "effect": "eternal_career:witch_super_domain",
+  "soulCost": 25,
+  "capacityExtra": 0,
+  "duration": 3600,
+  "conditions": [
+    {"type": "forge:mod_loaded", "modid": "goetydelight"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "goety:brewing",
+  "ingredient": {
+    "item": "goety:void_bucket"
+  },
+  "effect": "goety:void_touched",
+  "soulCost": 25,
+  "capacityExtra": 4,
+  "duration": 1800
+}

@@ -10,6 +10,10 @@ import com.carrot123.eternal_career.effect.PerfectStateEffect;
 import com.carrot123.eternal_career.effect.SweetImpulseEffect;
 import com.carrot123.eternal_career.effect.WitchCriticalEffect;
 import com.carrot123.eternal_career.effect.WitchDomainEffect;
+import com.carrot123.eternal_career.effect.WitchSuperCriticalEffect;
+import com.carrot123.eternal_career.effect.WitchSuperDomainEffect;
+import com.carrot123.eternal_career.effect.WitchUltimateCriticalEffect;
+import com.carrot123.eternal_career.effect.WitchUltimateDomainEffect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -66,6 +70,18 @@ public final class ModEffects {
 
     public static final RegistryObject<MobEffect> WITCH_DOMAIN =
             EFFECTS.register("witch_domain", WitchDomainEffect::new);
+
+    public static final RegistryObject<MobEffect> WITCH_SUPER_CRITICAL =
+            EFFECTS.register("witch_super_critical", WitchSuperCriticalEffect::new);
+
+    public static final RegistryObject<MobEffect> WITCH_SUPER_DOMAIN =
+            EFFECTS.register("witch_super_domain", WitchSuperDomainEffect::new);
+
+    public static final RegistryObject<MobEffect> WITCH_ULTIMATE_CRITICAL =
+            EFFECTS.register("witch_ultimate_critical", WitchUltimateCriticalEffect::new);
+
+    public static final RegistryObject<MobEffect> WITCH_ULTIMATE_DOMAIN =
+            EFFECTS.register("witch_ultimate_domain", WitchUltimateDomainEffect::new);
 
     public static final RegistryObject<MobEffect> PERFECT_STATE =
             EFFECTS.register("perfect_state", PerfectStateEffect::new);
