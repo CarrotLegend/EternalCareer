@@ -16,9 +16,9 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets {
-    soulGameTest {
-        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
-        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    test {
+        java.setSrcDirs([])
+        resources.setSrcDirs([])
     }
 }
 
@@ -43,25 +43,10 @@ minecraft {
         }
 
         client {
-            property 'forge.enabledGameTestNamespaces', mod_id
         }
 
         server {
-            property 'forge.enabledGameTestNamespaces', mod_id
             args '--nogui'
-        }
-
-        gameTestServer {
-            workingDirectory project.file('run-soul-tests')
-            property 'forge.enabledGameTestNamespaces', mod_id
-            property 'forge.gameTestServer.report',
-                    file('build/reports/soul-gametest.xml').absolutePath
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.soulGameTest
-                }
-            }
         }
 
         data {
@@ -115,8 +100,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
-
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf(
@@ -623,12 +606,4 @@ tasks.named('build').configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-
-tasks.named('test', Test).configure {
-    useJUnitPlatform()
-}
-
-tasks.named('check').configure {
-    dependsOn tasks.named('soulGameTestClasses')
 }

@@ -1,9 +1,9 @@
 package com.carrot123.eternal_career.event;
 
+import com.Polarice3.Goety.api.entities.ally.IServant;
 import com.carrot123.eternal_career.EternalCareer;
 import com.carrot123.eternal_career.registry.ModAttributes;
 import com.carrot123.eternal_career.util.StableAttributeModifiers;
-import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import java.util.UUID;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -60,19 +60,17 @@ public final class ConjurersTalismanEvents {
     public static void onSummonJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide() || event.loadedFromDisk()
                 || !(event.getEntity() instanceof LivingEntity summoned)
-                || !(summoned instanceof IMagicSummon)) {
+                || !(summoned instanceof IServant servant)) {
             return;
         }
 
-        Player owner = ServantDamageEvents.servantOwner(summoned);
-        if (owner == null) {
+        if (!(servant.getTrueOwner() instanceof Player owner)) {
             return;
         }
 
         if (summoned.getPersistentData().getBoolean(PROCESSED_KEY)) {
             return;
         }
-        summoned.getPersistentData().putBoolean(PROCESSED_KEY, true);
 
         AttributeInstance health = summoned.getAttribute(Attributes.MAX_HEALTH);
         if (health == null || health.getModifier(HEALTH_MODIFIER_ID) != null) {
@@ -88,6 +86,7 @@ public final class ConjurersTalismanEvents {
         health.addPermanentModifier(StableAttributeModifiers.create(HEALTH_MODIFIER_ID,
                 "eternal_career:conjurers_talisman/summoned_health", amount,
                 AttributeModifier.Operation.MULTIPLY_TOTAL));
+        summoned.getPersistentData().putBoolean(PROCESSED_KEY, true);
         summoned.setHealth(summoned.getMaxHealth());
     }
 

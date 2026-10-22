@@ -342,7 +342,7 @@
   "item.eternal_career.pessimist": "悲观者",
   "item.eternal_career.pessimist.reversed": "悲观者的希望",
   "curios.identifier.scar": "疤痕",
-  "tooltip.eternal_career.soul_gauntlet.effect": "每击杀一个生物，全伤害+0.5%，最多积累2000%。",
+  "tooltip.eternal_career.soul_gauntlet.effect": "每击杀一种生物，全伤害+1%，无上限。",
   "tooltip.eternal_career.soul_gauntlet.current": "当前伤害：%1$s",
   "tooltip.eternal_career.transforming_scar.slots": "给予你三道不可磨灭的创伤",
   "tooltip.eternal_career.transforming_scar.flavor": "战斗会让你蜕变......",

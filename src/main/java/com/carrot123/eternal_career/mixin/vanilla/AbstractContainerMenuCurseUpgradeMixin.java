@@ -10,6 +10,10 @@ import com.carrot123.eternal_career.item.PowerlessCurseItem;
 import com.carrot123.eternal_career.item.UndeadCurseItem;
 import com.carrot123.eternal_career.item.VulnerabilityCurseItem;
 import com.carrot123.eternal_career.registry.ModItems;
+import com.carrot123.eternal_career.soulcurse.SoulBoxEvents;
+import com.carrot123.eternal_career.soulcurse.SoulBoxItem;
+import com.carrot123.eternal_career.soulcurse.SoulFaction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
@@ -59,8 +63,7 @@ public abstract class AbstractContainerMenuCurseUpgradeMixin {
             return;
         }
 
-        ItemStack carried =
-                getCarried();
+        ItemStack carried = getCarried();
 
         if (carried.isEmpty()) {
             return;
@@ -78,16 +81,21 @@ public abstract class AbstractContainerMenuCurseUpgradeMixin {
             return;
         }
 
-        if (!PandoraBoxItem.CURSE_SPIRIT_SLOT.equals(
-                curioSlot.getIdentifier()
-        )) {
+        ItemStack target = slot.getItem();
+
+        if (target.isEmpty()) {
             return;
         }
 
-        ItemStack target =
-                slot.getItem();
+        if ("scroll".equals(curioSlot.getIdentifier())
+                && target.getItem() instanceof SoulBoxItem) {
+            handleSoulBox(player, slot, target, carried, ci);
+            return;
+        }
 
-        if (target.isEmpty()) {
+        if (!PandoraBoxItem.CURSE_SPIRIT_SLOT.equals(
+                curioSlot.getIdentifier()
+        )) {
             return;
         }
 
@@ -180,6 +188,88 @@ public abstract class AbstractContainerMenuCurseUpgradeMixin {
 
         slot.setChanged();
         broadcastChanges();
+        ci.cancel();
+    }
+
+    private void handleSoulBox(
+            Player player,
+            Slot slot,
+            ItemStack target,
+            ItemStack carried,
+            CallbackInfo ci
+    ) {
+        if (!SoulFaction.hasCore(player)) {
+            return;
+        }
+
+        boolean fragment = SoulBoxItem.matches(
+                carried,
+                SoulBoxItem.FRAGMENT
+        );
+
+        int stage = SoulBoxItem.stage(target);
+
+        boolean upgrade = stage < SoulBoxItem.UNLOCK_ITEMS.length
+                && SoulBoxItem.matches(
+                        carried,
+                        SoulBoxItem.UNLOCK_ITEMS[stage]
+                );
+
+        if (!fragment && !upgrade) {
+            return;
+        }
+
+        boolean success = false;
+
+        if (fragment) {
+            if (SoulBoxItem.addFragment(target)) {
+                success = true;
+            } else {
+                player.displayClientMessage(
+                        Component.translatable(
+                                "message.eternal_career.soul_box.full",
+                                SoulBoxItem.capacity(target)
+                        ),
+                        true
+                );
+            }
+        } else if (SoulBoxItem.fragments(target)
+                < SoulBoxItem.capacity(target)) {
+            player.displayClientMessage(
+                    Component.translatable(
+                            "message.eternal_career.soul_box.not_ready",
+                            SoulBoxItem.capacity(target) * 20
+                    ),
+                    true
+            );
+        } else if (SoulBoxItem.unlock(target, carried)) {
+            success = true;
+
+            player.displayClientMessage(
+                    Component.translatable(
+                            "message.eternal_career.soul_box.unlocked",
+                            SoulBoxItem.capacity(target) * 20
+                    ),
+                    true
+            );
+        }
+
+        if (success) {
+            if (!player.getAbilities().instabuild) {
+                carried.shrink(1);
+            }
+
+            setCarried(
+                    carried.isEmpty()
+                            ? ItemStack.EMPTY
+                            : carried
+            );
+
+            slot.setChanged();
+            broadcastChanges();
+            SoulBoxEvents.sync(player);
+        }
+
         ci.cancel();
     }
 }

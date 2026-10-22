@@ -15,7 +15,6 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public final class SoulGauntletItem extends Item implements ICurioItem {
-    public static final int MAX_KILLS = 4000;
     private static final String TYPES = "EternalCareerSoulGauntletKilledTypes";
     private static final String OLD_KILLS = "EternalCareerSoulGauntletKills";
 
@@ -23,16 +22,15 @@ public final class SoulGauntletItem extends Item implements ICurioItem {
 
     public static int kills(ItemStack stack) {
         return stack.getItem() instanceof SoulGauntletItem && stack.hasTag()
-                ? Math.min(MAX_KILLS, stack.getTag().getList(TYPES, Tag.TAG_STRING).size()) : 0;
+                ? stack.getTag().getList(TYPES, Tag.TAG_STRING).size() : 0;
     }
 
-    public static int damageTenthsPercent(ItemStack stack) { return kills(stack) * 5; }
+    public static int damageTenthsPercent(ItemStack stack) { return kills(stack) * 10; }
 
     public static boolean addKill(ItemStack stack, ResourceLocation mobId) {
         if (!(stack.getItem() instanceof SoulGauntletItem) || mobId == null) return false;
         CompoundTag nbt = stack.getOrCreateTag();
         ListTag types = nbt.getList(TYPES, Tag.TAG_STRING);
-        if (types.size() >= MAX_KILLS) return false;
         String id = mobId.toString();
         for (int i = 0; i < types.size(); i++) if (id.equals(types.getString(i))) return false;
         types.add(StringTag.valueOf(id));

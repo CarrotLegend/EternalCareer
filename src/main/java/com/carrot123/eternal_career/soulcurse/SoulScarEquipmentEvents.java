@@ -138,7 +138,7 @@ public final class SoulScarEquipmentEvents {
     private static void refresh(Player player, ICuriosItemHandler handler) {
         boolean active = SoulFaction.hasCore(player);
         ItemStack glove = active ? equipped(handler, SoulScarRegistry.SOUL_GAUNTLET.get(), "hands") : ItemStack.EMPTY;
-        double gloveBonus = glove.isEmpty() ? 0 : SoulGauntletItem.kills(glove) * 0.005D;
+        double gloveBonus = glove.isEmpty() ? 0 : SoulGauntletItem.damageTenthsPercent(glove) / 1000.0D;
         ItemStack charm = active ? equipped(handler, SoulScarRegistry.TRANSFORMING_SCAR.get(), "charm") : ItemStack.EMPTY;
         ItemStack coward = charm.isEmpty() ? ItemStack.EMPTY : equipped(handler, SoulScarRegistry.COWARD.get(), TransformingScarItem.SLOT);
         ItemStack fragile = charm.isEmpty() ? ItemStack.EMPTY : equipped(handler, SoulScarRegistry.FRAGILE.get(), TransformingScarItem.SLOT);
