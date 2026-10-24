@@ -28,7 +28,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class BloodBowCombatEvents {
-    private static final ResourceLocation RANGED = new ResourceLocation("puffish_attributes", "ranged_damage");
+    private static final ResourceLocation RANGED = new ResourceLocation("terra_curio", "ranged_damage");
     private static final UUID FANG_UUID = StableAttributeModifiers.id("eternal_career:fang_bow_upgrade");
     private static final String MARK = "EternalCareerBloodHuntUpgrade";
     private static final String MANUAL_FANG = "EternalCareerManualFangBonus";

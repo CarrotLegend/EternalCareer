@@ -23,7 +23,7 @@ public final class FletchingModificationAttributeEvents {
 
     private static final ResourceLocation RANGED_DAMAGE =
             new ResourceLocation(
-                    "puffish_attributes",
+                    "terra_curio",
                     "ranged_damage"
             );
 

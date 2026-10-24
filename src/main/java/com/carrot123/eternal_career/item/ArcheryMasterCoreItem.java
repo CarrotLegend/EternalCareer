@@ -32,7 +32,7 @@ public final class ArcheryMasterCoreItem extends Item implements ICurioItem {
 
     private static final ResourceLocation RANGED_DAMAGE =
             new ResourceLocation(
-                    "puffish_attributes",
+                    "terra_curio",
                     "ranged_damage"
             );
 

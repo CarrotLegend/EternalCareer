@@ -23,16 +23,16 @@ public final class CareerSoulBlessings {
     public static final RegistryObject<Item> ARCHER_HAND_BLESSING = register(
             "archer_hand_blessing", SoulBlessingSlotType.HAND, -1,
             spec(ModAttributes.ALL_DAMAGE::get, 0.10D, AttributeModifier.Operation.MULTIPLY_BASE),
-            spec(external("puffish_attributes:ranged_damage"), 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            spec(external("terra_curio:ranged_damage"), 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<Item> ARCHER_RING_BLESSING = register(
             "archer_ring_blessing", SoulBlessingSlotType.RING, -1,
             spec(external("terra_curio:crit_chance"), 0.05D, AttributeModifier.Operation.ADDITION),
-            spec(external("puffish_attributes:ranged_damage"), 0.02D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            spec(external("terra_curio:ranged_damage"), 0.02D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<Item> ARCHER_NECKLACE_BLESSING = register(
             "archer_necklace_blessing", SoulBlessingSlotType.NECKLACE, -1,
-            spec(external("puffish_attributes:ranged_damage"), 0.14D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            spec(external("terra_curio:ranged_damage"), 0.14D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<Item> ARCHER_LEFT_BOOT_BLESSING = register(
             "archer_left_boot_blessing", SoulBlessingSlotType.BOOTS, SoulBlessingSlots.BOOTS_LEFT,
@@ -49,16 +49,16 @@ public final class CareerSoulBlessings {
     public static final RegistryObject<Item> WARRIOR_HAND_BLESSING = register(
             "warrior_hand_blessing", SoulBlessingSlotType.HAND, -1,
             spec(ModAttributes.ALL_DAMAGE::get, 0.10D, AttributeModifier.Operation.MULTIPLY_BASE),
-            spec(external("puffish_attributes:melee_damage"), 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            spec(() -> Attributes.ATTACK_DAMAGE, 0.10D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<Item> WARRIOR_RING_BLESSING = register(
             "warrior_ring_blessing", SoulBlessingSlotType.RING, -1,
             spec(external("terra_curio:crit_chance"), 0.05D, AttributeModifier.Operation.ADDITION),
-            spec(external("puffish_attributes:melee_damage"), 0.02D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            spec(() -> Attributes.ATTACK_DAMAGE, 0.02D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<Item> WARRIOR_NECKLACE_BLESSING = register(
             "warrior_necklace_blessing", SoulBlessingSlotType.NECKLACE, -1,
-            spec(external("puffish_attributes:melee_damage"), 0.14D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            spec(() -> Attributes.ATTACK_DAMAGE, 0.14D, AttributeModifier.Operation.MULTIPLY_TOTAL));
 
     public static final RegistryObject<Item> WARRIOR_LEFT_BOOT_BLESSING = register(
             "warrior_left_boot_blessing", SoulBlessingSlotType.BOOTS, SoulBlessingSlots.BOOTS_LEFT,

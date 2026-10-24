@@ -13,6 +13,7 @@ import com.carrot123.eternal_career.registry.ModItems;
 import com.carrot123.eternal_career.soulcurse.SoulBoxEvents;
 import com.carrot123.eternal_career.soulcurse.SoulBoxItem;
 import com.carrot123.eternal_career.soulcurse.SoulFaction;
+import com.carrot123.until_eternity.compat.enigmaticlegacy.ScrollUpgradeHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -53,10 +54,6 @@ public abstract class AbstractContainerMenuCurseUpgradeMixin {
             Player player,
             CallbackInfo ci
     ) {
-        if (player.level().isClientSide) {
-            return;
-        }
-
         if (slotId < 0
                 || button != 1
                 || clickType != ClickType.PICKUP) {
@@ -87,9 +84,29 @@ public abstract class AbstractContainerMenuCurseUpgradeMixin {
             return;
         }
 
+        if (ScrollUpgradeHelper.tryUpgrade(player, target, carried)) {
+            if (!player.level().isClientSide) {
+                setCarried(
+                        carried.isEmpty()
+                                ? ItemStack.EMPTY
+                                : carried
+                );
+
+                slot.setChanged();
+                broadcastChanges();
+            }
+
+            ci.cancel();
+            return;
+        }
+
         if ("scroll".equals(curioSlot.getIdentifier())
                 && target.getItem() instanceof SoulBoxItem) {
             handleSoulBox(player, slot, target, carried, ci);
+            return;
+        }
+
+        if (player.level().isClientSide) {
             return;
         }
 
@@ -216,6 +233,11 @@ public abstract class AbstractContainerMenuCurseUpgradeMixin {
                 );
 
         if (!fragment && !upgrade) {
+            return;
+        }
+
+        if (player.level().isClientSide) {
+            ci.cancel();
             return;
         }
 

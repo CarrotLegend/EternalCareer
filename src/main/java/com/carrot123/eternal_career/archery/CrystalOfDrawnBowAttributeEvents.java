@@ -22,7 +22,7 @@ import top.theillusivec4.curios.api.event.CurioChangeEvent;
 @Mod.EventBusSubscriber(modid = EternalCareer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CrystalOfDrawnBowAttributeEvents {
     private static final ResourceLocation RANGED_DAMAGE =
-            new ResourceLocation("puffish_attributes", "ranged_damage");
+            new ResourceLocation("terra_curio", "ranged_damage");
     private static final ResourceLocation CHARGE_SPEED =
             new ResourceLocation("until_eternity", "charge_speed");
     private static final ResourceLocation PROJECTILE_SPEED =
